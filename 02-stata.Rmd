@@ -1,0 +1,474 @@
+# (PART) Analysis {-}
+
+# Analyzing PASEC 2019 data in Stata {#c06-stata}
+
+This section provides a practical introduction to analysing PASEC 2019 data in Stata using the `repest` package. It is intended for users with a basic working knowledge of Stata and includes step-by-step examples covering common PASEC analyses.
+
+```{r}
+#| label: desc-styler
+#| include: false
+knitr::opts_chunk$set(tidy = 'styler')
+options(pillar.max_dec_width = 19)
+```
+
+## Loading data in Stata
+
+For hands-on examples we’ll start with the Grade 2 study.
+
+```{stata, collectcode=TRUE}
+
+* Set the path to our working folder
+* Remember to provide your own path here if needed.
+
+
+use "data/PASEC2019_GRADE2_INT.dta", clear
+```
+
+It is good practice to run your analysis from a do-file rather than the command window, as this makes your work reproducible. All examples in this guide are written as do-file code available here.
+
+## Applying English labels
+
+To encourage and assist non-French speaking users to analyse the rich PASEC data, we have supplied do files that apply English variable and value labels. These files are in the `data/` folder of this project.
+
+```{stata, collectcode=TRUE}
+* Apply English labels
+
+do "data/PASEC2019_Grade2_EN_labels.do"
+
+* Show both numeric values and value labels 
+
+numlabel, add 
+```
+
+The `numlabel, add` command displays the numeric code alongside the value label in tabulations (for example, 1. Benin rather than just Benin). This makes it easier to write if conditions using the correct numeric codes in subsequent commands.
+
+After loading the file, let’s check if we have the most important variables that repest uses. The five plausible values for language and mathematics are *LECT_PV1* to *LECT_PV5* and *MATHS_PV1* to *MATHS_PV5*. The final weight is *rwgt0*. The replicate weights are *rwgt1* to *rwgt45* and countries are indicated by *ID_PAYS*.
+
+```{stata}
+describe LECT_PV1-MATHS_PV5 ID_PAYS rwgt0 rwgt1-rwgt45
+```
+
+## The `repest` package
+
+To get started, you need to install the `repest` package once. This package automates the handling of plausible values and replicate weights. This makes it easier to analyse PASEC data correctly in Stata. In the Stata command window, type:
+
+```{stata eval=FALSE, include=TRUE}
+ssc install repest, replace 
+```
+
+You only need to run this command once; there is no need to re-install `repest` each time you open Stata. The `replace` option updates the package if a newer version is available.
+
+## `repest` command syntax
+
+The basic syntax of the repest command is as follows:
+
+``` stata
+repest svyname [if] [in] , estimate(cmd [,cmd_options]) [options]
+```
+
+-   `svyname`: Either one of the study names supported by the package (e,g., PISA, TIMSS, PIRLS) or SVY which allows you to specify the survey design.
+
+-   `estimate(cmd [,cmd_options)`: Specifies the statistical command to run. `cmd` can be any Stata command that accepts weights — for example, `mean`, `reg`, `qreg`, or the built-in repest commands `means`, `freq`, `summarize`, `corr` and `quantiletable`. Command-specific options are passed after a comma within the parentheses.
+
+## Before You begin: Set up `repest` for PASEC
+
+PASEC is not one of the studies supported by the repest package so you will need to use *SVY* for `svyname` and specify the survey parameters directly within the `svyparm` option.
+
+Throughout this guide we use the *SVY* option in repest because PASEC is not one of the assessments with built-in survey specifications. All survey parameters must therefore be supplied explicitly using the `svyparm()` option.
+
+PASEC uses the paired Jackknife method for creating the replicate weights. There are 90 replicate weights in the Grade 6 data and 45 replicate weights in the Grade 2 data. The final weight is given by *rwgt0*, the replicate weights are *rwgt1* to *rwgt90* in the Grade 6 data and *rwgt1* to *rwgt45* in the Grade 2 data. There are five sets of plausible values for each of mathematics, *MATHS_PV1* to *MATHS_PV5* and language *LECT_PV1* to *LECT_PV5*.
+
+The required parameters are as follows:
+
+| Survey setting | `svyparms()` suboption | PASEC 2019 Grade 6 | PASEC 2019 Grade 2 |
+|------------------|------------------|------------------|------------------|
+| Final weight | `final_weight_name()` | *rwgt0* | *rwgt0* |
+| Replicate weights | `rep_weight_name()` | *rwgt* | *rwgt* |
+| Variance factor | `variancefactor()` | 1 | 1 |
+| Number of replications | `NREP()` | 90 | 45 |
+| Number of plausible values | `NBpv()` | 5 | 5 |
+
+Commands for analyzing the grade 2 data will have the following syntax
+
+``` stata
+repest SVY [if] [in] , estimate(cmd [,cmd_options]) [options] svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+For Grade 6, we need to specify that there are 90 replicate weights. Commands for grade 6 as follows
+
+``` stata
+repest SVY [if] [in] , estimate(cmd [,cmd_options]) [options] svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(90) variancefactor(1)) 
+```
+
+## PASEC Analyses Examples
+
+### Calculating Mean Age
+
+Let’s start by calculating the average age of students in Grade 2 in Benin. The age variable is *qe22*. Let’s inspect the *ID_PAYS* and *qe22* variables.
+
+```{stata}
+tab ID_PAYS
+```
+
+```{stata}
+tab qe22
+```
+
+NOTE: Benin is coded as $1$. Missing age values are coded as $99$. Because $99$ is a placeholder used to indicate missing data rather than a learner's actual age, these observations should be excluded from analyses involving age. Failure to do so will produce misleading results. To calculate the average age of students in Grade $2$ in Benin, the syntax is as follows:
+
+```{stata}
+*Calculating average age in Benin 
+
+repest SVY if ID_PAYS==1&qe22<99, estimate(mean qe22) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+Because age is an observed variable rather than a plausible-value variable, repest uses only the sampling variance derived from the replicate weights. The reported standard error therefore reflects uncertainty arising from the sample design but not measurement uncertainty.
+
+The estimated mean age of Grade 2 students in Benin is $7.57$ years ($95\%$ CI: $7.45–7.68$). This reflects the substantial grade repetition and late entry common in the region, with many students aged 9–11 also enrolled in Grade 2.
+
+::: alternativebox-header
+`r if (knitr:::is_html_output()) '### Alternative to generate the same result - svy {- #alt1}'`
+:::
+
+::: {.alternativebox data-latex="{Alternative to generate the same result - svy}"}
+PASEC provides replicate weights specifically so that users can reproduce the official variance estimation procedure.
+
+If the public data contain:
+
+-   the final sampling weight,
+
+-   the sampling strata,
+
+-   the primary sampling units (PSUs),
+
+and these accurately reflect the actual design, then
+
+```{stata eval=FALSE, include=TRUE}
+svyset psu [pw=weight], strata(strata) 
+svy: mean score 
+
+```
+
+will generally produce design-consistent standard errors.
+
+However, this is not always possible as
+
+1.  The public design variables may be incomplete or masked.
+
+2.  The weighting process may include calibration steps not reflected in the released design variables.
+
+Furthermore, using ordinary survey declarations with `svyset` will generally not reproduce the official PASEC standard error.
+
+Stata's `svyset` can be configured to use the paired jackknife replicate weights, producing the standard errors as official PASEC results.
+
+The syntax to generate the same result is
+
+```{stata, eval=FALSE, include=TRUE}
+*set up for svyset to generate same result: 
+
+svyset [pweight=rwgt0], vce(jackknife) jkrweight(rwgt1-rwgt45, multiplier(1) fpc(0)) mse 
+svy: mean qe22 if ID_PAYS==1&qe22<99 
+
+```
+:::
+
+### Calculating Mean Mathematics Proficiency
+
+Now we will use the $5$ plausible values to estimate mean mathematics scores in Benin.
+
+Plausible Values are a set of multiple imputations. The `repest` package automatically recognises plausible values when the variable name contains the $@$ symbol.
+
+For example:
+
+``` stata
+estimate(mean MATHS_PV@)
+```
+
+tells `repest` to:
+
+-analyse all five mathematics plausible values;
+
+-combine results appropriately; and
+
+-calculate standard errors that reflect both sampling and measurement uncertainty.
+
+This allows researchers to obtain valid estimates without having to implement the multiple-imputation calculations manually.
+
+```{stata}
+*Calculating mean mathematics scores in Benin 
+
+repest SVY if ID_PAYS==1, estimate(mean MATHS_PV@) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))
+```
+
+The estimated mean mathematics proficiency in Benin is $525$ points. The standard error of $7.16$ reflects both sampling uncertainty and uncertainty arising from the plausible values. The confidence interval indicates that the population mean is likely to lie between $511$ and $539$ points.
+
+PASEC proficiency scales are scaled using IRT procedures and should primarily be interpreted comparatively. The absolute value of the scale has no substantive meaning independent of the proficiency framework.
+
+Unlike age, mathematics proficiency is represented by five plausible values. `repest` estimates the mean separately for each plausible value, combines the five estimates using multiple-imputation formulas, and then incorporates the replicate-weight variance to produce the final standard error.
+
+::: alternativebox-header
+`r if (knitr:::is_html_output()) '### Alternative to generate the same result - pv {- #alt2}'`
+:::
+
+::: {.alternativebox data-latex="{Alternative to generate the same result - pv}"}
+An alternative Stata command for analysing plausible values is pv. The syntax to generate the same result is
+
+```{stata eval=FALSE, include=TRUE}
+pv, pv(LECT_PV*) jrr jk(2) weight(rwgt0) rw(rwgt1-rwgt45): mean  @pv [aw = @w] if ID_PAYS==1 
+```
+:::
+
+Now let’s get means of mathematics and literacy for each country by including the by option.
+
+```{stata}
+*Means of mathematics and literacy for each country 
+
+repest SVY, estimate(mean MATHS_PV@ LECT_PV@) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) by(ID_PAYS) 
+```
+
+There is substantial variation in achievement across participating countries. Burundi records the highest Grade 2 mathematics score ($614$ points), while Togo records the lowest ($489$ points). Reading and mathematics performance are strongly correlated across countries, although some countries perform relatively better in one domain than the other. Formal statistical comparisons between countries should be conducted using regression models rather than visual inspection of the means alone.
+
+Notice that standard errors vary considerably across countries - Burundi (country $3$) has notably smaller standard errors than countries such as Gabon ($7$) or Guinea ($8$). This reflects differences in the homogeneity of performance within schools and the precision of the sampling design in each country.
+
+### Moving beyond means: summary statistics with `repest`
+
+`repest` has some built in commands that are very useful for analysing large scale assessments, including summary statistics that focus on the full distribution.
+
+The summarize command generates point estimates and standard errors for a range of statistics beyond the mean, such as percentiles, standard deviations etc.
+
+```{stata, collectcode = TRUE}
+*First create an indicator for girl 
+
+gen girl=qe23==2 if qe23<9 
+
+*Beyond means - looking at the distribution of mathematics scores in Benin 
+
+repest SVY if ID_PAYS==1, estimate(summarize MATHS_PV@, stats(mean sd p5 p25 p50 p75 p95)) by(girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+Looking beyond average performance reveals important differences across the distribution. Boys in Benin have higher mathematics scores at the mean, median and upper tail of the distribution. For example, the median score among boys is approximately $536$ points compared with $508$ points among girls. The percentile estimates show that the gender gap is not confined to a small group of high-performing students but is evident across much of the achievement distribution.
+
+The `quantiletable` command creates quantile tables.
+
+```{stata}
+*Quintile table for mathematics and language in Benin 
+
+repest SVY if ID_PAYS==1, estimate(quantiletable MATHS_PV@ LECT_PV@, nquantiles(5)) svyparm(NBpv(5)  final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+The quantile table divides the mathematics and reading distributions into five equal-sized groups. The reported values correspond to the score thresholds separating adjacent quintiles. For example, students scoring above approximately $675$ points in mathematics belong to the highest-performing quintile in Benin.
+
+Other built-in `repest` commands are `means`, `freq` and `corr`.
+
+### Estimating PASEC proficiency levels
+
+PASEC defines a set of proficiency levels that describe what students know and can do at different points along the mathematics scale. In this example, we estimate the proportion of Grade 2 students in Benin who fall into each of the four PASEC mathematics proficiency levels.
+
+The four proficiency levels for Grade 2 mathematics are defined by PASEC as follows:
+
+| PASEC Proficiency Level | Score             |
+|-------------------------|-------------------|
+| 1                       | $< 400.34$        |
+| 2                       | $400.34 – 489.03$ |
+| 3                       | $489.03–577.73$   |
+| 4                       | $>577.73$         |
+
+These boundaries are set on the PASEC international scale and are the same for all countries, enabling cross-country comparisons. If we want to provide estimates for the PASEC defined levels of proficiency, we first need to create dummy variables for each level.
+
+```{stata, collectcode = TRUE}
+*Use PASEC defined levels 
+
+foreach var of varlist MATHS_PV1-MATHS_PV5{ 
+
+gen prop1_`var'=`var'<=400.34 if `var'<. 
+
+gen prop2_`var'=`var'>400.34&`var'<=489.03 if `var'<.	 
+
+gen prop3_`var'=`var'>489.03&`var'<577.73 if `var'<.	 
+
+gen prop4_`var'=`var'>577.73 if `var'<.	 
+
+} 
+
+repest SVY  if ID_PAYS==1, estimate(mean prop1_MATHS_PV@ prop2_MATHS_PV@ prop3_MATHS_PV@ prop4_MATHS_PV@ ) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+The results indicate that approximately $11\%$ of Grade 2 students in Benin fall below Level 1 (the lowest proficiency threshold), while around $29\%$ reach the highest level. The largest share of students falls in the middle proficiency levels. Because these estimates are derived from plausible values, the reported standard errors incorporate both measurement and sampling uncertainty.
+
+### Testing for differences between groups
+
+The table below highlights the distinction between two common types of comparisons in PASEC data: within-country comparisons (e.g., boys versus girls in the same country) and between-country comparisons (e.g., Benin versus Burkina Faso). Because these comparisons involve different survey structures, they require slightly different analytical approaches. 
+
+The examples that follow demonstrate how to test for differences in achievement between groups using regression models in repest. 
+
+| Comparison Type | What it measures | Survey design impact |
+|------------------------|------------------------|------------------------|
+| Within-Country (e.g., Boys vs. Girls in Senegal) | The gap between two demographic subgroups who share the same sampling strata, schools, and teachers. | High covariance. Because groups are clustered together in the same schools, their errors are correlated. |
+| Between-Country (e.g., Senegal vs Benin) | The gap between two entirely independent populations with completely separate sampling frames | Zero covariance. Sampling units in Country A have no mathematical relationship to sampling units in Country B |
+
+In `repest` you should use `over` for within-country comparisons and `by` for between-country comparisons. You must not use `over` for countries. When using `svy = "SVY"`, THE `over()` option is designed for within-country subgroup comparisons only. Using regression achieves the same goal and works correctly with the SVY option.
+
+#### Testing for differences within countries - differences between boys and girls
+
+Are there differences in mathematics scores between boys and girls? We can use linear regression to test for this.
+
+```{stata}
+*Test for differences between boys and girls mathematics scores in Benin
+
+repest SVY if ID_PAYS==1, estimate(reg MATHS_PV@ girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+
+```
+
+The coefficient on girl provides the estimated difference in mathematics proficiency between girls and boys, together with the appropriate standard error and significance test. On average, girls’ scores are $22.7$ points lower than boys in Benin. 
+
+What about differences in the proportion reaching PASEC level $4$?
+
+```{stata}
+*Test differences between boys and girls in percentage reaching PASEC level 4 in Benin
+
+repest SVY if ID_PAYS==1, estimate(reg prop4_MATHS_PV@  girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+Girls are $8.5$ percentage points less likely to reach the highest proficiency level in mathematics than boys in Benin.
+
+#### Testing for differences between countries
+
+Are there differences in mean mathematics scores between Benin and Burkina Faso?
+
+```{stata}
+*Test differences in mathematics scores between Benin and Burkina Faso 
+
+repest SVY if ID_PAYS<=2, estimate(reg MATHS_PV@ i.ID_PAYS) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))  
+```
+
+Mathematics proficiency levels are $26.4$ points lower in Burkina Faso compared to Benin, a statistically significant difference.
+
+#### Testing for differences in percentiles
+
+You cannot use standard linear regression (`regress`) because it only models the conditional arithmetic mean. Instead, to test differences in percentiles, you must use quantile regression (`qreg`) . 
+
+Quantile regression works exactly like linear regression, but instead of drawing a line through the average of the data, it draws a line through a specific percentile (quantile) of the data. 
+
+- `qreg, quantile(0.50)` models the Median ($50th$ Percentile). 
+
+- `qreg, quantile(0.25)` models the $25th$ Percentile (Lower Bound). 
+
+- `qreg, quantile(0.75)` models the $75th$ Percentile (Upper Bound).  
+
+
+Just like `regress`, `qreg` returns standard coefficients ($\beta$) and standard error matrices ($e(b)$).  
+
+If we want to test for differences in percentiles, we can use quantile regression 
+
+```{stata}
+*Test for differences at the 25th and 75th percentile between boys and girls in Benin 
+
+repest SVY if ID_PAYS==1, estimate(qreg MATHS_PV@ girl, quantile(0.25)) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))
+```
+
+```{stata}
+repest SVY if ID_PAYS==1, estimate(qreg MATHS_PV@ girl, quantile(0.75)) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))  
+```
+
+The gap between boys and girls increases from $19.3$ points at the $25th$ percentile to $22.3$ points at the $75th$ percentile. 
+
+### Multivariate Regression 
+
+Now let’s use the Grade $6$ data. There are $90$ replicate weights so we will need to replace `NREP(45)` with `NREP(90)` in the `svyparm()` suboptions. 
+
+Grade 6 setup 
+
+```{stata, eval=FALSE, include=TRUE}
+repest SVY [if] [in] , estimate(cmd [,cmd_options]) [options] svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(90) variancefactor(1)) 
+```
+
+In this example, we’ll analyze the association between students’ math scores (*MATHS_PV@*) and their gender (*qe63*) and socio-economic status (*ses*) in Cote D’Ivoire. The ses variable is a composite socioeconomic status index derived from the PASEC household questionnaire. 
+
+```{stata, collectcode = TRUE}
+* Load Grade 6 data
+
+use "data/PASEC2019_GRADE6_INT.dta", clear
+```
+
+```{stata, collectcode = TRUE}
+* Apply English labels
+
+do "data/PASEC2019_Grade6_EN_labels.do"
+
+* Show both numeric values and value labels 
+
+numlabel, add 
+
+```
+
+
+```{stata, collectcode = TRUE}
+* Fist generate an indicator variable for girl 
+
+gen girl=qe63==2 if qe63<9 
+
+```
+
+```{stata}
+*Association between mathematics scores and socio-economic status and gender 
+
+repest SVY if ID_PAYS==6, estimate(reg MATHS_PV@ ses girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(90) variancefactor(1)) results(add(r2 N)) 
+```
+
+The `results(add(r2 N))` option: This option allows you to add extra statistics to the results table, which Stata stores by default. Here, we add R-squared (`e_r2`) - a measure of model fit, and number of observations (`e_N`). Note that `repest` stores these additional statistics internally as `e_r2` and `e_N`, and these are the names shown in the output table. 
+
+The regression estimates the association between mathematics proficiency, socioeconomic status (SES), and gender among Grade $6$ students in Côte d'Ivoire while correctly accounting for both plausible values and the PASEC replicate-weight design. 
+
+The results indicate a strong positive association between socioeconomic status and mathematics achievement. A one-unit increase in the SES index is associated with an increase of approximately $2.17$ points in mathematics proficiency (coefficient $= 2.17$, $p < 0.001$). This relationship is statistically significant, suggesting that students from more advantaged socioeconomic backgrounds tend to perform better in mathematics. 
+
+The coefficient on the female indicator (girl) is $-11.62$ ($p < 0.001$), indicating that girls score, on average, about 12 points lower than boys with similar socioeconomic status. Because SES is included in the model, this estimated gender gap reflects differences between boys and girls after accounting for socioeconomic background. 
+
+The constant term ($349$) represents the predicted mathematics score for a boy with an SES value of zero. While the intercept is necessary for estimation, it is typically of limited substantive interest because an SES value of zero may not correspond to a meaningful student profile. 
+
+Overall, the results suggest that both socioeconomic status and gender are important correlates of mathematics achievement in Côte d'Ivoire. Higher socioeconomic status is associated with better performance, while girls perform less well than boys on average, even after controlling for socioeconomic differences. 
+
+It is important to remember that these coefficients describe associations rather than causal effects. The regression does not imply that increasing a student's socioeconomic status by one unit would necessarily increase their mathematics score by $2.17$ points. Other factors associated with socioeconomic status, such as school quality, parental education, household resources, and learning opportunities, may also contribute to the observed relationship. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

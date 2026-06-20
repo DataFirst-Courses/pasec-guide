@@ -1,9 +1,11 @@
---- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
-date: "`r Sys.Date()`"
+---
 site: bookdown::bookdown_site
 ---
 
-# Down the rabbit-hole
+```{r setup, include=FALSE}
+library(Statamarkdown)
 
+stataexe = "C:/Program Files/Stata18/StataMP-64.exe"
+knitr::opts_chunk$set(engine.path = list(stata = stataexe))
+knitr::opts_knit$set(root.dir = normalizePath("."))
+```
