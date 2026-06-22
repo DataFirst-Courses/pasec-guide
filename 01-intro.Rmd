@@ -1,0 +1,25 @@
+# Introduction to the Guide {#ch01-intro}
+The public release of the PASEC microdata has created new opportunities for researchers, policymakers, and practitioners to explore learning outcomes across francophone Africa. The datasets can now be downloaded from the PASEC data portal, making it possible to conduct independent analyses of student achievement, educational inequalities, school effectiveness, and the factors associated with learning outcomes. 
+
+PASEC (Programme d’Analyse des Systèmes Éducatifs de la CONFEMEN) is one of the most important sources of comparative evidence on learning outcomes in francophone Africa. The 2019 assessment collected information on the reading and mathematics proficiency of students in Grade 2 and Grade 6 across fourteen countries, together with extensive contextual information on students, households, teachers, classrooms and schools. 
+
+This guide is designed as a practical companion for new users of the PASEC data. It explains the key concepts needed to analyse the data correctly, including plausible values and replicate weights, and provides step-by-step examples in both Stata and R for common analytical tasks such as calculating means, estimating proficiency levels, testing group differences, and running regression models. 
+
+To support wider use of the data, AFLEARN also provides English-language documentation and resources for users who are not familiar with French-language variable names and supporting materials.
+
+Working with PASEC data differs from working with many conventional survey datasets because PASEC uses two statistical features that are designed to produce valid population estimates: 
+
+- Replicate weights, which account for the complex sampling design and are used to calculate correct standard errors. 
+
+- Plausible values, which account for uncertainty in the measurement of student proficiency. 
+
+**Why Does This Matter?** 
+
+- Ignoring these features can lead to incorrect estimates of uncertainty and potentially misleading conclusions. 
+
+- In practice, ignoring replicate weights typically leads to standard errors that are too small, which inflates test statistics and produces confidence intervals that are too narrow. 
+
+- Ignoring plausible values introduces bias in distributional estimates and underestimates the uncertainty around all proficiency-related statistics.  
+
+- The good news is , there are Stata and R packages that make it relatively straightforward to analyse PASEC data while correctly accounting for both plausible values and replicate weights. 
+

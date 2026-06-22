@@ -1,52 +1,15 @@
-<!DOCTYPE html>
+---
+title: "PASEC Analysis Guide"
+output:
+  html_document:
+    theme: null
+    highlight: null
+    self_contained: false
+    css: null
+    df_print: default
+---
 
-<html>
-
-<head>
-
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-
-
-<title>PASEC Analysis Guide</title>
-
-<script src="nav-guide_files/header-attrs-2.29/header-attrs.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-      .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-  </style>
-
-
-
-
-
-
-
-
-
-
-
-</head>
-
-<body>
-
-
-
-
-<h1 class="title toc-ignore">PASEC Analysis Guide</h1>
-
-
-
+```{=html}
 <script src="https://cdn.tailwindcss.com"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -186,7 +149,7 @@ h1.title,
 <div class="flex items-center justify-center gap-14 mb-10">
 
   <!-- Logo -->
-  <img src="files/AFLEARN%20logo.png"
+  <img src="files/AFLEARN logo.png"
        alt="AFLEARN Data Hub"
        style="width:130px;">
 
@@ -452,11 +415,4 @@ filterBtns.forEach(btn => {
 });
 </script>
 
-
-
-<!-- code folding -->
-
-
-
-</body>
-</html>
+```

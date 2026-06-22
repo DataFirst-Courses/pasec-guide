@@ -1,0 +1,12 @@
+# Downloading the data {#ch04-download}
+
+-   Go to the Portal on the [PASEC website](https://pasec.confemen.org/en/data-portal)
+
+-   After completing a short survey, you’ll be able to download PASEC data.
+-   Download the PASEC 2019 data and documentation.
+-   This is a compressed (zip) file. Unzip it. The zip file contains student-level datasets for Grade 2 and Grade 6, together with separate school, teacher, and classroom files. The international datasets (suffix \_INT) pool all fourteen countries; separate national files are also included. This guide uses the international student files.
+-   The datasets are in the *Internationale\\PASEC2019_INT_STATA folder*.
+
+Create a folder on your computer for data, e.g., *C:/pasec_data/*.
+
+Save *PASEC2019_GRADE2_INT.dta* and *PASEC2019_GRADE6_INT.dta* into your working directory.

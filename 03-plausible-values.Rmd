@@ -1,0 +1,216 @@
+# What are plausible values? {#c03-plausible-values}
+
+Unlike variables such as age or gender, proficiency in reading or mathematics cannot be observed directly. Instead, it is inferred from students' responses to assessment items using Item Response Theory (IRT).
+
+**Want to learn more?** [Click here to explore how Item Response Theory (IRT) is used to estimate student proficiency from assessment responses.](https://www.datafirst.uct.ac.za/aflearn/courses)
+
+Each student's observed responses provide only an imperfect indication of their underlying proficiency.
+
+**Why not assign a single score?**
+
+One possibility would be to estimate a single proficiency score for each student.
+
+However, doing so treats proficiency as though it were measured without error. In reality, there is uncertainty around each student's estimated proficiency.
+
+Ignoring this uncertainty leads to:
+
+-   underestimated standard errors;
+-   biased estimates of population distributions;
+-   incorrect inference for subgroup comparisons and regression analyses.
+
+A plausible value is a random draw from the estimated distribution of proficiency for a student, conditional on:
+
+-   the student's item responses; and
+-   characteristics of the students, their teachers and their schools. 
+
+::: alternativebox-header
+`r if (knitr:::is_html_output()) '### Warning {- #alt5}'`
+:::
+
+::: {.alternativebox data-latex="{Warning}"}
+This conditioning on background variables is important because plausible values are generated partly using questionnaire responses. This means that some degree of dependency is introduced between the achievement variables and the background variables. For standard descriptive and associational analyses this is exactly what the methodology is designed for and should not cause concern. However, analysts building complex structural models should be aware of this feature.
+:::
+
+Rather than assigning a single score, PASEC provides 5 plausible values for each student. The table below shows the five plausible values for language and mathematics proficiency for the first two students in the Grade 2 dataset.
+
+| Language | Student 1 | Student 2 | Mathematics | Student 1 | Student 2 |
+|----------|-----------|-----------|-------------|-----------|-----------|
+| LECT_PV1 | 640.55    | 752.67    | MATHS_PV1   | 627.75    | 686.38    |
+| LECT_PV2 | 646.15    | 772.74    | MATHS_PV2   | 612.41    | 637.70    |
+| LECT_PV3 | 637.75    | 797.04    | MATHS_PV3   | 580.13    | 714.87    |
+| LECT_PV4 | 643.14    | 752.71    | MATHS_PV4   | 611.96    | 683.39    |
+| LECT_PV5 | 681.09    | 750.51    | MATHS_PV5   | 649.46    | 656.83    |
+
+These plausible values should be viewed as multiple imputations of latent proficiency
+
+**How are plausible values combined?** 
+
+Suppose we wish to estimate a population parameter $Q$ such as a mean mathematics score, using $M$ plausible values.
+
+First, the statistic is estimated separately using each plausible value:
+
+$$
+Q_1, Q_2, Q_3, Q_4, Q_5
+$$
+
+where $Q_m$ is the estimate obtained using plausible value $m$.
+
+**Step 1: Calculate the final point estimate**
+
+The final estimate is simply the average across the plausible values: $$
+\bar{Q} = \frac{1}{M} \sum_{m=1}^{M} Q_m
+$$ For PASEC: $$
+\bar{Q} = \frac{Q_1 + Q_2 + Q_3 + Q_4 + Q_5}{5}
+$$ For example, if the five plausible-value means were:
+
+| Plausible value | Mean |
+|-----------------|------|
+| PV1             | 522  |
+| PV2             | 528  |
+| PV3             | 526  |
+| PV4             | 524  |
+| PV5             | 525  |
+
+then $$
+\bar{Q} = \frac{522 + 528 + 526 + 524 + 525}{5} = 525
+$$ **Step 2: Calculate the imputation variance**
+
+The imputation variance measures how much the estimates differ across plausible values: $$
+B = \frac{1}{M-1} \sum_{m=1}^{M} (Q_m - \bar{Q})^2
+$$ where - $B$ = imputation variance; - $M$ = number of plausible values; - $Q_m$ = estimate from plausible value $m$. For PASEC: $$
+B = \frac{1}{4} \sum_{m=1}^{5} (Q_m - \bar{Q})^2
+$$ If all five plausible values produce very similar estimates, $B$ will be small. Larger values of $B$ indicate greater uncertainty arising from the measurement of proficiency.
+
+**Step 3: Calculate the sampling variance**
+
+For each plausible value, the paired jackknife replicate weights are used to calculate a sampling variance:
+
+$$
+U_1, U_2, U_3, U_4, U_5
+$$
+
+The average sampling variance is
+
+$$
+\bar{U} = \frac{1}{M} \sum_{m=1}^{M} U_m
+$$
+
+where $U_m$ is the jackknife variance estimate obtained for plausible value $m$.
+
+**Step 4: Calculate the total variance**
+
+The final variance combines both sources of uncertainty:
+
+1.  Sampling uncertainty (from replicate weights)
+2.  Measurement uncertainty (from plausible values)
+
+Using Rubin's multiple-imputation formula:
+
+$$
+T = \bar{U} + \left(1 + \frac{1}{M}\right)B
+$$
+
+For PASEC:
+
+$$
+T = \bar{U} + 1.2B
+$$
+
+The factor $(1 + 1/M) = (1 + 1/5) = 1.2$ slightly inflates the imputation variance to account for the fact that only a finite number of plausible values ($M=5$) is used. With more plausible values, this factor would approach 1.
+
+The standard error is:
+
+$$
+SE = \sqrt{T}
+$$
+
+**Interpretation**
+
+The total variance has two components:
+
+$$
+T = \underbrace{\bar{U}}_{\text{sampling variance}} + \underbrace{\left(1 + \frac{1}{M}\right)B}_{\text{imputation variance}}
+$$
+
+The sampling variance reflects uncertainty due to observing only a sample of students rather than the entire population. The imputation variance reflects uncertainty in students' latent proficiency estimates.
+
+## Worked example: mean language proficiency in Grade 2
+
+The following example applies the four steps to estimate the weighted mean language proficiency among Grade 2 students. For each plausible value, the weighted mean ($Q_m$) was calculated using the final weight *rwgt0*, and the jackknife sampling variance ($U_m$) was calculated using the paired jackknife replicate weights *rwgt1*–*rwgt45* (see the Stata and R chapters for the replicate-weight procedure).
+
+**Step 1: Point estimate**
+
+For each plausible value, calculate the weighted mean. The final point estimate is the average of the five means:
+
+| Plausible value                | Weighted mean ($Q_m$) |
+|:-------------------------------|----------------------:|
+| LECT_PV1                       |              524.0483 |
+| LECT_PV2                       |              525.8366 |
+| LECT_PV3                       |              525.1532 |
+| LECT_PV4                       |              524.8666 |
+| LECT_PV5                       |              524.1773 |
+| **Final estimate (**$\bar{Q}$) |          **524.8164** |
+
+$$
+\bar{Q} = \frac{524.0483 + 525.8366 + 525.1532 + 524.8666 + 524.1773}{5} = 524.8164
+$$
+
+**Step 2: Sampling variance**
+
+For each plausible value, calculate the jackknife sampling variance from the replicate weights. The average sampling variance is:
+
+| Plausible value         | Sampling variance ($U_m$) |
+|:------------------------|--------------------------:|
+| LECT_PV1                |                   59.1751 |
+| LECT_PV2                |                   62.9129 |
+| LECT_PV3                |                   60.3660 |
+| LECT_PV4                |                   56.2916 |
+| LECT_PV5                |                   55.3909 |
+| **Average (**$\bar{U}$) |               **58.8273** |
+
+$$
+\bar{U} = \frac{59.1751 + 62.9129 + 60.3660 + 56.2916 + 55.3909}{5} = 58.8273
+$$
+
+**Step 3: Imputation variance**
+
+Calculate the squared deviation of each plausible-value mean from $\bar{Q}$, sum the deviations, and divide by $M - 1 = 4$:
+
+| Plausible value |    $Q_m$ | $(Q_m - \bar{Q})^2$ |
+|:----------------|---------:|--------------------:|
+| LECT_PV1        | 524.0483 |              0.5900 |
+| LECT_PV2        | 525.8366 |              1.0408 |
+| LECT_PV3        | 525.1532 |              0.1134 |
+| LECT_PV4        | 524.8666 |              0.0025 |
+| LECT_PV5        | 524.1773 |              0.4084 |
+| **Sum**         |          |          **2.1552** |
+
+$$
+B = \frac{1}{4}\left(0.5900 + 1.0408 + 0.1134 + 0.0025 + 0.4084\right) = \frac{2.1552}{4} = 0.5388
+$$
+
+The five plausible-value means are very close to one another, so the imputation variance is small.
+
+**Step 4: Total variance and standard error**
+
+Combine sampling and measurement uncertainty using Rubin's formula:
+
+$$
+T = \bar{U} + 1.2B = 58.8273 + 1.2 \times 0.5388 = 59.4738
+$$
+
+$$
+SE = \sqrt{T} = \sqrt{59.4738} = 7.7119
+$$
+
+**Summary**
+
+| Quantity                  | Symbol    |  Value |
+|:--------------------------|:----------|-------:|
+| Point estimate            | $\bar{Q}$ | 524.82 |
+| Average sampling variance | $\bar{U}$ |  58.83 |
+| Imputation variance       | $B$       |   0.54 |
+| Total variance            | $T$       |  59.47 |
+| Standard error            | $SE$      |   7.71 |
+
+In this example, sampling uncertainty ($\bar{U} = 58.83$) accounts for almost all of the total variance. The imputation variance ($B = 0.54$) is small because the five plausible values produce very similar mean estimates, but it is still included in the final standard error.
