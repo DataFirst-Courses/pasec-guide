@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 7 Analyzing PASEC 2019 data in R | bookdownproj.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 7 Analyzing PASEC 2019 data in R | bookdownproj.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 7 Analyzing PASEC 2019 data in R | bookdownproj.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="c06-stata.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="index.html"><img src="files/AFLEARN logo.png" alt="AFLEARN"></a></li>
+<li class="home-link"><a href="index.html"><i class="fa fa-home"></i> Guide home</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="ch01-intro.html"><a href="ch01-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to the Guide</a></li>
+<li class="part"><span><b>I Concept</b></span></li>
+<li class="chapter" data-level="2" data-path="c02-replicate-weights.html"><a href="c02-replicate-weights.html"><i class="fa fa-check"></i><b>2</b> What are replicate weights</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="c02-replicate-weights.html"><a href="c02-replicate-weights.html#worked-example-mean-age-in-grade-2-benin"><i class="fa fa-check"></i><b>2.1</b> Worked example: mean age in Grade 2, Benin</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="c03-plausible-values.html"><a href="c03-plausible-values.html"><i class="fa fa-check"></i><b>3</b> What are plausible values?</a>
+<ul>
+<li class="chapter" data-level="" data-path="c03-plausible-values.html"><a href="c03-plausible-values.html#alt5"><i class="fa fa-check"></i>Warning</a></li>
+<li class="chapter" data-level="3.1" data-path="c03-plausible-values.html"><a href="c03-plausible-values.html#worked-example-mean-language-proficiency-in-grade-2"><i class="fa fa-check"></i><b>3.1</b> Worked example: mean language proficiency in Grade 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch04-download.html"><a href="ch04-download.html"><i class="fa fa-check"></i><b>4</b> Downloading the data</a></li>
+<li class="chapter" data-level="5" data-path="ch05-resources.html"><a href="ch05-resources.html"><i class="fa fa-check"></i><b>5</b> Resources for non-French speaking researchers</a></li>
+<li class="part"><span><b>II Analysis</b></span></li>
+<li class="chapter" data-level="6" data-path="c06-stata.html"><a href="c06-stata.html"><i class="fa fa-check"></i><b>6</b> Analyzing PASEC 2019 data in Stata</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="c06-stata.html"><a href="c06-stata.html#loading-data-in-stata"><i class="fa fa-check"></i><b>6.1</b> Loading data in Stata</a></li>
+<li class="chapter" data-level="6.2" data-path="c06-stata.html"><a href="c06-stata.html#applying-english-labels"><i class="fa fa-check"></i><b>6.2</b> Applying English labels</a></li>
+<li class="chapter" data-level="6.3" data-path="c06-stata.html"><a href="c06-stata.html#the-repest-package"><i class="fa fa-check"></i><b>6.3</b> The <code>repest</code> package</a></li>
+<li class="chapter" data-level="6.4" data-path="c06-stata.html"><a href="c06-stata.html#repest-command-syntax"><i class="fa fa-check"></i><b>6.4</b> <code>repest</code> command syntax</a></li>
+<li class="chapter" data-level="6.5" data-path="c06-stata.html"><a href="c06-stata.html#before-you-begin-set-up-repest-for-pasec"><i class="fa fa-check"></i><b>6.5</b> Before You begin: Set up <code>repest</code> for PASEC</a></li>
+<li class="chapter" data-level="6.6" data-path="c06-stata.html"><a href="c06-stata.html#pasec-analyses-examples"><i class="fa fa-check"></i><b>6.6</b> PASEC Analyses Examples</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="c06-stata.html"><a href="c06-stata.html#calculating-mean-age"><i class="fa fa-check"></i><b>6.6.1</b> Calculating Mean Age</a></li>
+<li class="chapter" data-level="" data-path="c06-stata.html"><a href="c06-stata.html#alt1"><i class="fa fa-check"></i>Alternative to generate the same result - svy</a></li>
+<li class="chapter" data-level="6.6.2" data-path="c06-stata.html"><a href="c06-stata.html#calculating-mean-mathematics-proficiency"><i class="fa fa-check"></i><b>6.6.2</b> Calculating Mean Mathematics Proficiency</a></li>
+<li class="chapter" data-level="" data-path="c06-stata.html"><a href="c06-stata.html#alt2"><i class="fa fa-check"></i>Alternative to generate the same result - pv</a></li>
+<li class="chapter" data-level="6.6.3" data-path="c06-stata.html"><a href="c06-stata.html#moving-beyond-means-summary-statistics-with-repest"><i class="fa fa-check"></i><b>6.6.3</b> Moving beyond means: summary statistics with <code>repest</code></a></li>
+<li class="chapter" data-level="6.6.4" data-path="c06-stata.html"><a href="c06-stata.html#estimating-pasec-proficiency-levels"><i class="fa fa-check"></i><b>6.6.4</b> Estimating PASEC proficiency levels</a></li>
+<li class="chapter" data-level="6.6.5" data-path="c06-stata.html"><a href="c06-stata.html#testing-for-differences-between-groups"><i class="fa fa-check"></i><b>6.6.5</b> Testing for differences between groups</a></li>
+<li class="chapter" data-level="6.6.6" data-path="c06-stata.html"><a href="c06-stata.html#multivariate-regression"><i class="fa fa-check"></i><b>6.6.6</b> Multivariate Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="c07-r.html"><a href="c07-r.html"><i class="fa fa-check"></i><b>7</b> Analyzing PASEC 2019 data in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="c07-r.html"><a href="c07-r.html#package-installation"><i class="fa fa-check"></i><b>7.1</b> Package installation</a></li>
+<li class="chapter" data-level="7.2" data-path="c07-r.html"><a href="c07-r.html#loading-data-in-r"><i class="fa fa-check"></i><b>7.2</b> Loading data in R</a></li>
+<li class="chapter" data-level="7.3" data-path="c07-r.html"><a href="c07-r.html#applying-english-labels-1"><i class="fa fa-check"></i><b>7.3</b> Applying English Labels</a></li>
+<li class="chapter" data-level="7.4" data-path="c07-r.html"><a href="c07-r.html#rrepest-command-syntax"><i class="fa fa-check"></i><b>7.4</b> <code>Rrepest</code> command syntax</a></li>
+<li class="chapter" data-level="7.5" data-path="c07-r.html"><a href="c07-r.html#before-you-begin-set-up-rrepest-for-pasec"><i class="fa fa-check"></i><b>7.5</b> Before you begin: Set up <code>Rrepest</code> for PASEC</a></li>
+<li class="chapter" data-level="7.6" data-path="c07-r.html"><a href="c07-r.html#pasec-analyses-examples-1"><i class="fa fa-check"></i><b>7.6</b> PASEC Analyses Examples</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="c07-r.html"><a href="c07-r.html#calculating-mean-age-by-country"><i class="fa fa-check"></i><b>7.6.1</b> Calculating Mean Age by Country</a></li>
+<li class="chapter" data-level="" data-path="c07-r.html"><a href="c07-r.html#alt3"><i class="fa fa-check"></i>Alternative to generate the same result using survey package</a></li>
+<li class="chapter" data-level="7.6.2" data-path="c07-r.html"><a href="c07-r.html#calculating-mean-mathematics-proficiency-1"><i class="fa fa-check"></i><b>7.6.2</b> Calculating mean mathematics proficiency</a></li>
+<li class="chapter" data-level="" data-path="c07-r.html"><a href="c07-r.html#alt4"><i class="fa fa-check"></i>Alternative to generate the same result using survey and mitools package</a></li>
+<li class="chapter" data-level="7.6.3" data-path="c07-r.html"><a href="c07-r.html#moving-beyond-means-summary-statistics-with-rrepest"><i class="fa fa-check"></i><b>7.6.3</b> Moving beyond means: summary statistics with <code>Rrepest</code></a></li>
+<li class="chapter" data-level="7.6.4" data-path="c07-r.html"><a href="c07-r.html#estimating-pasec-proficiency-levels-1"><i class="fa fa-check"></i><b>7.6.4</b> Estimating PASEC proficiency levels</a></li>
+<li class="chapter" data-level="7.6.5" data-path="c07-r.html"><a href="c07-r.html#testing-for-differences-between-groups-1"><i class="fa fa-check"></i><b>7.6.5</b> Testing for differences between groups</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<p class="guide-home-link">
+  <a href="index.html"><i class="fa fa-arrow-left"></i> Back to guide home</a>
+</p>
+<div id="c07-r" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number"> 7</span> Analyzing PASEC 2019 data in R<a href="c07-r.html#c07-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This section provides a practical introduction to analysing PASEC 2019 data in R. It is intended for users with a basic working knowledge of R and includes step-by-step examples covering common PASEC analyses.</p>
+<p>Use the contents below to navigate directly to the topics most relevant to your analysis.</p>
+<div id="package-installation" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Package installation<a href="c07-r.html#package-installation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To get started, you need to install the required packages once. In the R console, type:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="c07-r.html#cb50-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;Rrepest&quot;</span>, <span class="st">&quot;haven&quot;</span>, <span class="st">&quot;survey&quot;</span>, <span class="st">&quot;mitools&quot;</span>, <span class="st">&quot;quantreg&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>))</span></code></pre></div>
+<ul>
+<li>The <code>haven</code> package is needed to read Stata files.</li>
+<li>The <code>Rrepest</code> package automates the handling of plausible values and replicate weights, making it easier to analyse PASEC data correctly in R. It supports a range of common analyses, including means, summary statistics, frequency distributions, quantiles, correlations, group comparisons, and regression models. Throughout this guide we introduce the commands needed for common PASEC analyses.</li>
+<li>The <code>survey</code> and <code>mitools</code> packages are used only for the alternatives analyses shown in ….</li>
+<li>While the <code>tidyverse</code> package is for data wrangling.</li>
+</ul>
+<p>You only need to run <code>install.packages()</code> once; there is no need to reinstall each time you open R.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="c07-r.html#cb51-1" tabindex="-1"></a><span class="co"># Load packages at the start of every session</span></span>
+<span id="cb51-2"><a href="c07-r.html#cb51-2" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="c07-r.html#cb51-3" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb51-4"><a href="c07-r.html#cb51-4" tabindex="-1"></a><span class="fu">library</span>(Rrepest)</span>
+<span id="cb51-5"><a href="c07-r.html#cb51-5" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb51-6"><a href="c07-r.html#cb51-6" tabindex="-1"></a><span class="fu">library</span>(mitools)</span>
+<span id="cb51-7"><a href="c07-r.html#cb51-7" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+</div>
+<div id="loading-data-in-r" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Loading data in R<a href="c07-r.html#loading-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For hands-on examples we’ll start with the Grade 2 study.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="c07-r.html#cb52-1" tabindex="-1"></a><span class="co"># Paths below are relative to the project root</span></span>
+<span id="cb52-2"><a href="c07-r.html#cb52-2" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">&quot;data/PASEC2019_GRADE2_INT.dta&quot;</span>)</span></code></pre></div>
+<p>It is good practice to run your analysis from an R script rather than the console, as this makes your work reproducible. All examples in this section are written as script code.</p>
+</div>
+<div id="applying-english-labels-1" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Applying English Labels<a href="c07-r.html#applying-english-labels-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To encourage and assist non-French speaking users to analyse the rich PASEC data, we have supplied R scripts and do-files that apply English variable and value labels. These files are in the <code>data/</code> folder of this project.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="c07-r.html#cb53-1" tabindex="-1"></a><span class="co"># Apply English labels</span></span>
+<span id="cb53-2"><a href="c07-r.html#cb53-2" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;data/PASEC2019_Grade2_EN_labels.R&quot;</span>)</span>
+<span id="cb53-3"><a href="c07-r.html#cb53-3" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">apply_pasec_grade2_en_labels</span>(g2)</span></code></pre></div>
+<p>After loading the file, let’s check if we have the most important variables that <code>Rrepest</code> uses. The five plausible values for language and mathematics are <em>LECT_PV1</em> to <em>LECT_PV5</em> and <em>MATHS_PV1</em> to <em>MATHS_PV5</em>. The final weight is rwgt0. The replicate weights are <em>rwgt1</em> to <em>rwgt45</em> and countries are indicated by <em>ID_PAYS</em>.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="c07-r.html#cb54-1" tabindex="-1"></a><span class="co"># Confirm key variables exist</span></span>
+<span id="cb54-2"><a href="c07-r.html#cb54-2" tabindex="-1"></a>key_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb54-3"><a href="c07-r.html#cb54-3" tabindex="-1"></a>  <span class="st">&quot;LECT_PV1&quot;</span>, <span class="st">&quot;LECT_PV5&quot;</span>, <span class="st">&quot;MATHS_PV1&quot;</span>, <span class="st">&quot;MATHS_PV5&quot;</span>,</span>
+<span id="cb54-4"><a href="c07-r.html#cb54-4" tabindex="-1"></a>  <span class="st">&quot;ID_PAYS&quot;</span>, <span class="st">&quot;rwgt0&quot;</span>, <span class="st">&quot;rwgt1&quot;</span>, <span class="st">&quot;rwgt45&quot;</span></span>
+<span id="cb54-5"><a href="c07-r.html#cb54-5" tabindex="-1"></a>)</span>
+<span id="cb54-6"><a href="c07-r.html#cb54-6" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(key_vars <span class="sc">%in%</span> <span class="fu">names</span>(g2)))</span>
+<span id="cb54-7"><a href="c07-r.html#cb54-7" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="c07-r.html#cb54-8" tabindex="-1"></a><span class="co"># Quick look at structure</span></span>
+<span id="cb54-9"><a href="c07-r.html#cb54-9" tabindex="-1"></a>g2 <span class="sc">|&gt;</span></span>
+<span id="cb54-10"><a href="c07-r.html#cb54-10" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(key_vars)) <span class="sc">|&gt;</span></span>
+<span id="cb54-11"><a href="c07-r.html#cb54-11" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<pre><code>## Rows: 21,933
+## Columns: 8
+## $ LECT_PV1  &lt;dbl&gt; 640.5484, 752.6683, 533.4055, 452.2114, 653.5640, 567.1990, 791.0265, 601…
+## $ LECT_PV5  &lt;dbl&gt; 681.0913, 750.5060, 520.3950, 454.3549, 670.3465, 584.3690, 703.6523, 583…
+## $ MATHS_PV1 &lt;dbl&gt; 627.7454, 686.3843, 492.4545, 456.3050, 699.5146, 594.5303, 605.2292, 625…
+## $ MATHS_PV5 &lt;dbl&gt; 649.4599, 656.8358, 475.3191, 481.9290, 663.3732, 612.6745, 615.9355, 649…
+## $ ID_PAYS   &lt;dbl+lbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ rwgt0     &lt;dbl&gt; 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153…
+## $ rwgt1     &lt;dbl&gt; 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306…
+## $ rwgt45    &lt;dbl&gt; 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153…</code></pre>
+</div>
+<div id="rrepest-command-syntax" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> <code>Rrepest</code> command syntax<a href="c07-r.html#rrepest-command-syntax" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The basic syntax of the Rrepest() function is as follows:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="c07-r.html#cb56-1" tabindex="-1"></a><span class="fu">Rrepest</span>( </span>
+<span id="cb56-2"><a href="c07-r.html#cb56-2" tabindex="-1"></a>  <span class="at">data       =</span> <span class="sc">&lt;</span>data frame or subset<span class="sc">&gt;</span>, </span>
+<span id="cb56-3"><a href="c07-r.html#cb56-3" tabindex="-1"></a>  <span class="at">svy        =</span> <span class="sc">&lt;</span>survey name<span class="sc">&gt;</span>, </span>
+<span id="cb56-4"><a href="c07-r.html#cb56-4" tabindex="-1"></a>  <span class="at">est        =</span> <span class="fu">est</span>(<span class="sc">&lt;</span>statistic<span class="sc">&gt;</span>, <span class="at">target =</span> <span class="sc">&lt;</span><span class="fu">variable</span>(s)<span class="sc">&gt;</span>, <span class="at">regressor =</span> <span class="sc">&lt;</span><span class="fu">variable</span>(s)<span class="sc">&gt;</span>), </span>
+<span id="cb56-5"><a href="c07-r.html#cb56-5" tabindex="-1"></a>  <span class="at">by         =</span> <span class="sc">&lt;</span>grouping <span class="fu">variable</span>(s)<span class="sc">&gt;</span>,  <span class="co"># separate analysis per group </span></span>
+<span id="cb56-6"><a href="c07-r.html#cb56-6" tabindex="-1"></a>  <span class="at">over       =</span> <span class="sc">&lt;</span>subgroup <span class="fu">variable</span>(s)<span class="sc">&gt;</span>,  <span class="co"># within-group comparison </span></span>
+<span id="cb56-7"><a href="c07-r.html#cb56-7" tabindex="-1"></a>  <span class="at">cm.weights =</span> <span class="fu">c</span>(<span class="sc">&lt;</span>final weight<span class="sc">&gt;</span>, <span class="sc">&lt;</span>replicate weights<span class="sc">&gt;</span>), </span>
+<span id="cb56-8"><a href="c07-r.html#cb56-8" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="sc">&lt;</span>variance scaling constant<span class="sc">&gt;</span>, </span>
+<span id="cb56-9"><a href="c07-r.html#cb56-9" tabindex="-1"></a>  <span class="at">n.pvs      =</span> <span class="sc">&lt;</span>number of plausible values<span class="sc">&gt;</span> </span>
+<span id="cb56-10"><a href="c07-r.html#cb56-10" tabindex="-1"></a>) </span></code></pre></div>
+<p>Once these survey settings have been specified, you can use <code>Rrepest</code> to estimate means, summary statistics, proficiency levels, group differences, percentiles, and regression models while correctly accounting for both plausible values and replicate weights.</p>
+</div>
+<div id="before-you-begin-set-up-rrepest-for-pasec" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Before you begin: Set up <code>Rrepest</code> for PASEC<a href="c07-r.html#before-you-begin-set-up-rrepest-for-pasec" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>PASEC is not one of the studies supported by the <code>Rrepest</code> package meaning that there aren’t built-in survey specifications. Therefore, before running any analyses, you need to tell <code>Rrepest</code> how the PASEC data are structured.</p>
+<p>You will need to use <code>svy = 'SVY'</code> and supply the survey parameters directly. To analyse PASEC data correctly, <code>Rrepest</code> needs to know the following survey specifications:</p>
+<ul>
+<li><p>PASEC uses the paired Jackknife method for creating the replicate weights (JK2).</p></li>
+<li><p>There are 90 replicate weights in the Grade 6 data and 45 replicate weights in the Grade 2 data.</p></li>
+<li><p>The final weight is given by <em>rwgt0</em></p></li>
+<li><p>The replicate weights are <em>rwgt1</em> to <em>rwgt90</em> in the Grade 6 data and <em>rwgt1</em> to <em>rwgt45</em> in the Grade 2 data.</p></li>
+<li><p>There are five sets of plausible values for each of mathematics, <em>MATHS_PV1</em> to <em>MATHS_PV5</em> and language <em>LECT_PV1</em> to <em>LECT_PV5</em>.</p></li>
+</ul>
+<p>We need to define weight vectors once and reuse them throughout your analyses:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="c07-r.html#cb57-1" tabindex="-1"></a><span class="co"># Weight helpers — define once, use everywhere</span></span>
+<span id="cb57-2"><a href="c07-r.html#cb57-2" tabindex="-1"></a>cm2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;rwgt0&quot;</span>, <span class="fu">paste0</span>(<span class="st">&quot;rwgt&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">45</span>)) <span class="co"># Grade 2: final + 45 replicate weights</span></span>
+<span id="cb57-3"><a href="c07-r.html#cb57-3" tabindex="-1"></a>cm6 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;rwgt0&quot;</span>, <span class="fu">paste0</span>(<span class="st">&quot;rwgt&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">90</span>)) <span class="co"># Grade 6: final + 90 replicate weights</span></span></code></pre></div>
+<p>Command for the grade 2 data will have the following syntax</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="c07-r.html#cb58-1" tabindex="-1"></a><span class="fu">Rrepest</span>( </span>
+<span id="cb58-2"><a href="c07-r.html#cb58-2" tabindex="-1"></a>  <span class="at">data       =</span> <span class="fu">subset</span>(g2, <span class="sc">&lt;</span>condition<span class="sc">&gt;</span>), </span>
+<span id="cb58-3"><a href="c07-r.html#cb58-3" tabindex="-1"></a>  <span class="at">svy        =</span> <span class="st">&#39;SVY&#39;</span>, </span>
+<span id="cb58-4"><a href="c07-r.html#cb58-4" tabindex="-1"></a>  <span class="at">est        =</span> <span class="fu">est</span>(<span class="sc">&lt;</span>statistic<span class="sc">&gt;</span>, <span class="at">target =</span> <span class="sc">&lt;</span>variable<span class="sc">&gt;</span>), </span>
+<span id="cb58-5"><a href="c07-r.html#cb58-5" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm2, </span>
+<span id="cb58-6"><a href="c07-r.html#cb58-6" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">45</span>, </span>
+<span id="cb58-7"><a href="c07-r.html#cb58-7" tabindex="-1"></a>  <span class="at">n.pvs      =</span> <span class="dv">5</span> </span>
+<span id="cb58-8"><a href="c07-r.html#cb58-8" tabindex="-1"></a>) </span></code></pre></div>
+<p>For Grade 6, we need to specify that there are 90 replicate weights. Commands for grade 6 as follows</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="c07-r.html#cb59-1" tabindex="-1"></a><span class="fu">Rrepest</span>( </span>
+<span id="cb59-2"><a href="c07-r.html#cb59-2" tabindex="-1"></a>  <span class="at">data       =</span> <span class="fu">subset</span>(g2, <span class="sc">&lt;</span>condition<span class="sc">&gt;</span>), </span>
+<span id="cb59-3"><a href="c07-r.html#cb59-3" tabindex="-1"></a>  <span class="at">svy        =</span> <span class="st">&#39;SVY&#39;</span>, </span>
+<span id="cb59-4"><a href="c07-r.html#cb59-4" tabindex="-1"></a>  <span class="at">est        =</span> <span class="fu">est</span>(<span class="sc">&lt;</span>statistic<span class="sc">&gt;</span>, <span class="at">target =</span> <span class="sc">&lt;</span>variable<span class="sc">&gt;</span>), </span>
+<span id="cb59-5"><a href="c07-r.html#cb59-5" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm6, </span>
+<span id="cb59-6"><a href="c07-r.html#cb59-6" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">90</span>, </span>
+<span id="cb59-7"><a href="c07-r.html#cb59-7" tabindex="-1"></a>  <span class="at">n.pvs      =</span> <span class="dv">5</span> </span>
+<span id="cb59-8"><a href="c07-r.html#cb59-8" tabindex="-1"></a>) </span></code></pre></div>
+</div>
+<div id="pasec-analyses-examples-1" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> PASEC Analyses Examples<a href="c07-r.html#pasec-analyses-examples-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="calculating-mean-age-by-country" class="section level3 hasAnchor" number="7.6.1">
+<h3><span class="header-section-number">7.6.1</span> Calculating Mean Age by Country<a href="c07-r.html#calculating-mean-age-by-country" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s start by calculating the average age of students in Grade 2 in Benin. The age variable is <em>qe22</em>. Let’s first inspect the <em>ID_PAYS</em> and <em>qe22</em> variables.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="c07-r.html#cb60-1" tabindex="-1"></a><span class="co"># Country frequencies</span></span>
+<span id="cb60-2"><a href="c07-r.html#cb60-2" tabindex="-1"></a>g2 <span class="sc">|&gt;</span></span>
+<span id="cb60-3"><a href="c07-r.html#cb60-3" tabindex="-1"></a>  <span class="fu">count</span>(ID_PAYS)</span></code></pre></div>
+<pre><code>## # A tibble: 14 × 2
+##    ID_PAYS                               n
+##    &lt;dbl+lbl&gt;                         &lt;int&gt;
+##  1  1 [Benin]                         1654
+##  2  2 [Burkina Faso]                  1884
+##  3  3 [Burundi]                       1664
+##  4  4 [Cameroun]                      1780
+##  5  5 [Congo]                         1553
+##  6  6 [Cote D&#39;Ivoire]                 1332
+##  7  7 [Gabon]                         1157
+##  8  8 [Guinee]                        1086
+##  9  9 [Madagascar]                    1883
+## 10 10 [Niger]                         1730
+## 11 11 [Democratic Republic of Congo]  1050
+## 12 12 [Senegal]                       1341
+## 13 13 [Chad]                          1727
+## 14 14 [Togo]                          2092</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="c07-r.html#cb62-1" tabindex="-1"></a><span class="co"># Age distribution</span></span>
+<span id="cb62-2"><a href="c07-r.html#cb62-2" tabindex="-1"></a>g2 <span class="sc">|&gt;</span></span>
+<span id="cb62-3"><a href="c07-r.html#cb62-3" tabindex="-1"></a>  <span class="fu">count</span>(qe22)</span></code></pre></div>
+<pre><code>## # A tibble: 19 × 2
+##    qe22             n
+##    &lt;dbl+lbl&gt;    &lt;int&gt;
+##  1  4               2
+##  2  5              83
+##  3  6            1295
+##  4  7            5467
+##  5  8            6923
+##  6  9            4261
+##  7 10            2099
+##  8 11             800
+##  9 12             458
+## 10 13             189
+## 11 14              73
+## 12 15              41
+## 13 16              19
+## 14 17               8
+## 15 18               1
+## 16 19               1
+## 17 20               1
+## 18 22               1
+## 19 99 [Missing]   211</code></pre>
+<p>NOTE: Benin is coded as <span class="math inline">\(1\)</span>. Missing age values are coded as <span class="math inline">\(99\)</span>. Because <span class="math inline">\(99\)</span> is a placeholder used to indicate missing data rather than a learner’s actual age, these observations should be excluded from analyses involving age. Failure to do so may produce misleading results.</p>
+<p>To calculate the average age of students in Grade 2 in Benin, the syntax is as follows:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="c07-r.html#cb64-1" tabindex="-1"></a><span class="co"># Calculating average age in Benin</span></span>
+<span id="cb64-2"><a href="c07-r.html#cb64-2" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="c07-r.html#cb64-3" tabindex="-1"></a>result_age <span class="ot">&lt;-</span> <span class="fu">Rrepest</span>(</span>
+<span id="cb64-4"><a href="c07-r.html#cb64-4" tabindex="-1"></a>  <span class="at">data       =</span> <span class="fu">subset</span>(g2, ID_PAYS <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> qe22 <span class="sc">&lt;</span> <span class="dv">99</span>),</span>
+<span id="cb64-5"><a href="c07-r.html#cb64-5" tabindex="-1"></a>  <span class="at">svy        =</span> <span class="st">&quot;SVY&quot;</span>,</span>
+<span id="cb64-6"><a href="c07-r.html#cb64-6" tabindex="-1"></a>  <span class="at">est        =</span> <span class="fu">est</span>(<span class="st">&quot;mean&quot;</span>, <span class="at">target =</span> <span class="st">&quot;qe22&quot;</span>),</span>
+<span id="cb64-7"><a href="c07-r.html#cb64-7" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm2,</span>
+<span id="cb64-8"><a href="c07-r.html#cb64-8" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">45</span></span>
+<span id="cb64-9"><a href="c07-r.html#cb64-9" tabindex="-1"></a>)</span>
+<span id="cb64-10"><a href="c07-r.html#cb64-10" tabindex="-1"></a><span class="fu">print</span>(result_age)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##   .     b.mean.qe22 se.mean.qe22
+##   &lt;chr&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+## 1 Total        7.57       0.0599</code></pre>
+<p>Because age is an observed variable rather than a plausible-value variable, <code>Rrepest</code> uses only the sampling variance derived from the replicate weights. The reported standard error therefore reflects uncertainty arising from the sample design but not measurement uncertainty.</p>
+<p>The estimated mean age of Grade 2 students in Benin is <span class="math inline">\(7.57\)</span> years (<span class="math inline">\(95\%\)</span> CI: <span class="math inline">\(7.45–7.68\)</span>). This reflects the substantial grade repetition and late entry common in the region, with many students aged <span class="math inline">\(9–11\)</span> also enrolled in Grade 2.</p>
+</div>
+<div id="alt3" class="section level3 unnumbered hasAnchor alternativebox-header">
+<h3>Alternative to generate the same result using survey package<a href="c07-r.html#alt3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div class="alternativebox">
+<p>PASEC provides replicate weights specifically so that users can reproduce the official variance estimation procedure. Stata’s <code>svyset</code> can be configured to use the paired jackknife replicate weights; the <code>survey</code> package can do the same.</p>
+<p>The syntax to generate the same result is:</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="c07-r.html#cb66-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">survey.lonely.psu =</span> <span class="st">&quot;adjust&quot;</span>)</span>
+<span id="cb66-2"><a href="c07-r.html#cb66-2" tabindex="-1"></a><span class="co"># Set up survey design with JK2 replicate weights</span></span>
+<span id="cb66-3"><a href="c07-r.html#cb66-3" tabindex="-1"></a><span class="co"># scale = 1/45 matches the mean-based JK2 variance formula used by Rrepest/repest</span></span>
+<span id="cb66-4"><a href="c07-r.html#cb66-4" tabindex="-1"></a>des2 <span class="ot">&lt;-</span> <span class="fu">svrepdesign</span>(</span>
+<span id="cb66-5"><a href="c07-r.html#cb66-5" tabindex="-1"></a>  <span class="at">weights          =</span> <span class="sc">~</span>rwgt0,</span>
+<span id="cb66-6"><a href="c07-r.html#cb66-6" tabindex="-1"></a>  <span class="at">repweights       =</span> <span class="fu">as.matrix</span>(g2[, <span class="fu">paste0</span>(<span class="st">&quot;rwgt&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">45</span>)]), <span class="co"># pass the replicate-weight columns as a matrix</span></span>
+<span id="cb66-7"><a href="c07-r.html#cb66-7" tabindex="-1"></a>  <span class="at">type             =</span> <span class="st">&quot;other&quot;</span>,</span>
+<span id="cb66-8"><a href="c07-r.html#cb66-8" tabindex="-1"></a>  <span class="at">scale            =</span> <span class="dv">1</span>,</span>
+<span id="cb66-9"><a href="c07-r.html#cb66-9" tabindex="-1"></a>  <span class="at">rscales          =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">45</span>),</span>
+<span id="cb66-10"><a href="c07-r.html#cb66-10" tabindex="-1"></a>  <span class="at">combined.weights =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb66-11"><a href="c07-r.html#cb66-11" tabindex="-1"></a>  <span class="at">mse              =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb66-12"><a href="c07-r.html#cb66-12" tabindex="-1"></a>  <span class="at">data             =</span> g2</span>
+<span id="cb66-13"><a href="c07-r.html#cb66-13" tabindex="-1"></a>)</span>
+<span id="cb66-14"><a href="c07-r.html#cb66-14" tabindex="-1"></a><span class="fu">svymean</span>(<span class="sc">~</span>qe22, <span class="fu">subset</span>(des2, ID_PAYS <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> qe22 <span class="sc">&lt;</span> <span class="dv">99</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##        mean     SE
+## qe22 7.5665 0.0599</code></pre>
+</div>
+<div id="calculating-mean-mathematics-proficiency-1" class="section level3 hasAnchor" number="7.6.2">
+<h3><span class="header-section-number">7.6.2</span> Calculating mean mathematics proficiency<a href="c07-r.html#calculating-mean-mathematics-proficiency-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Unlike age, mathematics proficiency is represented by five plausible values. Rrepest estimates the mean separately for each plausible value, combines the five estimates using multiple-imputation formulas, and then incorporates the replicate-weight variance to produce the final standard error.</p>
+<p>Now we will use the <span class="math inline">\(5\)</span> plausible values to estimate mean mathematics scores in Benin.</p>
+<p>Plausible values are a set of multiple imputations. <code>Rrepest</code> automatically recognises plausible values when the variable name contains the <span class="math inline">\(@\)</span> symbol.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="c07-r.html#cb68-1" tabindex="-1"></a><span class="fu">est</span>(<span class="st">&#39;mean&#39;</span>, <span class="at">target =</span> <span class="st">&#39;MATHS_PV@&#39;</span>) </span></code></pre></div>
+<p>tells `Rrepest to analyse all five mathematics plausible values; combine results appropriately; and calculate standard errors that reflect both sampling and measurement uncertainty.</p>
+<p>This allows researchers to obtain valid estimates without having to implement the multiple-imputation calculations manually.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="c07-r.html#cb69-1" tabindex="-1"></a><span class="co"># Calculating mean mathematics scores in Benin</span></span>
+<span id="cb69-2"><a href="c07-r.html#cb69-2" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="c07-r.html#cb69-3" tabindex="-1"></a>result_maths <span class="ot">&lt;-</span> <span class="fu">Rrepest</span>(</span>
+<span id="cb69-4"><a href="c07-r.html#cb69-4" tabindex="-1"></a>  <span class="at">data       =</span> <span class="fu">subset</span>(g2, ID_PAYS <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb69-5"><a href="c07-r.html#cb69-5" tabindex="-1"></a>  <span class="at">svy        =</span> <span class="st">&quot;SVY&quot;</span>,</span>
+<span id="cb69-6"><a href="c07-r.html#cb69-6" tabindex="-1"></a>  <span class="at">est        =</span> <span class="fu">est</span>(<span class="st">&quot;mean&quot;</span>, <span class="at">target =</span> <span class="st">&quot;MATHS_PV@&quot;</span>),</span>
+<span id="cb69-7"><a href="c07-r.html#cb69-7" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm2,</span>
+<span id="cb69-8"><a href="c07-r.html#cb69-8" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">45</span>,</span>
+<span id="cb69-9"><a href="c07-r.html#cb69-9" tabindex="-1"></a>  <span class="at">n.pvs      =</span> <span class="dv">5</span></span>
+<span id="cb69-10"><a href="c07-r.html#cb69-10" tabindex="-1"></a>)</span>
+<span id="cb69-11"><a href="c07-r.html#cb69-11" tabindex="-1"></a><span class="fu">print</span>(result_maths)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##   .     `b.mean.maths_pv@` `se.mean.maths_pv@`
+##   &lt;chr&gt;              &lt;dbl&gt;               &lt;dbl&gt;
+## 1 Total               525.                7.16</code></pre>
+<p>The estimated mean mathematics proficiency in Benin is <span class="math inline">\(525\)</span> points. The standard error of <span class="math inline">\(7.16\)</span> reflects both sampling uncertainty and uncertainty arising from the plausible values. The confidence interval indicates that the population mean is likely to lie between <span class="math inline">\(511\)</span> and <span class="math inline">\(539\)</span> points.</p>
+<p>PASEC proficiency scales are scaled using IRT procedures and should primarily be interpreted comparatively. The absolute value of the scale has no substantive meaning independent of the proficiency framework.</p>
+</div>
+<div id="alt4" class="section level3 unnumbered hasAnchor alternativebox-header">
+<h3>Alternative to generate the same result using survey and mitools package<a href="c07-r.html#alt4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div class="alternativebox">
+<p>An alternative approach using the <code>survey</code> and <code>mitools</code> packages reproduces the same result by looping over plausible values manually.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="c07-r.html#cb71-1" tabindex="-1"></a><span class="co"># withPV repeats svymean for each PV then MIcombine applies Rubin&#39;s rules</span></span>
+<span id="cb71-2"><a href="c07-r.html#cb71-2" tabindex="-1"></a>pv_results <span class="ot">&lt;-</span> <span class="fu">withPV</span>(</span>
+<span id="cb71-3"><a href="c07-r.html#cb71-3" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">list</span>(maths <span class="sc">~</span> MATHS_PV1 <span class="sc">+</span> MATHS_PV2 <span class="sc">+</span> MATHS_PV3 <span class="sc">+</span> MATHS_PV4 <span class="sc">+</span> MATHS_PV5),</span>
+<span id="cb71-4"><a href="c07-r.html#cb71-4" tabindex="-1"></a>  <span class="at">data    =</span> <span class="fu">subset</span>(des2, ID_PAYS <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb71-5"><a href="c07-r.html#cb71-5" tabindex="-1"></a>  <span class="at">action  =</span> <span class="cf">function</span>(dsgn) <span class="fu">svymean</span>(<span class="sc">~</span>maths, dsgn, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb71-6"><a href="c07-r.html#cb71-6" tabindex="-1"></a>  <span class="at">rewrite =</span> <span class="cn">TRUE</span></span>
+<span id="cb71-7"><a href="c07-r.html#cb71-7" tabindex="-1"></a>)</span>
+<span id="cb71-8"><a href="c07-r.html#cb71-8" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">MIcombine</span>(pv_results))</span></code></pre></div>
+<pre><code>## Multiple imputation results:
+##       withPV.svyrep.design(mapping = list(maths ~ MATHS_PV1 + MATHS_PV2 + 
+##     MATHS_PV3 + MATHS_PV4 + MATHS_PV5), data = subset(des2, ID_PAYS == 
+##     1), action = function(dsgn) svymean(~maths, dsgn, na.rm = TRUE), 
+##     rewrite = TRUE)
+##       MIcombine.default(pv_results)
+##            results       se   (lower   upper) missInfo
+## MATHS_PV1 525.0697 7.159119 511.0378 539.1016      1 %</code></pre>
+</div>
+<p>Now let’s get means of mathematics and literacy for each country by including the by argument.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="c07-r.html#cb73-1" tabindex="-1"></a><span class="co"># Means of mathematics and literacy for each country</span></span>
+<span id="cb73-2"><a href="c07-r.html#cb73-2" tabindex="-1"></a>result_by_country <span class="ot">&lt;-</span> <span class="fu">Rrepest</span>(</span>
+<span id="cb73-3"><a href="c07-r.html#cb73-3" tabindex="-1"></a>  <span class="at">data       =</span> g2,</span>
+<span id="cb73-4"><a href="c07-r.html#cb73-4" tabindex="-1"></a>  <span class="at">svy        =</span> <span class="st">&quot;SVY&quot;</span>,</span>
+<span id="cb73-5"><a href="c07-r.html#cb73-5" tabindex="-1"></a>  <span class="at">est        =</span> <span class="fu">est</span>(<span class="st">&quot;mean&quot;</span>, <span class="at">target =</span> <span class="fu">c</span>(<span class="st">&quot;MATHS_PV@&quot;</span>, <span class="st">&quot;LECT_PV@&quot;</span>)),</span>
+<span id="cb73-6"><a href="c07-r.html#cb73-6" tabindex="-1"></a>  <span class="at">by         =</span> <span class="st">&quot;ID_PAYS&quot;</span>,</span>
+<span id="cb73-7"><a href="c07-r.html#cb73-7" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm2,</span>
+<span id="cb73-8"><a href="c07-r.html#cb73-8" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">45</span>,</span>
+<span id="cb73-9"><a href="c07-r.html#cb73-9" tabindex="-1"></a>  <span class="at">n.pvs      =</span> <span class="dv">5</span></span>
+<span id="cb73-10"><a href="c07-r.html#cb73-10" tabindex="-1"></a>)</span>
+<span id="cb73-11"><a href="c07-r.html#cb73-11" tabindex="-1"></a><span class="fu">print</span>(result_by_country)</span></code></pre></div>
+<pre><code>## # A tibble: 14 × 5
+##    ID_PAYS        `b.mean.maths_pv@` `se.mean.maths_pv@` `b.mean.lect_pv@` `se.mean.lect_pv@`
+##    &lt;chr&gt;                       &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;
+##  1 Benin                        525.                7.16              525.               7.71
+##  2 Burkina Faso                 499.                8.23              493.               9.75
+##  3 Burundi                      614.                2.37              625.               4.53
+##  4 Cameroun                     517.                7.99              522.               8.39
+##  5 Chad                         522.                6.84              508.               7.80
+##  6 Congo                        592.                6.30              582.               7.48
+##  7 Cote D&#39;Ivoire                523.                4.06              517.               5.40
+##  8 Democratic Re…               568.                8.24              531.              10.5 
+##  9 Gabon                        596.                9.40              610.              14.5 
+## 10 Guinee                       519.                9.40              469.              10.3 
+## 11 Madagascar                   550.                3.80              569.               6.90
+## 12 Niger                        545.                6.36              535.               7.19
+## 13 Senegal                      563.                6.08              557.               9.34
+## 14 Togo                         489.                5.29              475.               7.20</code></pre>
+<p>There is substantial variation in achievement across participating countries. Burundi records the highest Grade 2 mathematics score (<span class="math inline">\(614\)</span> points), while Togo records the lowest (<span class="math inline">\(489\)</span> points). Reading and mathematics performance are strongly correlated across countries, although some countries perform relatively better in one domain than the other. Formal statistical comparisons between countries should be conducted using regression models rather than visual inspection of the means alone.</p>
+<p>Notice that standard errors vary considerably across countries — Burundi (country 3) has notably smaller standard errors than countries such as Gabon (7) or Guinea (8). This reflects differences in the homogeneity of performance within schools and the precision of the sampling design in each country.</p>
+<div id="moving-beyond-means-summary-statistics-with-rrepest" class="section level3 hasAnchor" number="7.6.3">
+<h3><span class="header-section-number">7.6.3</span> Moving beyond means: summary statistics with <code>Rrepest</code><a href="c07-r.html#moving-beyond-means-summary-statistics-with-rrepest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>Rrepest</code>has built-in support for a range of statistics beyond the mean, including percentiles and standard deviations.
+The <code>est()</code> function with multiple statistics generates point estimates and standard errors for a range of distribution summaries.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="c07-r.html#cb75-1" tabindex="-1"></a><span class="co"># First create an indicator for girl</span></span>
+<span id="cb75-2"><a href="c07-r.html#cb75-2" tabindex="-1"></a>g2<span class="sc">$</span>girl <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(g2<span class="sc">$</span>qe23 <span class="sc">&lt;</span> <span class="dv">9</span>, <span class="fu">as.integer</span>(g2<span class="sc">$</span>qe23 <span class="sc">==</span> <span class="dv">2</span>), <span class="cn">NA</span>)</span>
+<span id="cb75-3"><a href="c07-r.html#cb75-3" tabindex="-1"></a><span class="co"># Beyond means - looking at the distribution of mathematics scores in Benin by gender</span></span>
+<span id="cb75-4"><a href="c07-r.html#cb75-4" tabindex="-1"></a><span class="co"># Quantile levels: 0.05, 0.25, 0.50, 0.75, 0.95</span></span>
+<span id="cb75-5"><a href="c07-r.html#cb75-5" tabindex="-1"></a>result_dist <span class="ot">&lt;-</span> <span class="fu">Rrepest</span>(</span>
+<span id="cb75-6"><a href="c07-r.html#cb75-6" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">subset</span>(g2, ID_PAYS <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb75-7"><a href="c07-r.html#cb75-7" tabindex="-1"></a>  <span class="at">svy =</span> <span class="st">&quot;SVY&quot;</span>,</span>
+<span id="cb75-8"><a href="c07-r.html#cb75-8" tabindex="-1"></a>  <span class="at">est =</span> <span class="fu">est</span>(<span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;std&quot;</span>, <span class="st">&quot;quant&quot;</span>, <span class="fl">0.05</span>, <span class="st">&quot;quant&quot;</span>, <span class="fl">0.25</span>, <span class="st">&quot;quant&quot;</span>, <span class="fl">0.50</span>, <span class="st">&quot;quant&quot;</span>, <span class="fl">0.75</span>, <span class="st">&quot;quant&quot;</span>, <span class="fl">0.95</span>),</span>
+<span id="cb75-9"><a href="c07-r.html#cb75-9" tabindex="-1"></a>    <span class="at">target =</span> <span class="st">&quot;MATHS_PV@&quot;</span></span>
+<span id="cb75-10"><a href="c07-r.html#cb75-10" tabindex="-1"></a>  ),</span>
+<span id="cb75-11"><a href="c07-r.html#cb75-11" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">&quot;girl&quot;</span>,</span>
+<span id="cb75-12"><a href="c07-r.html#cb75-12" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm2,</span>
+<span id="cb75-13"><a href="c07-r.html#cb75-13" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">45</span>,</span>
+<span id="cb75-14"><a href="c07-r.html#cb75-14" tabindex="-1"></a>  <span class="at">n.pvs =</span> <span class="dv">5</span></span>
+<span id="cb75-15"><a href="c07-r.html#cb75-15" tabindex="-1"></a>)</span>
+<span id="cb75-16"><a href="c07-r.html#cb75-16" tabindex="-1"></a></span>
+<span id="cb75-17"><a href="c07-r.html#cb75-17" tabindex="-1"></a><span class="fu">print</span>(result_dist)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 15
+##   girl  `b.mean.maths_pv@` `se.mean.maths_pv@` `b.std.maths_pv@` `se.std.maths_pv@`
+##   &lt;chr&gt;              &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;
+## 1 0                   536.                7.35              107.               7.38
+## 2 1                   513.                7.80              101.               6.81
+## # ℹ 10 more variables: `b.quant00.maths_pv@` &lt;dbl&gt;, `se.quant00.maths_pv@` &lt;dbl&gt;,
+## #   `b.quant025.maths_pv@` &lt;dbl&gt;, `se.quant025.maths_pv@` &lt;dbl&gt;,
+## #   `b.quant05.maths_pv@` &lt;dbl&gt;, `se.quant05.maths_pv@` &lt;dbl&gt;, `b.quant075.maths_pv@` &lt;dbl&gt;,
+## #   `se.quant075.maths_pv@` &lt;dbl&gt;, `b.quant095.maths_pv@` &lt;dbl&gt;,
+## #   `se.quant095.maths_pv@` &lt;dbl&gt;</code></pre>
+<p>Looking beyond average performance reveals important differences across the distribution. Boys in Benin have higher mathematics scores at the mean, median and upper tail of the distribution. For example, the median score among boys is approximately <span class="math inline">\(536\)</span> points compared with <span class="math inline">\(508\)</span> points among girls. The percentile estimates show that the gender gap is not confined to a small group of high-performing students but is evident across much of the achievement distribution.</p>
+<p>Quantiles divide a distribution into equal-sized groups and are commonly used to examine how achievement is distributed across students. The code below produces the quintile cut-points (<span class="math inline">\(20th\)</span>, <span class="math inline">\(40th\)</span>, <span class="math inline">\(60th\)</span>, <span class="math inline">\(80th\)</span> percentiles) for mathematics and literacy in Benin.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="c07-r.html#cb77-1" tabindex="-1"></a><span class="co"># Quintile boundaries for mathematics and language in Benin</span></span>
+<span id="cb77-2"><a href="c07-r.html#cb77-2" tabindex="-1"></a>result_quint <span class="ot">&lt;-</span> <span class="fu">Rrepest</span>(</span>
+<span id="cb77-3"><a href="c07-r.html#cb77-3" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">subset</span>(g2, ID_PAYS <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb77-4"><a href="c07-r.html#cb77-4" tabindex="-1"></a>  <span class="at">svy =</span> <span class="st">&quot;SVY&quot;</span>,</span>
+<span id="cb77-5"><a href="c07-r.html#cb77-5" tabindex="-1"></a>  <span class="at">est =</span> <span class="fu">est</span>(<span class="fu">c</span>(<span class="st">&quot;quant&quot;</span>, <span class="fl">0.20</span>, <span class="st">&quot;quant&quot;</span>, <span class="fl">0.40</span>, <span class="st">&quot;quant&quot;</span>, <span class="fl">0.60</span>, <span class="st">&quot;quant&quot;</span>, <span class="fl">0.80</span>),</span>
+<span id="cb77-6"><a href="c07-r.html#cb77-6" tabindex="-1"></a>    <span class="at">target =</span> <span class="fu">c</span>(<span class="st">&quot;MATHS_PV@&quot;</span>, <span class="st">&quot;LECT_PV@&quot;</span>)</span>
+<span id="cb77-7"><a href="c07-r.html#cb77-7" tabindex="-1"></a>  ),</span>
+<span id="cb77-8"><a href="c07-r.html#cb77-8" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm2,</span>
+<span id="cb77-9"><a href="c07-r.html#cb77-9" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">45</span>,</span>
+<span id="cb77-10"><a href="c07-r.html#cb77-10" tabindex="-1"></a>  <span class="at">n.pvs =</span> <span class="dv">5</span></span>
+<span id="cb77-11"><a href="c07-r.html#cb77-11" tabindex="-1"></a>)</span>
+<span id="cb77-12"><a href="c07-r.html#cb77-12" tabindex="-1"></a><span class="fu">print</span>(result_quint)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 17
+##   .     `b.quant02.maths_pv@` `se.quant02.maths_pv@` `b.quant04.maths_pv@`
+##   &lt;chr&gt;                 &lt;dbl&gt;                  &lt;dbl&gt;                 &lt;dbl&gt;
+## 1 Total                  435.                   6.68                  495.
+## # ℹ 13 more variables: `se.quant04.maths_pv@` &lt;dbl&gt;, `b.quant06.maths_pv@` &lt;dbl&gt;,
+## #   `se.quant06.maths_pv@` &lt;dbl&gt;, `b.quant08.maths_pv@` &lt;dbl&gt;, `se.quant08.maths_pv@` &lt;dbl&gt;,
+## #   `b.quant02.lect_pv@` &lt;dbl&gt;, `se.quant02.lect_pv@` &lt;dbl&gt;, `b.quant04.lect_pv@` &lt;dbl&gt;,
+## #   `se.quant04.lect_pv@` &lt;dbl&gt;, `b.quant06.lect_pv@` &lt;dbl&gt;, `se.quant06.lect_pv@` &lt;dbl&gt;,
+## #   `b.quant08.lect_pv@` &lt;dbl&gt;, `se.quant08.lect_pv@` &lt;dbl&gt;</code></pre>
+<p>The quintile boundaries divide the mathematics and reading distributions into five equal-sized groups. The reported values correspond to the score thresholds separating adjacent quintiles. For example, students scoring above approximately <span class="math inline">\(576\)</span> points in mathematics fall in the highest-performing quintile in Benin.</p>
+</div>
+<div id="estimating-pasec-proficiency-levels-1" class="section level3 hasAnchor" number="7.6.4">
+<h3><span class="header-section-number">7.6.4</span> Estimating PASEC proficiency levels<a href="c07-r.html#estimating-pasec-proficiency-levels-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>PASEC defines a set of proficiency levels that describe what students know and can do at different points along the mathematics scale. In this example, we estimate the proportion of Grade 2 students in Benin who fall into each of the four PASEC mathematics proficiency levels.</p>
+<p>The four proficiency levels for Grade 2 mathematics are defined by PASEC as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th>PASEC Proficiency Level</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><span class="math inline">\(&lt; 400.34\)</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><span class="math inline">\(400.34 – 489.03\)</span></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><span class="math inline">\(489.03–577.73\)</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><span class="math inline">\(&gt;577.73\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>These boundaries are set on the PASEC international scale and are the same for all countries, enabling cross-country comparisons. If we want to provide estimates for the PASEC defined levels of proficiency, we first need to create dummy variables for each level.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="c07-r.html#cb79-1" tabindex="-1"></a><span class="co"># Create proficiency-level indicator variables for each plausible value</span></span>
+<span id="cb79-2"><a href="c07-r.html#cb79-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb79-3"><a href="c07-r.html#cb79-3" tabindex="-1"></a>  v <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;MATHS_PV&quot;</span>, i)</span>
+<span id="cb79-4"><a href="c07-r.html#cb79-4" tabindex="-1"></a>  x <span class="ot">&lt;-</span> g2[[v]]</span>
+<span id="cb79-5"><a href="c07-r.html#cb79-5" tabindex="-1"></a>  g2[[<span class="fu">paste0</span>(<span class="st">&quot;prop1_&quot;</span>, v)]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="sc">!</span><span class="fu">is.na</span>(x), <span class="fu">as.integer</span>(x <span class="sc">&lt;=</span> <span class="fl">400.34</span>), <span class="cn">NA</span>)</span>
+<span id="cb79-6"><a href="c07-r.html#cb79-6" tabindex="-1"></a>  g2[[<span class="fu">paste0</span>(<span class="st">&quot;prop2_&quot;</span>, v)]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="sc">!</span><span class="fu">is.na</span>(x), <span class="fu">as.integer</span>(x <span class="sc">&gt;</span> <span class="fl">400.34</span> <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="fl">489.03</span>), <span class="cn">NA</span>)</span>
+<span id="cb79-7"><a href="c07-r.html#cb79-7" tabindex="-1"></a>  g2[[<span class="fu">paste0</span>(<span class="st">&quot;prop3_&quot;</span>, v)]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="sc">!</span><span class="fu">is.na</span>(x), <span class="fu">as.integer</span>(x <span class="sc">&gt;</span> <span class="fl">489.03</span> <span class="sc">&amp;</span> x <span class="sc">&lt;</span> <span class="fl">577.73</span>), <span class="cn">NA</span>)</span>
+<span id="cb79-8"><a href="c07-r.html#cb79-8" tabindex="-1"></a>  g2[[<span class="fu">paste0</span>(<span class="st">&quot;prop4_&quot;</span>, v)]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="sc">!</span><span class="fu">is.na</span>(x), <span class="fu">as.integer</span>(x <span class="sc">&gt;</span> <span class="fl">577.73</span>), <span class="cn">NA</span>)</span>
+<span id="cb79-9"><a href="c07-r.html#cb79-9" tabindex="-1"></a>}</span>
+<span id="cb79-10"><a href="c07-r.html#cb79-10" tabindex="-1"></a><span class="co"># Mean proportion in each proficiency level for Benin</span></span>
+<span id="cb79-11"><a href="c07-r.html#cb79-11" tabindex="-1"></a>result_levels <span class="ot">&lt;-</span> <span class="fu">Rrepest</span>(</span>
+<span id="cb79-12"><a href="c07-r.html#cb79-12" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">subset</span>(g2, ID_PAYS <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb79-13"><a href="c07-r.html#cb79-13" tabindex="-1"></a>  <span class="at">svy =</span> <span class="st">&quot;SVY&quot;</span>,</span>
+<span id="cb79-14"><a href="c07-r.html#cb79-14" tabindex="-1"></a>  <span class="at">est =</span> <span class="fu">est</span>(<span class="st">&quot;mean&quot;</span>, <span class="at">target =</span> <span class="fu">c</span>(</span>
+<span id="cb79-15"><a href="c07-r.html#cb79-15" tabindex="-1"></a>    <span class="st">&quot;prop1_MATHS_PV@&quot;</span>, <span class="st">&quot;prop2_MATHS_PV@&quot;</span>,</span>
+<span id="cb79-16"><a href="c07-r.html#cb79-16" tabindex="-1"></a>    <span class="st">&quot;prop3_MATHS_PV@&quot;</span>, <span class="st">&quot;prop4_MATHS_PV@&quot;</span></span>
+<span id="cb79-17"><a href="c07-r.html#cb79-17" tabindex="-1"></a>  )),</span>
+<span id="cb79-18"><a href="c07-r.html#cb79-18" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm2,</span>
+<span id="cb79-19"><a href="c07-r.html#cb79-19" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">45</span>,</span>
+<span id="cb79-20"><a href="c07-r.html#cb79-20" tabindex="-1"></a>  <span class="at">n.pvs =</span> <span class="dv">5</span></span>
+<span id="cb79-21"><a href="c07-r.html#cb79-21" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Rrepest will use all availables CPU cores. If not intended, set the argument &#39;cores&#39; to the number of cores to use.</code></pre>
+<pre><code>## 1</code></pre>
+<pre><code>## 2</code></pre>
+<pre><code>## 3</code></pre>
+<pre><code>## 4</code></pre>
+<pre><code>## 5</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="c07-r.html#cb86-1" tabindex="-1"></a><span class="fu">print</span>(result_levels)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 9
+##   .     `b.mean.prop1_maths_pv@` `se.mean.prop1_maths_pv@` `b.mean.prop2_maths_pv@`
+##   &lt;chr&gt;                    &lt;dbl&gt;                     &lt;dbl&gt;                    &lt;dbl&gt;
+## 1 Total                    0.110                    0.0136                    0.271
+## # ℹ 5 more variables: `se.mean.prop2_maths_pv@` &lt;dbl&gt;, `b.mean.prop3_maths_pv@` &lt;dbl&gt;,
+## #   `se.mean.prop3_maths_pv@` &lt;dbl&gt;, `b.mean.prop4_maths_pv@` &lt;dbl&gt;,
+## #   `se.mean.prop4_maths_pv@` &lt;dbl&gt;</code></pre>
+<p>The results indicate that approximately <span class="math inline">\(11\%\)</span> of Grade 2 students in Benin fall below Level 1 (the lowest proficiency threshold), while around <span class="math inline">\(29\%\)</span> reach the highest level. The largest share of students falls in the middle proficiency levels. Because these estimates are derived from plausible values, the reported standard errors incorporate both measurement and sampling uncertainty.</p>
+</div>
+<div id="testing-for-differences-between-groups-1" class="section level3 hasAnchor" number="7.6.5">
+<h3><span class="header-section-number">7.6.5</span> Testing for differences between groups<a href="c07-r.html#testing-for-differences-between-groups-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The table below highlights the distinction between two common types of comparisons in PASEC data: within-country comparisons (e.g., boys versus girls in the same country) and between-country comparisons (e.g., Benin versus Burkina Faso). Because these comparisons involve different survey structures, they require slightly different analytical approaches.</p>
+<p>The examples that follow demonstrate how to test for differences in achievement between groups using regression models in repest.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Comparison Type</th>
+<th>What it measures</th>
+<th>Survey design impact</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Within-Country (e.g., Boys vs. Girls in Senegal)</td>
+<td>The gap between two demographic subgroups who share the same sampling strata, schools, and teachers.</td>
+<td>High covariance. Because groups are clustered together in the same schools, their errors are correlated.</td>
+</tr>
+<tr class="even">
+<td>Between-Country (e.g., Senegal vs Benin)</td>
+<td>The gap between two entirely independent populations with completely separate sampling frames</td>
+<td>Zero covariance. Sampling units in Country A have no mathematical relationship to sampling units in Country B</td>
+</tr>
+</tbody>
+</table>
+<p>In <code>Rrepest</code> you should use over for within-country comparisons and by for between-country comparisons. You must NOT use over for countries. When using <code>svy = 'SVY'</code>, the <code>over()</code> option is designed for within-country subgroup comparisons only. Using regression achieves the same goal and works correctly with the SVY option.</p>
+<div id="testing-for-differences-within-countries---differences-between-boys-and-girls-1" class="section level4 hasAnchor" number="7.6.5.1">
+<h4><span class="header-section-number">7.6.5.1</span> Testing for differences within countries - differences between boys and girls<a href="c07-r.html#testing-for-differences-within-countries---differences-between-boys-and-girls-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Are there differences in mathematics scores between boys and girls? We can use linear regression to test for this.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="c07-r.html#cb88-1" tabindex="-1"></a><span class="co"># Test for differences between boys and girls in mathematics scores in Benin</span></span>
+<span id="cb88-2"><a href="c07-r.html#cb88-2" tabindex="-1"></a>result_gender <span class="ot">&lt;-</span> <span class="fu">Rrepest</span>(</span>
+<span id="cb88-3"><a href="c07-r.html#cb88-3" tabindex="-1"></a>  <span class="at">data       =</span> <span class="fu">subset</span>(g2, ID_PAYS <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb88-4"><a href="c07-r.html#cb88-4" tabindex="-1"></a>  <span class="at">svy        =</span> <span class="st">&quot;SVY&quot;</span>,</span>
+<span id="cb88-5"><a href="c07-r.html#cb88-5" tabindex="-1"></a>  <span class="at">est        =</span> <span class="fu">est</span>(<span class="st">&quot;lm&quot;</span>, <span class="at">target =</span> <span class="st">&quot;MATHS_PV@&quot;</span>, <span class="at">regressor =</span> <span class="st">&quot;girl&quot;</span>),</span>
+<span id="cb88-6"><a href="c07-r.html#cb88-6" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm2,</span>
+<span id="cb88-7"><a href="c07-r.html#cb88-7" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">45</span>,</span>
+<span id="cb88-8"><a href="c07-r.html#cb88-8" tabindex="-1"></a>  <span class="at">n.pvs      =</span> <span class="dv">5</span></span>
+<span id="cb88-9"><a href="c07-r.html#cb88-9" tabindex="-1"></a>)</span>
+<span id="cb88-10"><a href="c07-r.html#cb88-10" tabindex="-1"></a><span class="fu">print</span>(result_gender)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
+##   .     `b.reg_maths_pv@.intercept` `se.reg_maths_pv@.intercept` `b.reg_maths_pv@.girl`
+##   &lt;chr&gt;                       &lt;dbl&gt;                        &lt;dbl&gt;                  &lt;dbl&gt;
+## 1 Total                        536.                         7.35                  -22.7
+## # ℹ 3 more variables: `se.reg_maths_pv@.girl` &lt;dbl&gt;, `b.reg_maths_pv@.rsqr` &lt;dbl&gt;,
+## #   `se.reg_maths_pv@.rsqr` &lt;dbl&gt;</code></pre>
+<p>The coefficient on girl provides the estimated difference in mathematics proficiency between girls and boys, together with the appropriate standard error and significance test. On average, girls’ scores are <span class="math inline">\(22.7\)</span> points lower than boys in Benin.
+What about differences in the proportion reaching PASEC level 4?</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="c07-r.html#cb90-1" tabindex="-1"></a><span class="co"># Test differences between boys and girls in percentage reaching PASEC level 4 in Benin</span></span>
+<span id="cb90-2"><a href="c07-r.html#cb90-2" tabindex="-1"></a>result_lev4 <span class="ot">&lt;-</span> <span class="fu">Rrepest</span>(</span>
+<span id="cb90-3"><a href="c07-r.html#cb90-3" tabindex="-1"></a>  <span class="at">data       =</span> <span class="fu">subset</span>(g2, ID_PAYS <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb90-4"><a href="c07-r.html#cb90-4" tabindex="-1"></a>  <span class="at">svy        =</span> <span class="st">&quot;SVY&quot;</span>,</span>
+<span id="cb90-5"><a href="c07-r.html#cb90-5" tabindex="-1"></a>  <span class="at">est        =</span> <span class="fu">est</span>(<span class="st">&quot;lm&quot;</span>, <span class="at">target =</span> <span class="st">&quot;prop4_MATHS_PV@&quot;</span>, <span class="at">regressor =</span> <span class="st">&quot;girl&quot;</span>),</span>
+<span id="cb90-6"><a href="c07-r.html#cb90-6" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm2,</span>
+<span id="cb90-7"><a href="c07-r.html#cb90-7" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">45</span>,</span>
+<span id="cb90-8"><a href="c07-r.html#cb90-8" tabindex="-1"></a>  <span class="at">n.pvs      =</span> <span class="dv">5</span></span>
+<span id="cb90-9"><a href="c07-r.html#cb90-9" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Rrepest will use all availables CPU cores. If not intended, set the argument &#39;cores&#39; to the number of cores to use.</code></pre>
+<pre><code>## 1</code></pre>
+<pre><code>## 2</code></pre>
+<pre><code>## 3</code></pre>
+<pre><code>## 4</code></pre>
+<pre><code>## 5</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="c07-r.html#cb97-1" tabindex="-1"></a><span class="fu">print</span>(result_lev4)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
+##   .     `b.reg_prop4_maths_pv@.intercept` se.reg_prop4_maths_pv@.int…¹ b.reg_prop4_maths_pv…²
+##   &lt;chr&gt;                             &lt;dbl&gt;                        &lt;dbl&gt;                  &lt;dbl&gt;
+## 1 Total                             0.329                       0.0268                -0.0850
+## # ℹ abbreviated names: ¹​`se.reg_prop4_maths_pv@.intercept`, ²​`b.reg_prop4_maths_pv@.girl`
+## # ℹ 3 more variables: `se.reg_prop4_maths_pv@.girl` &lt;dbl&gt;,
+## #   `b.reg_prop4_maths_pv@.rsqr` &lt;dbl&gt;, `se.reg_prop4_maths_pv@.rsqr` &lt;dbl&gt;</code></pre>
+<p>Girls are <span class="math inline">\(8.5\)</span> percentage points less likely to reach the highest proficiency level in mathematics than boys in Benin.</p>
+</div>
+<div id="testing-for-differences-between-countries-1" class="section level4 hasAnchor" number="7.6.5.2">
+<h4><span class="header-section-number">7.6.5.2</span> Testing for differences between countries<a href="c07-r.html#testing-for-differences-between-countries-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Are there differences in mean mathematics scores between Benin and Burkina Faso?</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="c07-r.html#cb99-1" tabindex="-1"></a><span class="co"># Test differences in mathematics scores between Benin and Burkina Faso</span></span>
+<span id="cb99-2"><a href="c07-r.html#cb99-2" tabindex="-1"></a><span class="co"># Convert ID_PAYS to factor so R creates an indicator for country 2</span></span>
+<span id="cb99-3"><a href="c07-r.html#cb99-3" tabindex="-1"></a>g2<span class="sc">$</span>ID_PAYS_f <span class="ot">&lt;-</span> <span class="fu">factor</span>(g2<span class="sc">$</span>ID_PAYS)</span>
+<span id="cb99-4"><a href="c07-r.html#cb99-4" tabindex="-1"></a>result_between <span class="ot">&lt;-</span> <span class="fu">Rrepest</span>(</span>
+<span id="cb99-5"><a href="c07-r.html#cb99-5" tabindex="-1"></a>  <span class="at">data       =</span> <span class="fu">subset</span>(g2, ID_PAYS <span class="sc">&lt;=</span> <span class="dv">2</span>),</span>
+<span id="cb99-6"><a href="c07-r.html#cb99-6" tabindex="-1"></a>  <span class="at">svy        =</span> <span class="st">&quot;SVY&quot;</span>,</span>
+<span id="cb99-7"><a href="c07-r.html#cb99-7" tabindex="-1"></a>  <span class="at">est        =</span> <span class="fu">est</span>(<span class="st">&quot;lm&quot;</span>, <span class="at">target =</span> <span class="st">&quot;MATHS_PV@&quot;</span>, <span class="at">regressor =</span> <span class="st">&quot;ID_PAYS_f&quot;</span>),</span>
+<span id="cb99-8"><a href="c07-r.html#cb99-8" tabindex="-1"></a>  <span class="at">cm.weights =</span> cm2,</span>
+<span id="cb99-9"><a href="c07-r.html#cb99-9" tabindex="-1"></a>  <span class="at">var.factor =</span> <span class="dv">45</span>,</span>
+<span id="cb99-10"><a href="c07-r.html#cb99-10" tabindex="-1"></a>  <span class="at">n.pvs      =</span> <span class="dv">5</span></span>
+<span id="cb99-11"><a href="c07-r.html#cb99-11" tabindex="-1"></a>)</span>
+<span id="cb99-12"><a href="c07-r.html#cb99-12" tabindex="-1"></a><span class="fu">print</span>(result_between)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
+##   .     `b.reg_maths_pv@.intercept` `se.reg_maths_pv@.intercept` `b.reg_maths_pv@.id_pays_f`
+##   &lt;chr&gt;                       &lt;dbl&gt;                        &lt;dbl&gt;                       &lt;dbl&gt;
+## 1 Total                        551.                         16.8                       -26.4
+## # ℹ 3 more variables: `se.reg_maths_pv@.id_pays_f` &lt;dbl&gt;, `b.reg_maths_pv@.rsqr` &lt;dbl&gt;,
+## #   `se.reg_maths_pv@.rsqr` &lt;dbl&gt;</code></pre>
+<p>Mathematics proficiency levels are <span class="math inline">\(26.4\)</span> points lower in Burkina Faso compared to Benin, a statistically significant difference.
+#### Testing for differences in percentiles
+You cannot use standard linear regression (<code>lm</code>) because it only models the conditional arithmetic mean. Instead, to test differences in percentiles, you must use Quantile Regression.
+Quantile regression works exactly like linear regression, but instead of drawing a line through the average of the data, it draws a line through a specific percentile (quantile) of the data.</p>
+<ul>
+<li><code>quantile = 0.50</code> models the Median (<span class="math inline">\(50th\)</span> Percentile).</li>
+<li><code>quantile = 0.25</code> models the <span class="math inline">\(25th\)</span> Percentile (Lower Bound).</li>
+<li><code>quantile = 0.75</code> models the <span class="math inline">\(75th\)</span> Percentile (Upper Bound).
+Just like <code>lm()</code>, quantile regression returns standard coefficients and standard error matrices.
+<code>Rrepest</code> supports quantile regression via the gen estimator, which accepts any R function that takes a data frame and a weight vector. The <code>quantreg</code> package provides the <code>rq()</code> function for this purpose.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="c06-stata.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/DataFirst-Courses/pasec-guide/edit/main/07-r.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/DataFirst-Courses/pasec-guide/blob/main/07-r.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

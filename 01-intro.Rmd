@@ -1,0 +1,4 @@
+# Introduction to the Guide {#ch01-intro}
+The public release of the PASEC microdata has created new opportunities for researchers, policymakers, and practitioners to explore learning outcomes across francophone Africa. The datasets can now be downloaded from the PASEC data portal, making it possible to conduct independent analyses of student achievement, educational inequalities, school effectiveness, and the factors associated with learning outcomes. 
+
+PASEC (Programme d’Analyse des Systèmes Éducatifs de la CONFEMEN) is one of the most important sources of comparative evidence on learning outcomes in francophone Africa. The 2019 assessment collected information on the reading and mathematics proficiency of students in Grade 2 and Grade 6 across fourteen countries, together with extensive contextual information on students, households, teachers, classrooms and schools. 

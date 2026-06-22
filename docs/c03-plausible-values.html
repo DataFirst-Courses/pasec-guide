@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 3 What are plausible values? | bookdownproj.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 3 What are plausible values? | bookdownproj.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 3 What are plausible values? | bookdownproj.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="c02-replicate-weights.html"/>
+<link rel="next" href="ch04-download.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="index.html"><img src="files/AFLEARN logo.png" alt="AFLEARN"></a></li>
+<li class="home-link"><a href="index.html"><i class="fa fa-home"></i> Guide home</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="ch01-intro.html"><a href="ch01-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to the Guide</a></li>
+<li class="part"><span><b>I Concept</b></span></li>
+<li class="chapter" data-level="2" data-path="c02-replicate-weights.html"><a href="c02-replicate-weights.html"><i class="fa fa-check"></i><b>2</b> What are replicate weights</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="c02-replicate-weights.html"><a href="c02-replicate-weights.html#worked-example-mean-age-in-grade-2-benin"><i class="fa fa-check"></i><b>2.1</b> Worked example: mean age in Grade 2, Benin</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="c03-plausible-values.html"><a href="c03-plausible-values.html"><i class="fa fa-check"></i><b>3</b> What are plausible values?</a>
+<ul>
+<li class="chapter" data-level="" data-path="c03-plausible-values.html"><a href="c03-plausible-values.html#alt5"><i class="fa fa-check"></i>Warning</a></li>
+<li class="chapter" data-level="3.1" data-path="c03-plausible-values.html"><a href="c03-plausible-values.html#worked-example-mean-language-proficiency-in-grade-2"><i class="fa fa-check"></i><b>3.1</b> Worked example: mean language proficiency in Grade 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ch04-download.html"><a href="ch04-download.html"><i class="fa fa-check"></i><b>4</b> Downloading the data</a></li>
+<li class="chapter" data-level="5" data-path="ch05-resources.html"><a href="ch05-resources.html"><i class="fa fa-check"></i><b>5</b> Resources for non-French speaking researchers</a></li>
+<li class="part"><span><b>II Analysis</b></span></li>
+<li class="chapter" data-level="6" data-path="c06-stata.html"><a href="c06-stata.html"><i class="fa fa-check"></i><b>6</b> Analyzing PASEC 2019 data in Stata</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="c06-stata.html"><a href="c06-stata.html#loading-data-in-stata"><i class="fa fa-check"></i><b>6.1</b> Loading data in Stata</a></li>
+<li class="chapter" data-level="6.2" data-path="c06-stata.html"><a href="c06-stata.html#applying-english-labels"><i class="fa fa-check"></i><b>6.2</b> Applying English labels</a></li>
+<li class="chapter" data-level="6.3" data-path="c06-stata.html"><a href="c06-stata.html#the-repest-package"><i class="fa fa-check"></i><b>6.3</b> The <code>repest</code> package</a></li>
+<li class="chapter" data-level="6.4" data-path="c06-stata.html"><a href="c06-stata.html#repest-command-syntax"><i class="fa fa-check"></i><b>6.4</b> <code>repest</code> command syntax</a></li>
+<li class="chapter" data-level="6.5" data-path="c06-stata.html"><a href="c06-stata.html#before-you-begin-set-up-repest-for-pasec"><i class="fa fa-check"></i><b>6.5</b> Before You begin: Set up <code>repest</code> for PASEC</a></li>
+<li class="chapter" data-level="6.6" data-path="c06-stata.html"><a href="c06-stata.html#pasec-analyses-examples"><i class="fa fa-check"></i><b>6.6</b> PASEC Analyses Examples</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="c06-stata.html"><a href="c06-stata.html#calculating-mean-age"><i class="fa fa-check"></i><b>6.6.1</b> Calculating Mean Age</a></li>
+<li class="chapter" data-level="" data-path="c06-stata.html"><a href="c06-stata.html#alt1"><i class="fa fa-check"></i>Alternative to generate the same result - svy</a></li>
+<li class="chapter" data-level="6.6.2" data-path="c06-stata.html"><a href="c06-stata.html#calculating-mean-mathematics-proficiency"><i class="fa fa-check"></i><b>6.6.2</b> Calculating Mean Mathematics Proficiency</a></li>
+<li class="chapter" data-level="" data-path="c06-stata.html"><a href="c06-stata.html#alt2"><i class="fa fa-check"></i>Alternative to generate the same result - pv</a></li>
+<li class="chapter" data-level="6.6.3" data-path="c06-stata.html"><a href="c06-stata.html#moving-beyond-means-summary-statistics-with-repest"><i class="fa fa-check"></i><b>6.6.3</b> Moving beyond means: summary statistics with <code>repest</code></a></li>
+<li class="chapter" data-level="6.6.4" data-path="c06-stata.html"><a href="c06-stata.html#estimating-pasec-proficiency-levels"><i class="fa fa-check"></i><b>6.6.4</b> Estimating PASEC proficiency levels</a></li>
+<li class="chapter" data-level="6.6.5" data-path="c06-stata.html"><a href="c06-stata.html#testing-for-differences-between-groups"><i class="fa fa-check"></i><b>6.6.5</b> Testing for differences between groups</a></li>
+<li class="chapter" data-level="6.6.6" data-path="c06-stata.html"><a href="c06-stata.html#multivariate-regression"><i class="fa fa-check"></i><b>6.6.6</b> Multivariate Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="c07-r.html"><a href="c07-r.html"><i class="fa fa-check"></i><b>7</b> Analyzing PASEC 2019 data in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="c07-r.html"><a href="c07-r.html#package-installation"><i class="fa fa-check"></i><b>7.1</b> Package installation</a></li>
+<li class="chapter" data-level="7.2" data-path="c07-r.html"><a href="c07-r.html#loading-data-in-r"><i class="fa fa-check"></i><b>7.2</b> Loading data in R</a></li>
+<li class="chapter" data-level="7.3" data-path="c07-r.html"><a href="c07-r.html#applying-english-labels-1"><i class="fa fa-check"></i><b>7.3</b> Applying English Labels</a></li>
+<li class="chapter" data-level="7.4" data-path="c07-r.html"><a href="c07-r.html#rrepest-command-syntax"><i class="fa fa-check"></i><b>7.4</b> <code>Rrepest</code> command syntax</a></li>
+<li class="chapter" data-level="7.5" data-path="c07-r.html"><a href="c07-r.html#before-you-begin-set-up-rrepest-for-pasec"><i class="fa fa-check"></i><b>7.5</b> Before you begin: Set up <code>Rrepest</code> for PASEC</a></li>
+<li class="chapter" data-level="7.6" data-path="c07-r.html"><a href="c07-r.html#pasec-analyses-examples-1"><i class="fa fa-check"></i><b>7.6</b> PASEC Analyses Examples</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="c07-r.html"><a href="c07-r.html#calculating-mean-age-by-country"><i class="fa fa-check"></i><b>7.6.1</b> Calculating Mean Age by Country</a></li>
+<li class="chapter" data-level="" data-path="c07-r.html"><a href="c07-r.html#alt3"><i class="fa fa-check"></i>Alternative to generate the same result using survey package</a></li>
+<li class="chapter" data-level="7.6.2" data-path="c07-r.html"><a href="c07-r.html#calculating-mean-mathematics-proficiency-1"><i class="fa fa-check"></i><b>7.6.2</b> Calculating mean mathematics proficiency</a></li>
+<li class="chapter" data-level="" data-path="c07-r.html"><a href="c07-r.html#alt4"><i class="fa fa-check"></i>Alternative to generate the same result using survey and mitools package</a></li>
+<li class="chapter" data-level="7.6.3" data-path="c07-r.html"><a href="c07-r.html#moving-beyond-means-summary-statistics-with-rrepest"><i class="fa fa-check"></i><b>7.6.3</b> Moving beyond means: summary statistics with <code>Rrepest</code></a></li>
+<li class="chapter" data-level="7.6.4" data-path="c07-r.html"><a href="c07-r.html#estimating-pasec-proficiency-levels-1"><i class="fa fa-check"></i><b>7.6.4</b> Estimating PASEC proficiency levels</a></li>
+<li class="chapter" data-level="7.6.5" data-path="c07-r.html"><a href="c07-r.html#testing-for-differences-between-groups-1"><i class="fa fa-check"></i><b>7.6.5</b> Testing for differences between groups</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<p class="guide-home-link">
+  <a href="index.html"><i class="fa fa-arrow-left"></i> Back to guide home</a>
+</p>
+<div id="c03-plausible-values" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number"> 3</span> What are plausible values?<a href="c03-plausible-values.html#c03-plausible-values" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Unlike variables such as age or gender, proficiency in reading or mathematics cannot be observed directly. Instead, it is inferred from students’ responses to assessment items using Item Response Theory (IRT).</p>
+<p><strong>Want to learn more?</strong> <a href="https://www.datafirst.uct.ac.za/aflearn/courses">Click here to explore how Item Response Theory (IRT) is used to estimate student proficiency from assessment responses.</a></p>
+<p>Each student’s observed responses provide only an imperfect indication of their underlying proficiency.</p>
+<p><strong>Why not assign a single score?</strong></p>
+<p>One possibility would be to estimate a single proficiency score for each student.</p>
+<p>However, doing so treats proficiency as though it were measured without error. In reality, there is uncertainty around each student’s estimated proficiency.</p>
+<p>Ignoring this uncertainty leads to:</p>
+<ul>
+<li>underestimated standard errors;</li>
+<li>biased estimates of population distributions;</li>
+<li>incorrect inference for subgroup comparisons and regression analyses.</li>
+</ul>
+<p>A plausible value is a random draw from the estimated distribution of proficiency for a student, conditional on:</p>
+<ul>
+<li>the student’s item responses; and</li>
+<li>characteristics of the students, their teachers and their schools. </li>
+</ul>
+<div id="alt5" class="section level3 unnumbered hasAnchor alternativebox-header">
+<h3>Warning<a href="c03-plausible-values.html#alt5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div class="alternativebox">
+<p>This conditioning on background variables is important because plausible values are generated partly using questionnaire responses. This means that some degree of dependency is introduced between the achievement variables and the background variables. For standard descriptive and associational analyses this is exactly what the methodology is designed for and should not cause concern. However, analysts building complex structural models should be aware of this feature.</p>
+</div>
+<p>Rather than assigning a single score, PASEC provides 5 plausible values for each student. The table below shows the five plausible values for language and mathematics proficiency for the first two students in the Grade 2 dataset.</p>
+<table>
+<colgroup>
+<col width="14%" />
+<col width="16%" />
+<col width="16%" />
+<col width="19%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Language</th>
+<th>Student 1</th>
+<th>Student 2</th>
+<th>Mathematics</th>
+<th>Student 1</th>
+<th>Student 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LECT_PV1</td>
+<td>640.55</td>
+<td>752.67</td>
+<td>MATHS_PV1</td>
+<td>627.75</td>
+<td>686.38</td>
+</tr>
+<tr class="even">
+<td>LECT_PV2</td>
+<td>646.15</td>
+<td>772.74</td>
+<td>MATHS_PV2</td>
+<td>612.41</td>
+<td>637.70</td>
+</tr>
+<tr class="odd">
+<td>LECT_PV3</td>
+<td>637.75</td>
+<td>797.04</td>
+<td>MATHS_PV3</td>
+<td>580.13</td>
+<td>714.87</td>
+</tr>
+<tr class="even">
+<td>LECT_PV4</td>
+<td>643.14</td>
+<td>752.71</td>
+<td>MATHS_PV4</td>
+<td>611.96</td>
+<td>683.39</td>
+</tr>
+<tr class="odd">
+<td>LECT_PV5</td>
+<td>681.09</td>
+<td>750.51</td>
+<td>MATHS_PV5</td>
+<td>649.46</td>
+<td>656.83</td>
+</tr>
+</tbody>
+</table>
+<p>These plausible values should be viewed as multiple imputations of latent proficiency</p>
+<p><strong>How are plausible values combined?</strong> </p>
+<p>Suppose we wish to estimate a population parameter <span class="math inline">\(Q\)</span> such as a mean mathematics score, using <span class="math inline">\(M\)</span> plausible values.</p>
+<p>First, the statistic is estimated separately using each plausible value:</p>
+<p><span class="math display">\[
+Q_1, Q_2, Q_3, Q_4, Q_5
+\]</span></p>
+<p>where <span class="math inline">\(Q_m\)</span> is the estimate obtained using plausible value <span class="math inline">\(m\)</span>.</p>
+<p><strong>Step 1: Calculate the final point estimate</strong></p>
+<p>The final estimate is simply the average across the plausible values: <span class="math display">\[
+\bar{Q} = \frac{1}{M} \sum_{m=1}^{M} Q_m
+\]</span> For PASEC: <span class="math display">\[
+\bar{Q} = \frac{Q_1 + Q_2 + Q_3 + Q_4 + Q_5}{5}
+\]</span> For example, if the five plausible-value means were:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Plausible value</th>
+<th>Mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PV1</td>
+<td>522</td>
+</tr>
+<tr class="even">
+<td>PV2</td>
+<td>528</td>
+</tr>
+<tr class="odd">
+<td>PV3</td>
+<td>526</td>
+</tr>
+<tr class="even">
+<td>PV4</td>
+<td>524</td>
+</tr>
+<tr class="odd">
+<td>PV5</td>
+<td>525</td>
+</tr>
+</tbody>
+</table>
+<p>then <span class="math display">\[
+\bar{Q} = \frac{522 + 528 + 526 + 524 + 525}{5} = 525
+\]</span> <strong>Step 2: Calculate the imputation variance</strong></p>
+<p>The imputation variance measures how much the estimates differ across plausible values: <span class="math display">\[
+B = \frac{1}{M-1} \sum_{m=1}^{M} (Q_m - \bar{Q})^2
+\]</span> where - <span class="math inline">\(B\)</span> = imputation variance; - <span class="math inline">\(M\)</span> = number of plausible values; - <span class="math inline">\(Q_m\)</span> = estimate from plausible value <span class="math inline">\(m\)</span>. For PASEC: <span class="math display">\[
+B = \frac{1}{4} \sum_{m=1}^{5} (Q_m - \bar{Q})^2
+\]</span> If all five plausible values produce very similar estimates, <span class="math inline">\(B\)</span> will be small. Larger values of <span class="math inline">\(B\)</span> indicate greater uncertainty arising from the measurement of proficiency.</p>
+<p><strong>Step 3: Calculate the sampling variance</strong></p>
+<p>For each plausible value, the paired jackknife replicate weights are used to calculate a sampling variance:</p>
+<p><span class="math display">\[
+U_1, U_2, U_3, U_4, U_5
+\]</span></p>
+<p>The average sampling variance is</p>
+<p><span class="math display">\[
+\bar{U} = \frac{1}{M} \sum_{m=1}^{M} U_m
+\]</span></p>
+<p>where <span class="math inline">\(U_m\)</span> is the jackknife variance estimate obtained for plausible value <span class="math inline">\(m\)</span>.</p>
+<p><strong>Step 4: Calculate the total variance</strong></p>
+<p>The final variance combines both sources of uncertainty:</p>
+<ol style="list-style-type: decimal">
+<li>Sampling uncertainty (from replicate weights)</li>
+<li>Measurement uncertainty (from plausible values)</li>
+</ol>
+<p>Using Rubin’s multiple-imputation formula:</p>
+<p><span class="math display">\[
+T = \bar{U} + \left(1 + \frac{1}{M}\right)B
+\]</span></p>
+<p>For PASEC:</p>
+<p><span class="math display">\[
+T = \bar{U} + 1.2B
+\]</span></p>
+<p>The factor <span class="math inline">\((1 + 1/M) = (1 + 1/5) = 1.2\)</span> slightly inflates the imputation variance to account for the fact that only a finite number of plausible values (<span class="math inline">\(M=5\)</span>) is used. With more plausible values, this factor would approach 1.</p>
+<p>The standard error is:</p>
+<p><span class="math display">\[
+SE = \sqrt{T}
+\]</span></p>
+<p><strong>Interpretation</strong></p>
+<p>The total variance has two components:</p>
+<p><span class="math display">\[
+T = \underbrace{\bar{U}}_{\text{sampling variance}} + \underbrace{\left(1 + \frac{1}{M}\right)B}_{\text{imputation variance}}
+\]</span></p>
+<p>The sampling variance reflects uncertainty due to observing only a sample of students rather than the entire population. The imputation variance reflects uncertainty in students’ latent proficiency estimates.</p>
+<div id="worked-example-mean-language-proficiency-in-grade-2" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Worked example: mean language proficiency in Grade 2<a href="c03-plausible-values.html#worked-example-mean-language-proficiency-in-grade-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The following example applies the four steps to estimate the weighted mean language proficiency among Grade 2 students. For each plausible value, the weighted mean (<span class="math inline">\(Q_m\)</span>) was calculated using the final weight <em>rwgt0</em>, and the jackknife sampling variance (<span class="math inline">\(U_m\)</span>) was calculated using the paired jackknife replicate weights <em>rwgt1</em>–<em>rwgt45</em> (see the Stata and R chapters for the replicate-weight procedure).</p>
+<p><strong>Step 1: Point estimate</strong></p>
+<p>For each plausible value, calculate the weighted mean. The final point estimate is the average of the five means:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Plausible value</th>
+<th align="right">Weighted mean (<span class="math inline">\(Q_m\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">LECT_PV1</td>
+<td align="right">524.0483</td>
+</tr>
+<tr class="even">
+<td align="left">LECT_PV2</td>
+<td align="right">525.8366</td>
+</tr>
+<tr class="odd">
+<td align="left">LECT_PV3</td>
+<td align="right">525.1532</td>
+</tr>
+<tr class="even">
+<td align="left">LECT_PV4</td>
+<td align="right">524.8666</td>
+</tr>
+<tr class="odd">
+<td align="left">LECT_PV5</td>
+<td align="right">524.1773</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Final estimate (</strong><span class="math inline">\(\bar{Q}\)</span>)</td>
+<td align="right"><strong>524.8164</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\bar{Q} = \frac{524.0483 + 525.8366 + 525.1532 + 524.8666 + 524.1773}{5} = 524.8164
+\]</span></p>
+<p><strong>Step 2: Sampling variance</strong></p>
+<p>For each plausible value, calculate the jackknife sampling variance from the replicate weights. The average sampling variance is:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Plausible value</th>
+<th align="right">Sampling variance (<span class="math inline">\(U_m\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">LECT_PV1</td>
+<td align="right">59.1751</td>
+</tr>
+<tr class="even">
+<td align="left">LECT_PV2</td>
+<td align="right">62.9129</td>
+</tr>
+<tr class="odd">
+<td align="left">LECT_PV3</td>
+<td align="right">60.3660</td>
+</tr>
+<tr class="even">
+<td align="left">LECT_PV4</td>
+<td align="right">56.2916</td>
+</tr>
+<tr class="odd">
+<td align="left">LECT_PV5</td>
+<td align="right">55.3909</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Average (</strong><span class="math inline">\(\bar{U}\)</span>)</td>
+<td align="right"><strong>58.8273</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\bar{U} = \frac{59.1751 + 62.9129 + 60.3660 + 56.2916 + 55.3909}{5} = 58.8273
+\]</span></p>
+<p><strong>Step 3: Imputation variance</strong></p>
+<p>Calculate the squared deviation of each plausible-value mean from <span class="math inline">\(\bar{Q}\)</span>, sum the deviations, and divide by <span class="math inline">\(M - 1 = 4\)</span>:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Plausible value</th>
+<th align="right"><span class="math inline">\(Q_m\)</span></th>
+<th align="right"><span class="math inline">\((Q_m - \bar{Q})^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">LECT_PV1</td>
+<td align="right">524.0483</td>
+<td align="right">0.5900</td>
+</tr>
+<tr class="even">
+<td align="left">LECT_PV2</td>
+<td align="right">525.8366</td>
+<td align="right">1.0408</td>
+</tr>
+<tr class="odd">
+<td align="left">LECT_PV3</td>
+<td align="right">525.1532</td>
+<td align="right">0.1134</td>
+</tr>
+<tr class="even">
+<td align="left">LECT_PV4</td>
+<td align="right">524.8666</td>
+<td align="right">0.0025</td>
+</tr>
+<tr class="odd">
+<td align="left">LECT_PV5</td>
+<td align="right">524.1773</td>
+<td align="right">0.4084</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Sum</strong></td>
+<td align="right"></td>
+<td align="right"><strong>2.1552</strong></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+B = \frac{1}{4}\left(0.5900 + 1.0408 + 0.1134 + 0.0025 + 0.4084\right) = \frac{2.1552}{4} = 0.5388
+\]</span></p>
+<p>The five plausible-value means are very close to one another, so the imputation variance is small.</p>
+<p><strong>Step 4: Total variance and standard error</strong></p>
+<p>Combine sampling and measurement uncertainty using Rubin’s formula:</p>
+<p><span class="math display">\[
+T = \bar{U} + 1.2B = 58.8273 + 1.2 \times 0.5388 = 59.4738
+\]</span></p>
+<p><span class="math display">\[
+SE = \sqrt{T} = \sqrt{59.4738} = 7.7119
+\]</span></p>
+<p><strong>Summary</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Quantity</th>
+<th align="left">Symbol</th>
+<th align="right">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Point estimate</td>
+<td align="left"><span class="math inline">\(\bar{Q}\)</span></td>
+<td align="right">524.82</td>
+</tr>
+<tr class="even">
+<td align="left">Average sampling variance</td>
+<td align="left"><span class="math inline">\(\bar{U}\)</span></td>
+<td align="right">58.83</td>
+</tr>
+<tr class="odd">
+<td align="left">Imputation variance</td>
+<td align="left"><span class="math inline">\(B\)</span></td>
+<td align="right">0.54</td>
+</tr>
+<tr class="even">
+<td align="left">Total variance</td>
+<td align="left"><span class="math inline">\(T\)</span></td>
+<td align="right">59.47</td>
+</tr>
+<tr class="odd">
+<td align="left">Standard error</td>
+<td align="left"><span class="math inline">\(SE\)</span></td>
+<td align="right">7.71</td>
+</tr>
+</tbody>
+</table>
+<p>In this example, sampling uncertainty (<span class="math inline">\(\bar{U} = 58.83\)</span>) accounts for almost all of the total variance. The imputation variance (<span class="math inline">\(B = 0.54\)</span>) is small because the five plausible values produce very similar mean estimates, but it is still included in the final standard error.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="c02-replicate-weights.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ch04-download.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/DataFirst-Courses/pasec-guide/edit/main/03-plausible-values.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/DataFirst-Courses/pasec-guide/blob/main/03-plausible-values.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

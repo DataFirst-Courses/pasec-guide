@@ -1,0 +1,106 @@
+# (PART) Concept {-}
+# What are replicate weights {#c02-replicate-weights}
+
+PASEC does not use a simple random sample of students. Instead, students are selected through a complex multi-stage sampling design involving schools, classrooms and students. As a result, observations are not statistically independent and standard formulas for standard errors are inappropriate.
+
+If we ignored the sampling design and analysed the data using ordinary weighted statistics, point estimates such as means would often remain similar, but standard errors would usually be underestimated.
+
+**The idea behind replicate weights**
+
+Replicate weights provide a practical way of estimating sampling variance.
+
+Rather than calculating standard errors directly from information about strata and primary sampling units, PASEC supplies a series of alternative weights known as replicate weights. Each replicate weight reflects a slightly modified version of the original sample.
+
+The statistic of interest is calculated repeatedly:
+
+-   Once using the final weight.
+-   Once for each replicate weight.
+
+The variation across these replicate estimates is then used to calculate the sampling variance.
+
+**Replicate weights in PASEC**
+
+PASEC 2019 uses the paired jackknife replication method.
+
+In statistical resampling, the delete-one jackknife (leave-one-out) omits a single observation per iteration, generating n subsamples. The paired jackknife (delete-groups) omits predefined clusters or pairs of observations together. Delete-one is standard for simple, small datasets; the paired approach is essential for complex, stratified survey data where dropping single random observations would destroy the correlation structures and clustering inherent in the data. For practical purposes, this means that the replicate weights supplied in the PASEC datasets should be used as-is. Researchers do not need to create or modify them.
+
+The student-level datasets contain:
+
+| Dataset | Final weight | Replicate weights |
+|---------|--------------|-------------------|
+| Grade 2 | rwgt0        | rwgt1-rwgt45      |
+| Grade 6 | rwgt0        | rwgt1-rwgt90      |
+
+|         |       |              |
+|---------|-------|--------------|
+| Grade 6 | rwgt0 | rwgt1–rwgt90 |
+
+The final weight (rwgt0) is used to produce population estimates. The replicate weights are used to estimate standard errors.
+
+Most users can analyse PASEC data without understanding the mathematics behind replicate weights. However, if you'd like to learn more about how standard errors are calculated, click here to explore the paired jackknife method and variance estimation formula.
+
+Fortunately, researchers do not need to perform these calculations manually. R packages such as `Rrepest` and Stata's survey commands perform these calculations automatically.
+
+The paired jackknife variance estimator can be written as:
+
+$$
+\mathrm{Var}(\hat{\theta}) = \sum_{r=1}^{R} (\hat{\theta}_r - \hat{\theta})^2
+$$
+
+where
+
+-   $\hat{\theta}$ is the estimate using the final weight *rwgt0*
+
+-   $\hat{\theta}_r$ is the estimate using replicate weight $r$ (*rwgt1*-*rwgt45*)
+
+-   $R$ is the number of replicate weights ($R = 45$ for grade 2; $R = 90$ for grade 6).
+
+The standard error is $\sqrt{\mathrm{Var}(\hat{\theta})}$
+
+Because age is an observed variable, only this sampling variance is needed — there is no imputation variance to combine.
+
+## Worked example: mean age in Grade 2, Benin
+
+The following example estimates the weighted mean age (*qe22*) of Grade 2 students in Benin, excluding missing values coded as 99. Each mean is calculated using the final weight or one of the 45 paired jackknife replicate weights.
+
+**Step 1: Calculate the weighted mean using *rwgt0*:** $$
+\hat{\theta} = 7.5865
+$$ **Step 2: Calculate the weighted mean using each replicate weight** $\hat{\theta}_r$**.**
+
+|          | Mean     |
+|----------|----------|
+| *rwgt1*  | 7.561751 |
+| *rwgt2*  | 7.562885 |
+| *rwgt3*  | 7.578231 |
+| *rwgt4*  | 7.587026 |
+| $\vdots$ | $\vdots$ |
+| *rwgt45* | 7.566877 |
+
+The first and last few replicates are shown below; the same calculation is repeated for all 45 replicate weights.
+
+**Step 3: For each replicate, calculate the squared deviation from the final estimate:**
+
+|          | $\hat{\theta}_r$ | $(\hat{\theta}_r - \hat{\theta})^2$ |
+|----------|------------------|-------------------------------------|
+| *rwgt1*  | 7.561751         | 0.0000                              |
+| *rwgt2*  | 7.562885         | 0.0000                              |
+| *rwgt3*  | 7.578231         | 0.0001                              |
+| *rwgt4*  | 7.587026         | 0.0000                              |
+| $\vdots$ | $\vdots$         | $\vdots$                            |
+| *rwgt45* | 7.566877         | 0.0000                              |
+
+The replicate means are all very close to $\hat{\theta}$, so each squared deviation is small.
+
+**Step 4: The sampling variance is the sum the squared deviations across all 45 replicates:** $$
+\mathrm{Var}(\hat{\theta}) = \sum_{r=1}^{45} (\hat{\theta}_r - \hat{\theta})^2 = 0.003582
+$$ **Step 5: Standard error** $$
+SE = \sqrt{0.003582} = 0.0599
+$$ **Summary**
+
+| Quantity          | Symbol                       | Value  |
+|-------------------|------------------------------|--------|
+| Point estimate    | $\hat{\theta}$               | 7.59   |
+| Sampling variance | $\mathrm{Var}(\hat{\theta})$ | 0.0036 |
+| Standard error    | $SE$                         | 0.06   |
+
+The estimated mean age is 7.59 years with a standard error of 0.06 years. This matches the result obtained using `repest` or `Rrepest` in the Stata and R chapters, where the jackknife calculation is carried out automatically.

@@ -1,0 +1,7 @@
+# Resources for non-French speaking researchers {#ch05-resources}
+
+The original PASEC datasets and documentation are provided in French. To encourage wider use of the rich PASEC data, AFLEARN provides an English-language codebook and do-files that apply English variable and value labels to both the Grade 2 and Grade 6 datasets.
+
+Access the English-language resources here
+
+Copy the labelling do-files (*PASEC2019_Grade2_EN_labels.do* and *PASEC2019_Grade6_EN_labels.do*) into your working directory before proceeding with the examples below.
