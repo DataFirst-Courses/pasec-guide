@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="" xml:lang="">
 <head>
 
@@ -219,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This section provides a practical introduction to analysing PASEC 2019 data in Stata using the <code>repest</code> package. It is intended for users with a basic working knowledge of Stata and includes step-by-step examples covering common PASEC analyses.</p>
 <div id="loading-data-in-stata" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Loading data in Stata<a href="c06-stata.html#loading-data-in-stata" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>For hands-on examples we’ll start with the Grade 2 study.</p>
+<p>For hands-on examples weΓÇÖll start with the Grade 2 study.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="c06-stata.html#cb1-1" tabindex="-1"></a>* Set the path to your working folder <span class="kw">if</span> needed.</span>
 <span id="cb1-2"><a href="c06-stata.html#cb1-2" tabindex="-1"></a>* Paths below are relative to the project root.</span>
 <span id="cb1-3"><a href="c06-stata.html#cb1-3" tabindex="-1"></a></span>
@@ -247,7 +247,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## qe21d already numeric; no replace</code></pre>
 <p>The <code>numlabel, add</code> command displays the numeric code alongside the value label in tabulations (for example, 1. Benin rather than just Benin). This makes it easier to write if conditions using the correct numeric codes in subsequent commands.</p>
-<p>After loading the file, let’s check if we have the most important variables that repest uses. The five plausible values for language and mathematics are <em>LECT_PV1</em> to <em>LECT_PV5</em> and <em>MATHS_PV1</em> to <em>MATHS_PV5</em>. The final weight is <em>rwgt0</em>. The replicate weights are <em>rwgt1</em> to <em>rwgt45</em> and countries are indicated by <em>ID_PAYS</em>.</p>
+<p>After loading the file, letΓÇÖs check if we have the most important variables that repest uses. The five plausible values for language and mathematics are <em>LECT_PV1</em> to <em>LECT_PV5</em> and <em>MATHS_PV1</em> to <em>MATHS_PV5</em>. The final weight is <em>rwgt0</em>. The replicate weights are <em>rwgt1</em> to <em>rwgt45</em> and countries are indicated by <em>ID_PAYS</em>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="c06-stata.html#cb5-1" tabindex="-1"></a><span class="kw">describe</span> LECT_PV1-MATHS_PV5 ID_PAYS rwgt0 rwgt1-rwgt45</span></code></pre></div>
 <pre><code>## Variable      Storage   Display    Value
 ##     name         type    format    label      Variable label
@@ -327,7 +327,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb8"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb8-1"><a href="c06-stata.html#cb8-1" tabindex="-1"></a>repest svyname [<span class="kw">if</span>] [<span class="kw">in</span>] , estimate(cmd [,cmd_options]) [options]</span></code></pre></div>
 <ul>
 <li><p><code>svyname</code>: Either one of the study names supported by the package (e,g., PISA, TIMSS, PIRLS) or SVY which allows you to specify the survey design.</p></li>
-<li><p><code>estimate(cmd [,cmd_options)</code>: Specifies the statistical command to run. <code>cmd</code> can be any Stata command that accepts weights — for example, <code>mean</code>, <code>reg</code>, <code>qreg</code>, or the built-in repest commands <code>means</code>, <code>freq</code>, <code>summarize</code>, <code>corr</code> and <code>quantiletable</code>. Command-specific options are passed after a comma within the parentheses.</p></li>
+<li><p><code>estimate(cmd [,cmd_options)</code>: Specifies the statistical command to run. <code>cmd</code> can be any Stata command that accepts weights ΓÇö for example, <code>mean</code>, <code>reg</code>, <code>qreg</code>, or the built-in repest commands <code>means</code>, <code>freq</code>, <code>summarize</code>, <code>corr</code> and <code>quantiletable</code>. Command-specific options are passed after a comma within the parentheses.</p></li>
 </ul>
 </div>
 <div id="before-you-begin-set-up-repest-for-pasec" class="section level2 hasAnchor" number="6.5">
@@ -393,7 +393,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.6</span> PASEC Analyses Examples<a href="c06-stata.html#pasec-analyses-examples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="calculating-mean-age" class="section level3 hasAnchor" number="6.6.1">
 <h3><span class="header-section-number">6.6.1</span> Calculating Mean Age<a href="c06-stata.html#calculating-mean-age" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Let’s start by calculating the average age of students in Grade 2 in Benin. The age variable is <em>qe22</em>. Let’s inspect the <em>ID_PAYS</em> and <em>qe22</em> variables.</p>
+<p>LetΓÇÖs start by calculating the average age of students in Grade 2 in Benin. The age variable is <em>qe22</em>. LetΓÇÖs inspect the <em>ID_PAYS</em> and <em>qe22</em> variables.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb11-1"><a href="c06-stata.html#cb11-1" tabindex="-1"></a><span class="kw">tab</span> ID_PAYS</span></code></pre></div>
 <pre><code>##               Country identifier |      Freq.     Percent        Cum.
 ## ---------------------------------+-----------------------------------
@@ -415,7 +415,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                            Total |     21,933      100.00</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb13-1"><a href="c06-stata.html#cb13-1" tabindex="-1"></a><span class="kw">tab</span> qe22</span></code></pre></div>
 <pre><code>##        Student age |
-##             [4–16] |      Freq.     Percent        Cum.
+##             [4ΓÇô16] |      Freq.     Percent        Cum.
 ## -------------------+-----------------------------------
 ##                  4 |          2        0.01        0.01
 ##                  5 |         83        0.38        0.39
@@ -438,7 +438,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##        99. Missing |        211        0.96      100.00
 ## -------------------+-----------------------------------
 ##              Total |     21,933      100.00</code></pre>
-<p>NOTE: Benin is coded as <span class="math inline">\(1\)</span>. Missing age values are coded as <span class="math inline">\(99\)</span>. Because <span class="math inline">\(99\)</span> is a placeholder used to indicate missing data rather than a learner’s actual age, these observations should be excluded from analyses involving age. Failure to do so will produce misleading results. To calculate the average age of students in Grade <span class="math inline">\(2\)</span> in Benin, the syntax is as follows:</p>
+<p>NOTE: Benin is coded as <span class="math inline">\(1\)</span>. Missing age values are coded as <span class="math inline">\(99\)</span>. Because <span class="math inline">\(99\)</span> is a placeholder used to indicate missing data rather than a learnerΓÇÖs actual age, these observations should be excluded from analyses involving age. Failure to do so will produce misleading results. To calculate the average age of students in Grade <span class="math inline">\(2\)</span> in Benin, the syntax is as follows:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb15-1"><a href="c06-stata.html#cb15-1" tabindex="-1"></a>*Calculating average age <span class="kw">in</span> Benin </span>
 <span id="cb15-2"><a href="c06-stata.html#cb15-2" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="c06-stata.html#cb15-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1&amp;qe22&lt;99, estimate(<span class="kw">mean</span> qe22) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
@@ -453,7 +453,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##         qe22 |    7.56647   .0598516   126.42   0.000     7.449163    7.683777
 ## ------------------------------------------------------------------------------</code></pre>
 <p>Because age is an observed variable rather than a plausible-value variable, repest uses only the sampling variance derived from the replicate weights. The reported standard error therefore reflects uncertainty arising from the sample design but not measurement uncertainty.</p>
-<p>The estimated mean age of Grade 2 students in Benin is <span class="math inline">\(7.57\)</span> years (<span class="math inline">\(95\%\)</span> CI: <span class="math inline">\(7.45–7.68\)</span>). This reflects the substantial grade repetition and late entry common in the region, with many students aged 9–11 also enrolled in Grade 2.</p>
+<p>The estimated mean age of Grade 2 students in Benin is <span class="math inline">\(7.57\)</span> years (<span class="math inline">\(95\%\)</span> CI: <span class="math inline">\(7.45ΓÇô7.68\)</span>). This reflects the substantial grade repetition and late entry common in the region, with many students aged 9ΓÇô11 also enrolled in Grade 2.</p>
 </div>
 <div id="alt1" class="section level3 unnumbered hasAnchor alternativebox-header">
 <h3>Alternative to generate the same result - svy<a href="c06-stata.html#alt1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -476,7 +476,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>The weighting process may include calibration steps not reflected in the released design variables.</p></li>
 </ol>
 <p>Furthermore, using ordinary survey declarations with <code>svyset</code> will generally not reproduce the official PASEC standard error.</p>
-<p>Stata’s <code>svyset</code> can be configured to use the paired jackknife replicate weights, producing the standard errors as official PASEC results.</p>
+<p>StataΓÇÖs <code>svyset</code> can be configured to use the paired jackknife replicate weights, producing the standard errors as official PASEC results.</p>
 <p>The syntax to generate the same result is</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb18-1"><a href="c06-stata.html#cb18-1" tabindex="-1"></a>*<span class="kw">set</span> up <span class="kw">for</span> <span class="kw">svyset</span> to <span class="kw">generate</span> same result: </span>
 <span id="cb18-2"><a href="c06-stata.html#cb18-2" tabindex="-1"></a></span>
@@ -518,7 +518,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>An alternative Stata command for analysing plausible values is pv. The syntax to generate the same result is</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb22-1"><a href="c06-stata.html#cb22-1" tabindex="-1"></a>pv, pv(LECT_PV*) jrr jk(2) <span class="kw">weight</span>(rwgt0) rw(rwgt1-rwgt45): <span class="kw">mean</span>  @pv [aw = @w] <span class="kw">if</span> ID_PAYS==1 </span></code></pre></div>
 </div>
-<p>Now let’s get means of mathematics and literacy for each country by including the by option.</p>
+<p>Now letΓÇÖs get means of mathematics and literacy for each country by including the by option.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="c06-stata.html#cb23-1" tabindex="-1"></a>*Means <span class="kw">of</span> mathematics and literacy <span class="kw">for</span> each country </span>
 <span id="cb23-2"><a href="c06-stata.html#cb23-2" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="c06-stata.html#cb23-3" tabindex="-1"></a>repest SVY, estimate(<span class="kw">mean</span> MATHS_PV@ LECT_PV@) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) <span class="kw">by</span>(ID_PAYS) </span></code></pre></div>
@@ -623,11 +623,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td>2</td>
-<td><span class="math inline">\(400.34 – 489.03\)</span></td>
+<td><span class="math inline">\(400.34 ΓÇô 489.03\)</span></td>
 </tr>
 <tr class="odd">
 <td>3</td>
-<td><span class="math inline">\(489.03–577.73\)</span></td>
+<td><span class="math inline">\(489.03ΓÇô577.73\)</span></td>
 </tr>
 <tr class="even">
 <td>4</td>
@@ -686,7 +686,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td>Within-Country (e.g., Boys vs. Girls in Senegal)</td>
+<td>Within-Country (e.g., Boys vs.┬áGirls in Senegal)</td>
 <td>The gap between two demographic subgroups who share the same sampling strata, schools, and teachers.</td>
 <td>High covariance. Because groups are clustered together in the same schools, their errors are correlated.</td>
 </tr>
@@ -715,7 +715,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##         girl |  -22.71577   4.796301    -4.74   0.000    -32.11634   -13.31519
 ##        _cons |   535.7972   7.152936    74.91   0.000     521.7777    549.8167
 ## ------------------------------------------------------------------------------</code></pre>
-<p>The coefficient on girl provides the estimated difference in mathematics proficiency between girls and boys, together with the appropriate standard error and significance test. On average, girls’ scores are <span class="math inline">\(22.7\)</span> points lower than boys in Benin.</p>
+<p>The coefficient on girl provides the estimated difference in mathematics proficiency between girls and boys, together with the appropriate standard error and significance test. On average, girlsΓÇÖ scores are <span class="math inline">\(22.7\)</span> points lower than boys in Benin.</p>
 <p>What about differences in the proportion reaching PASEC level <span class="math inline">\(4\)</span>?</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb33-1"><a href="c06-stata.html#cb33-1" tabindex="-1"></a>*Test differences between boys and girls <span class="kw">in</span> percentage reaching PASEC <span class="dv">level</span> 4 <span class="kw">in</span> Benin</span>
 <span id="cb33-2"><a href="c06-stata.html#cb33-2" tabindex="-1"></a></span>
@@ -799,10 +799,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="multivariate-regression" class="section level3 hasAnchor" number="6.6.6">
 <h3><span class="header-section-number">6.6.6</span> Multivariate Regression<a href="c06-stata.html#multivariate-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Now let’s use the Grade <span class="math inline">\(6\)</span> data. There are <span class="math inline">\(90\)</span> replicate weights so we will need to replace <code>NREP(45)</code> with <code>NREP(90)</code> in the <code>svyparm()</code> suboptions.</p>
+<p>Now letΓÇÖs use the Grade <span class="math inline">\(6\)</span> data. There are <span class="math inline">\(90\)</span> replicate weights so we will need to replace <code>NREP(45)</code> with <code>NREP(90)</code> in the <code>svyparm()</code> suboptions.</p>
 <p>Grade 6 setup</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb41-1"><a href="c06-stata.html#cb41-1" tabindex="-1"></a>repest SVY [<span class="kw">if</span>] [<span class="kw">in</span>] , estimate(cmd [,cmd_options]) [options] svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(90) variancefactor(1)) </span></code></pre></div>
-<p>In this example, we’ll analyze the association between students’ math scores (<em>MATHS_PV@</em>) and their gender (<em>qe63</em>) and socio-economic status (<em>ses</em>) in Cote D’Ivoire. The ses variable is a composite socioeconomic status index derived from the PASEC household questionnaire.</p>
+<p>In this example, weΓÇÖll analyze the association between studentsΓÇÖ math scores (<em>MATHS_PV@</em>) and their gender (<em>qe63</em>) and socio-economic status (<em>ses</em>) in Cote DΓÇÖIvoire. The ses variable is a composite socioeconomic status index derived from the PASEC household questionnaire.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb42-1"><a href="c06-stata.html#cb42-1" tabindex="-1"></a>* Load Grade 6 <span class="kw">data</span></span>
 <span id="cb42-2"><a href="c06-stata.html#cb42-2" tabindex="-1"></a><span class="kw">use</span> <span class="st">&quot;data/PASEC2019_GRADE6_INT.dta&quot;</span>, <span class="kw">clear</span></span></code></pre></div>
 <pre><code>## (PASEC2019_LIVRET_D_FIN_PRIMAIRE)</code></pre>
@@ -836,12 +836,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## r(111);</code></pre>
 <p>The <code>results(add(r2 N))</code> option: This option allows you to add extra statistics to the results table, which Stata stores by default. Here, we add R-squared (<code>e_r2</code>) - a measure of model fit, and number of observations (<code>e_N</code>). Note that <code>repest</code> stores these additional statistics internally as <code>e_r2</code> and <code>e_N</code>, and these are the names shown in the output table.</p>
-<p>The regression estimates the association between mathematics proficiency, socioeconomic status (SES), and gender among Grade <span class="math inline">\(6\)</span> students in Côte d’Ivoire while correctly accounting for both plausible values and the PASEC replicate-weight design.</p>
+<p>The regression estimates the association between mathematics proficiency, socioeconomic status (SES), and gender among Grade <span class="math inline">\(6\)</span> students in C├┤te dΓÇÖIvoire while correctly accounting for both plausible values and the PASEC replicate-weight design.</p>
 <p>The results indicate a strong positive association between socioeconomic status and mathematics achievement. A one-unit increase in the SES index is associated with an increase of approximately <span class="math inline">\(2.17\)</span> points in mathematics proficiency (coefficient <span class="math inline">\(= 2.17\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>). This relationship is statistically significant, suggesting that students from more advantaged socioeconomic backgrounds tend to perform better in mathematics.</p>
 <p>The coefficient on the female indicator (girl) is <span class="math inline">\(-11.62\)</span> (<span class="math inline">\(p &lt; 0.001\)</span>), indicating that girls score, on average, about 12 points lower than boys with similar socioeconomic status. Because SES is included in the model, this estimated gender gap reflects differences between boys and girls after accounting for socioeconomic background.</p>
 <p>The constant term (<span class="math inline">\(349\)</span>) represents the predicted mathematics score for a boy with an SES value of zero. While the intercept is necessary for estimation, it is typically of limited substantive interest because an SES value of zero may not correspond to a meaningful student profile.</p>
-<p>Overall, the results suggest that both socioeconomic status and gender are important correlates of mathematics achievement in Côte d’Ivoire. Higher socioeconomic status is associated with better performance, while girls perform less well than boys on average, even after controlling for socioeconomic differences.</p>
-<p>It is important to remember that these coefficients describe associations rather than causal effects. The regression does not imply that increasing a student’s socioeconomic status by one unit would necessarily increase their mathematics score by <span class="math inline">\(2.17\)</span> points. Other factors associated with socioeconomic status, such as school quality, parental education, household resources, and learning opportunities, may also contribute to the observed relationship.</p>
+<p>Overall, the results suggest that both socioeconomic status and gender are important correlates of mathematics achievement in C├┤te dΓÇÖIvoire. Higher socioeconomic status is associated with better performance, while girls perform less well than boys on average, even after controlling for socioeconomic differences.</p>
+<p>It is important to remember that these coefficients describe associations rather than causal effects. The regression does not imply that increasing a studentΓÇÖs socioeconomic status by one unit would necessarily increase their mathematics score by <span class="math inline">\(2.17\)</span> points. Other factors associated with socioeconomic status, such as school quality, parental education, household resources, and learning opportunities, may also contribute to the observed relationship.</p>
 
 </div>
 </div>
