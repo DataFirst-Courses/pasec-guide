@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-=======
 ﻿<!DOCTYPE html>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <html lang="" xml:lang="">
 <head>
 
@@ -223,11 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This section provides a practical introduction to analysing PASEC 2019 data in Stata using the <code>repest</code> package. It is intended for users with a basic working knowledge of Stata and includes step-by-step examples covering common PASEC analyses.</p>
 <div id="loading-data-in-stata" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Loading data in Stata<a href="c06-stata.html#loading-data-in-stata" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<<<<<<< HEAD
-<p>For hands-on examples we’ll start with the Grade 2 study.</p>
-=======
 <p>For hands-on examples weΓÇÖll start with the Grade 2 study.</p>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <div class="sourceCode" id="cb1"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb1-1"><a href="c06-stata.html#cb1-1" tabindex="-1"></a>* Set the path to your working folder <span class="kw">if</span> needed.</span>
 <span id="cb1-2"><a href="c06-stata.html#cb1-2" tabindex="-1"></a>* Paths below are relative to the project root.</span>
 <span id="cb1-3"><a href="c06-stata.html#cb1-3" tabindex="-1"></a></span>
@@ -255,11 +247,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## qe21d already numeric; no replace</code></pre>
 <p>The <code>numlabel, add</code> command displays the numeric code alongside the value label in tabulations (for example, 1. Benin rather than just Benin). This makes it easier to write if conditions using the correct numeric codes in subsequent commands.</p>
-<<<<<<< HEAD
-<p>After loading the file, let’s check if we have the most important variables that repest uses. The five plausible values for language and mathematics are <em>LECT_PV1</em> to <em>LECT_PV5</em> and <em>MATHS_PV1</em> to <em>MATHS_PV5</em>. The final weight is <em>rwgt0</em>. The replicate weights are <em>rwgt1</em> to <em>rwgt45</em> and countries are indicated by <em>ID_PAYS</em>.</p>
-=======
 <p>After loading the file, letΓÇÖs check if we have the most important variables that repest uses. The five plausible values for language and mathematics are <em>LECT_PV1</em> to <em>LECT_PV5</em> and <em>MATHS_PV1</em> to <em>MATHS_PV5</em>. The final weight is <em>rwgt0</em>. The replicate weights are <em>rwgt1</em> to <em>rwgt45</em> and countries are indicated by <em>ID_PAYS</em>.</p>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="c06-stata.html#cb5-1" tabindex="-1"></a><span class="kw">describe</span> LECT_PV1-MATHS_PV5 ID_PAYS rwgt0 rwgt1-rwgt45</span></code></pre></div>
 <pre><code>## Variable      Storage   Display    Value
 ##     name         type    format    label      Variable label
@@ -339,11 +327,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb8"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb8-1"><a href="c06-stata.html#cb8-1" tabindex="-1"></a>repest svyname [<span class="kw">if</span>] [<span class="kw">in</span>] , estimate(cmd [,cmd_options]) [options]</span></code></pre></div>
 <ul>
 <li><p><code>svyname</code>: Either one of the study names supported by the package (e,g., PISA, TIMSS, PIRLS) or SVY which allows you to specify the survey design.</p></li>
-<<<<<<< HEAD
-<li><p><code>estimate(cmd [,cmd_options)</code>: Specifies the statistical command to run. <code>cmd</code> can be any Stata command that accepts weights — for example, <code>mean</code>, <code>reg</code>, <code>qreg</code>, or the built-in repest commands <code>means</code>, <code>freq</code>, <code>summarize</code>, <code>corr</code> and <code>quantiletable</code>. Command-specific options are passed after a comma within the parentheses.</p></li>
-=======
 <li><p><code>estimate(cmd [,cmd_options)</code>: Specifies the statistical command to run. <code>cmd</code> can be any Stata command that accepts weights ΓÇö for example, <code>mean</code>, <code>reg</code>, <code>qreg</code>, or the built-in repest commands <code>means</code>, <code>freq</code>, <code>summarize</code>, <code>corr</code> and <code>quantiletable</code>. Command-specific options are passed after a comma within the parentheses.</p></li>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 </ul>
 </div>
 <div id="before-you-begin-set-up-repest-for-pasec" class="section level2 hasAnchor" number="6.5">
@@ -409,11 +393,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.6</span> PASEC Analyses Examples<a href="c06-stata.html#pasec-analyses-examples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="calculating-mean-age" class="section level3 hasAnchor" number="6.6.1">
 <h3><span class="header-section-number">6.6.1</span> Calculating Mean Age<a href="c06-stata.html#calculating-mean-age" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<<<<<<< HEAD
-<p>Let’s start by calculating the average age of students in Grade 2 in Benin. The age variable is <em>qe22</em>. Let’s inspect the <em>ID_PAYS</em> and <em>qe22</em> variables.</p>
-=======
 <p>LetΓÇÖs start by calculating the average age of students in Grade 2 in Benin. The age variable is <em>qe22</em>. LetΓÇÖs inspect the <em>ID_PAYS</em> and <em>qe22</em> variables.</p>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <div class="sourceCode" id="cb11"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb11-1"><a href="c06-stata.html#cb11-1" tabindex="-1"></a><span class="kw">tab</span> ID_PAYS</span></code></pre></div>
 <pre><code>##               Country identifier |      Freq.     Percent        Cum.
 ## ---------------------------------+-----------------------------------
@@ -435,11 +415,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##                            Total |     21,933      100.00</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb13-1"><a href="c06-stata.html#cb13-1" tabindex="-1"></a><span class="kw">tab</span> qe22</span></code></pre></div>
 <pre><code>##        Student age |
-<<<<<<< HEAD
-##             [4–16] |      Freq.     Percent        Cum.
-=======
 ##             [4ΓÇô16] |      Freq.     Percent        Cum.
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## -------------------+-----------------------------------
 ##                  4 |          2        0.01        0.01
 ##                  5 |         83        0.38        0.39
@@ -462,21 +438,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##        99. Missing |        211        0.96      100.00
 ## -------------------+-----------------------------------
 ##              Total |     21,933      100.00</code></pre>
-<<<<<<< HEAD
-<p>NOTE: Benin is coded as <span class="math inline">\(1\)</span>. Missing age values are coded as <span class="math inline">\(99\)</span>. Because <span class="math inline">\(99\)</span> is a placeholder used to indicate missing data rather than a learner’s actual age, these observations should be excluded from analyses involving age. Failure to do so will produce misleading results. To calculate the average age of students in Grade <span class="math inline">\(2\)</span> in Benin, the syntax is as follows:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb15-1"><a href="c06-stata.html#cb15-1" tabindex="-1"></a>*Calculating average age <span class="kw">in</span> Benin </span>
-<span id="cb15-2"><a href="c06-stata.html#cb15-2" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="c06-stata.html#cb15-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1&amp;qe22&lt;99, estimate(<span class="kw">mean</span> qe22) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_4a1c_000005.tmp not found)
-## file C:\Users\cash\AppData\Local\Temp\ST_4a1c_000005.tmp saved
-=======
 <p>NOTE: Benin is coded as <span class="math inline">\(1\)</span>. Missing age values are coded as <span class="math inline">\(99\)</span>. Because <span class="math inline">\(99\)</span> is a placeholder used to indicate missing data rather than a learnerΓÇÖs actual age, these observations should be excluded from analyses involving age. Failure to do so will produce misleading results. To calculate the average age of students in Grade <span class="math inline">\(2\)</span> in Benin, the syntax is as follows:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb15-1"><a href="c06-stata.html#cb15-1" tabindex="-1"></a>*Calculating average age <span class="kw">in</span> Benin </span>
 <span id="cb15-2"><a href="c06-stata.html#cb15-2" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="c06-stata.html#cb15-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1&amp;qe22&lt;99, estimate(<span class="kw">mean</span> qe22) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
 <pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_4444_000005.tmp not found)
 ## file C:\Users\cash\AppData\Local\Temp\ST_4444_000005.tmp saved
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## 
 ## _pooled.
 ##  : _pooled
@@ -486,11 +453,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##         qe22 |    7.56647   .0598516   126.42   0.000     7.449163    7.683777
 ## ------------------------------------------------------------------------------</code></pre>
 <p>Because age is an observed variable rather than a plausible-value variable, repest uses only the sampling variance derived from the replicate weights. The reported standard error therefore reflects uncertainty arising from the sample design but not measurement uncertainty.</p>
-<<<<<<< HEAD
-<p>The estimated mean age of Grade 2 students in Benin is <span class="math inline">\(7.57\)</span> years (<span class="math inline">\(95\%\)</span> CI: <span class="math inline">\(7.45–7.68\)</span>). This reflects the substantial grade repetition and late entry common in the region, with many students aged 9–11 also enrolled in Grade 2.</p>
-=======
 <p>The estimated mean age of Grade 2 students in Benin is <span class="math inline">\(7.57\)</span> years (<span class="math inline">\(95\%\)</span> CI: <span class="math inline">\(7.45ΓÇô7.68\)</span>). This reflects the substantial grade repetition and late entry common in the region, with many students aged 9ΓÇô11 also enrolled in Grade 2.</p>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 </div>
 <div id="alt1" class="section level3 unnumbered hasAnchor alternativebox-header">
 <h3>Alternative to generate the same result - svy<a href="c06-stata.html#alt1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -513,11 +476,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>The weighting process may include calibration steps not reflected in the released design variables.</p></li>
 </ol>
 <p>Furthermore, using ordinary survey declarations with <code>svyset</code> will generally not reproduce the official PASEC standard error.</p>
-<<<<<<< HEAD
-<p>Stata’s <code>svyset</code> can be configured to use the paired jackknife replicate weights, producing the standard errors as official PASEC results.</p>
-=======
 <p>StataΓÇÖs <code>svyset</code> can be configured to use the paired jackknife replicate weights, producing the standard errors as official PASEC results.</p>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>The syntax to generate the same result is</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb18-1"><a href="c06-stata.html#cb18-1" tabindex="-1"></a>*<span class="kw">set</span> up <span class="kw">for</span> <span class="kw">svyset</span> to <span class="kw">generate</span> same result: </span>
 <span id="cb18-2"><a href="c06-stata.html#cb18-2" tabindex="-1"></a></span>
@@ -538,13 +497,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb20"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb20-1"><a href="c06-stata.html#cb20-1" tabindex="-1"></a>*Calculating <span class="kw">mean</span> mathematics scores <span class="kw">in</span> Benin </span>
 <span id="cb20-2"><a href="c06-stata.html#cb20-2" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="c06-stata.html#cb20-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">mean</span> MATHS_PV@) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))</span></code></pre></div>
-<<<<<<< HEAD
-<pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_470_000005.tmp not found)
-## file C:\Users\cash\AppData\Local\Temp\ST_470_000005.tmp saved
-=======
 <pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_4614_000005.tmp not found)
 ## file C:\Users\cash\AppData\Local\Temp\ST_4614_000005.tmp saved
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## 
 ## _pooled.....
 ##  : _pooled
@@ -564,15 +518,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>An alternative Stata command for analysing plausible values is pv. The syntax to generate the same result is</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb22-1"><a href="c06-stata.html#cb22-1" tabindex="-1"></a>pv, pv(LECT_PV*) jrr jk(2) <span class="kw">weight</span>(rwgt0) rw(rwgt1-rwgt45): <span class="kw">mean</span>  @pv [aw = @w] <span class="kw">if</span> ID_PAYS==1 </span></code></pre></div>
 </div>
-<<<<<<< HEAD
-<p>Now let’s get means of mathematics and literacy for each country by including the by option.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="c06-stata.html#cb23-1" tabindex="-1"></a>*Means <span class="kw">of</span> mathematics and literacy <span class="kw">for</span> each country </span>
-<span id="cb23-2"><a href="c06-stata.html#cb23-2" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="c06-stata.html#cb23-3" tabindex="-1"></a>repest SVY, estimate(<span class="kw">mean</span> MATHS_PV@ LECT_PV@) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) <span class="kw">by</span>(ID_PAYS) </span></code></pre></div>
-<pre><code>## 1 2 3 4 5 6 7 8 9 10 11 12 13 14
-## (file C:\Users\cash\AppData\Local\Temp\ST_9ac_000005.tmp not found)
-## file C:\Users\cash\AppData\Local\Temp\ST_9ac_000005.tmp saved
-=======
 <p>Now letΓÇÖs get means of mathematics and literacy for each country by including the by option.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="c06-stata.html#cb23-1" tabindex="-1"></a>*Means <span class="kw">of</span> mathematics and literacy <span class="kw">for</span> each country </span>
 <span id="cb23-2"><a href="c06-stata.html#cb23-2" tabindex="-1"></a></span>
@@ -585,20 +530,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 2 3 4 5 6 7 8 9 10 11 12 13 14
 ## (file C:\Users\cash\AppData\Local\Temp\ST_158_000005.tmp not found)
 ## file C:\Users\cash\AppData\Local\Temp\ST_158_000005.tmp saved
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## 
 ## 1.....
 ## ID_PAYS : 1
 ## ------------------------------------------------------------------------------
 ##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
 ## -------------+----------------------------------------------------------------
-<<<<<<< HEAD
-##    MATHS_PV_ |   525.0697   7.159119    73.34   0.000      511.038    539.1013
-##     LECT_PV_ |   524.8164   7.711942    68.05   0.000     509.7013    539.9315
-=======
 ##    MATHS_PV_ |   525.0697   6.149228    85.39   0.000     513.0174    537.1219
 ##     LECT_PV_ |   524.8164   6.638157    79.06   0.000     511.8059     537.827
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## ------------------------------------------------------------------------------
 ## 
 ## 2.....
@@ -606,13 +545,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ------------------------------------------------------------------------------
 ##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
 ## -------------+----------------------------------------------------------------
-<<<<<<< HEAD
-##    MATHS_PV_ |   498.7166   8.233047    60.57   0.000     482.5801    514.8531
-##     LECT_PV_ |   493.4861   9.747319    50.63   0.000     474.3817    512.5905
-=======
 ##    MATHS_PV_ |   498.7166   8.179711    60.97   0.000     482.6846    514.7485
 ##     LECT_PV_ |   493.4861   9.687311    50.94   0.000     474.4993    512.4729
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## ------------------------------------------------------------------------------
 ## 
 ## 3.....
@@ -629,101 +563,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ------------------------------------------------------------------------------
 ##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
 ## -------------+----------------------------------------------------------------
-<<<<<<< HEAD
-##    MATHS_PV_ |   516.7354   7.994531    64.64   0.000     501.0664    532.4044
-##     LECT_PV_ |   522.1636   8.392591    62.22   0.000     505.7144    538.6127
-## ------------------------------------------------------------------------------
-## 
-## 5.....
-## ID_PAYS : 5
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##    MATHS_PV_ |   591.9041   6.298265    93.98   0.000     579.5598    604.2485
-##     LECT_PV_ |   582.4071   7.480158    77.86   0.000     567.7462    597.0679
-## ------------------------------------------------------------------------------
-## 
-## 6.....
-## ID_PAYS : 6
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##    MATHS_PV_ |   522.5248   4.062804   128.61   0.000     514.5618    530.4877
-##     LECT_PV_ |   516.5937   5.404587    95.58   0.000     506.0009    527.1865
-## ------------------------------------------------------------------------------
-## 
-## 7.....
-## ID_PAYS : 7
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##    MATHS_PV_ |   595.9217   9.399738    63.40   0.000     577.4986    614.3449
-##     LECT_PV_ |   610.2501    14.4539    42.22   0.000     581.9209    638.5792
-## ------------------------------------------------------------------------------
-## 
-## 8.....
-## ID_PAYS : 8
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##    MATHS_PV_ |   519.3488   9.395843    55.27   0.000     500.9333    537.7644
-##     LECT_PV_ |    469.039   10.25872    45.72   0.000     448.9322    489.1457
-## ------------------------------------------------------------------------------
-## 
-## 9.....
-## ID_PAYS : 9
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##    MATHS_PV_ |   549.7152   3.798524   144.72   0.000     542.2702    557.1602
-##     LECT_PV_ |   568.8426   6.895106    82.50   0.000     555.3285    582.3568
-## ------------------------------------------------------------------------------
-## 
-## 10.....
-## ID_PAYS : 10
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##    MATHS_PV_ |   544.9191   6.358256    85.70   0.000     532.4571     557.381
-##     LECT_PV_ |   534.6824   7.193762    74.33   0.000     520.5829     548.782
-## ------------------------------------------------------------------------------
-## 
-## 11.....
-## ID_PAYS : 11
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##    MATHS_PV_ |   567.7779   8.240901    68.90   0.000      551.626    583.9298
-##     LECT_PV_ |   530.9825    10.5383    50.39   0.000     510.3278    551.6372
-## ------------------------------------------------------------------------------
-## 
-## 12.....
-## ID_PAYS : 12
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##    MATHS_PV_ |   563.4415   6.083019    92.63   0.000      551.519     575.364
-##     LECT_PV_ |   557.1325   9.344315    59.62   0.000      538.818     575.447
-## ------------------------------------------------------------------------------
-## 
-## 13.....
-## ID_PAYS : 13
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##    MATHS_PV_ |   522.4416   6.840793    76.37   0.000     509.0338    535.8493
-##     LECT_PV_ |   508.4999     7.8032    65.17   0.000     493.2059    523.7939
-## ------------------------------------------------------------------------------
-## 
-## 14.....
-## ID_PAYS : 14
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##    MATHS_PV_ |   489.3993   5.288786    92.54   0.000     479.0335    499.7651
-##     LECT_PV_ |   474.8978   7.203616    65.92   0.000      460.779    489.0167
-## ------------------------------------------------------------------------------</code></pre>
-=======
 ##    MATHS_PV_ |   516.7354   7.498808    68.91   0.000      502.038    531.4328
 ##     LECT_PV_ |   522.1636   7.865532    66.39   0.000     506.7474    537.5797
 ## ------------------------------------------------------------------------------
@@ -732,7 +571,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## r(111);
 ## 
 ## r(111);</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>There is substantial variation in achievement across participating countries. Burundi records the highest Grade 2 mathematics score (<span class="math inline">\(614\)</span> points), while Togo records the lowest (<span class="math inline">\(489\)</span> points). Reading and mathematics performance are strongly correlated across countries, although some countries perform relatively better in one domain than the other. Formal statistical comparisons between countries should be conducted using regression models rather than visual inspection of the means alone.</p>
 <p>Notice that standard errors vary considerably across countries - Burundi (country <span class="math inline">\(3\)</span>) has notably smaller standard errors than countries such as Gabon (<span class="math inline">\(7\)</span>) or Guinea (<span class="math inline">\(8\)</span>). This reflects differences in the homogeneity of performance within schools and the precision of the sampling design in each country.</p>
 <div id="moving-beyond-means-summary-statistics-with-repest" class="section level3 hasAnchor" number="6.6.3">
@@ -755,27 +593,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb27"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb27-1"><a href="c06-stata.html#cb27-1" tabindex="-1"></a>*Quintile <span class="kw">table</span> <span class="kw">for</span> mathematics and language <span class="kw">in</span> Benin </span>
 <span id="cb27-2"><a href="c06-stata.html#cb27-2" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="c06-stata.html#cb27-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(quantiletable MATHS_PV@ LECT_PV@, nquantiles(5)) svyparm(NBpv(5)  final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<<<<<<< HEAD
-<pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_4940_000005.tmp not found)
-## file C:\Users\cash\AppData\Local\Temp\ST_4940_000005.tmp saved
-## 
-## _pooled.....
-##  : _pooled
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-## MATHS_PV__q1 |    387.316   5.641749    68.65   0.000     376.2584    398.3737
-## MATHS_PV__q2 |   465.0336   5.777279    80.49   0.000     453.7104    476.3569
-## MATHS_PV__q3 |   522.5471   6.296739    82.99   0.000     510.2057    534.8885
-## MATHS_PV__q4 |   575.5634   7.330665    78.51   0.000     561.1956    589.9313
-## MATHS_PV__q5 |   675.3612   18.45676    36.59   0.000     639.1866    711.5358
-##  LECT_PV__q1 |   417.5467   7.716463    54.11   0.000     402.4227    432.6707
-##  LECT_PV__q2 |   474.0085    6.38251    74.27   0.000      461.499    486.5179
-##  LECT_PV__q3 |   510.6889   7.230566    70.63   0.000     496.5172    524.8605
-##  LECT_PV__q4 |   561.0914   11.73183    47.83   0.000     538.0974    584.0853
-##  LECT_PV__q5 |   661.1535   20.08941    32.91   0.000      621.779     700.528
-## ------------------------------------------------------------------------------</code></pre>
-=======
 <pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_3424_000005.tmp not found)
 ## file C:\Users\cash\AppData\Local\Temp\ST_3424_000005.tmp saved
 ## 
@@ -785,7 +602,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## --Break--
 ## r(1);</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>The quantile table divides the mathematics and reading distributions into five equal-sized groups. The reported values correspond to the score thresholds separating adjacent quintiles. For example, students scoring above approximately <span class="math inline">\(675\)</span> points in mathematics belong to the highest-performing quintile in Benin.</p>
 <p>Other built-in <code>repest</code> commands are <code>means</code>, <code>freq</code> and <code>corr</code>.</p>
 </div>
@@ -807,19 +623,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td>2</td>
-<<<<<<< HEAD
-<td><span class="math inline">\(400.34 – 489.03\)</span></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><span class="math inline">\(489.03–577.73\)</span></td>
-=======
 <td><span class="math inline">\(400.34 ΓÇô 489.03\)</span></td>
 </tr>
 <tr class="odd">
 <td>3</td>
 <td><span class="math inline">\(489.03ΓÇô577.73\)</span></td>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 </tr>
 <tr class="even">
 <td>4</td>
@@ -843,12 +651,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb29-13"><a href="c06-stata.html#cb29-13" tabindex="-1"></a>} </span>
 <span id="cb29-14"><a href="c06-stata.html#cb29-14" tabindex="-1"></a></span>
 <span id="cb29-15"><a href="c06-stata.html#cb29-15" tabindex="-1"></a>repest SVY  <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">mean</span> prop1_MATHS_PV@ prop2_MATHS_PV@ prop3_MATHS_PV@ prop4_MATHS_PV@ ) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<<<<<<< HEAD
-<pre><code>## variable prop1_MATHS_PV1 already defined
-## r(110);
-## 
-## r(110);</code></pre>
-=======
 <pre><code>## --Break--
 ## --Break--
 ## r(1);
@@ -863,7 +665,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## --Break--
 ## r(1);</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>The results indicate that approximately <span class="math inline">\(11\%\)</span> of Grade 2 students in Benin fall below Level 1 (the lowest proficiency threshold), while around <span class="math inline">\(29\%\)</span> reach the highest level. The largest share of students falls in the middle proficiency levels. Because these estimates are derived from plausible values, the reported standard errors incorporate both measurement and sampling uncertainty.</p>
 </div>
 <div id="testing-for-differences-between-groups" class="section level3 hasAnchor" number="6.6.5">
@@ -885,11 +686,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<<<<<<< HEAD
-<td>Within-Country (e.g., Boys vs. Girls in Senegal)</td>
-=======
 <td>Within-Country (e.g., Boys vs.┬áGirls in Senegal)</td>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <td>The gap between two demographic subgroups who share the same sampling strata, schools, and teachers.</td>
 <td>High covariance. Because groups are clustered together in the same schools, their errors are correlated.</td>
 </tr>
@@ -907,47 +704,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb31"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb31-1"><a href="c06-stata.html#cb31-1" tabindex="-1"></a>*Test <span class="kw">for</span> differences between boys and girls mathematics scores <span class="kw">in</span> Benin</span>
 <span id="cb31-2"><a href="c06-stata.html#cb31-2" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="c06-stata.html#cb31-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">reg</span> MATHS_PV@ girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<<<<<<< HEAD
-<pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_28a8_000005.tmp not found)
-## file C:\Users\cash\AppData\Local\Temp\ST_28a8_000005.tmp saved
-=======
 <pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_54e0_000005.tmp not found)
 ## file C:\Users\cash\AppData\Local\Temp\ST_54e0_000005.tmp saved
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## 
 ## _pooled.....
 ##  : _pooled
 ## ------------------------------------------------------------------------------
 ##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
 ## -------------+----------------------------------------------------------------
-<<<<<<< HEAD
-##         girl |  -22.71577   4.891148    -4.64   0.000    -32.30224   -13.12929
-##        _cons |   535.7972   7.346251    72.93   0.000     521.3988    550.1956
-## ------------------------------------------------------------------------------</code></pre>
-<p>The coefficient on girl provides the estimated difference in mathematics proficiency between girls and boys, together with the appropriate standard error and significance test. On average, girls’ scores are <span class="math inline">\(22.7\)</span> points lower than boys in Benin.</p>
-=======
 ##         girl |  -22.71577   4.796301    -4.74   0.000    -32.11634   -13.31519
 ##        _cons |   535.7972   7.152936    74.91   0.000     521.7777    549.8167
 ## ------------------------------------------------------------------------------</code></pre>
 <p>The coefficient on girl provides the estimated difference in mathematics proficiency between girls and boys, together with the appropriate standard error and significance test. On average, girlsΓÇÖ scores are <span class="math inline">\(22.7\)</span> points lower than boys in Benin.</p>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>What about differences in the proportion reaching PASEC level <span class="math inline">\(4\)</span>?</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb33-1"><a href="c06-stata.html#cb33-1" tabindex="-1"></a>*Test differences between boys and girls <span class="kw">in</span> percentage reaching PASEC <span class="dv">level</span> 4 <span class="kw">in</span> Benin</span>
 <span id="cb33-2"><a href="c06-stata.html#cb33-2" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="c06-stata.html#cb33-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">reg</span> prop4_MATHS_PV@  girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<<<<<<< HEAD
-<pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_1160_000005.tmp not found)
-## file C:\Users\cash\AppData\Local\Temp\ST_1160_000005.tmp saved
-## 
-## _pooled.....
-##  : _pooled
-## ------------------------------------------------------------------------------
-##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
-## -------------+----------------------------------------------------------------
-##         girl |  -.0850427   .0286047    -2.97   0.003    -.1411068   -.0289785
-##        _cons |   .3287349   .0268158    12.26   0.000     .2761768    .3812929
-## ------------------------------------------------------------------------------</code></pre>
-=======
 <pre><code>##           _coef_table():  3499  member _b_table::set_pisemat() not found
 ## --Break--
 ## --Break--
@@ -958,7 +730,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## r(111);
 ## 
 ## r(111);</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>Girls are <span class="math inline">\(8.5\)</span> percentage points less likely to reach the highest proficiency level in mathematics than boys in Benin.</p>
 </div>
 <div id="testing-for-differences-between-countries" class="section level4 hasAnchor" number="6.6.5.2">
@@ -967,10 +738,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb35"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb35-1"><a href="c06-stata.html#cb35-1" tabindex="-1"></a>*Test differences <span class="kw">in</span> mathematics scores between Benin and Burkina Faso </span>
 <span id="cb35-2"><a href="c06-stata.html#cb35-2" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="c06-stata.html#cb35-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS&lt;=2, estimate(<span class="kw">reg</span> MATHS_PV@ i.ID_PAYS) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))  </span></code></pre></div>
-<<<<<<< HEAD
-<pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_5368_000005.tmp not found)
-## file C:\Users\cash\AppData\Local\Temp\ST_5368_000005.tmp saved
-=======
 <pre><code>## --Break--
 ## --Break--
 ## r(1);
@@ -978,7 +745,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## (file C:\Users\cash\AppData\Local\Temp\ST_3964_000005.tmp not found)
 ## file C:\Users\cash\AppData\Local\Temp\ST_3964_000005.tmp saved
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## 
 ## _pooled.....
 ##  : _pooled
@@ -986,13 +752,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##              | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
 ## -------------+----------------------------------------------------------------
 ##  _1b_ID_PAYS |          0  (omitted)
-<<<<<<< HEAD
-##   _2_ID_PAYS |  -26.35308   11.12174    -2.37   0.018     -48.1513   -4.554867
-##        _cons |   525.0697   7.159119    73.34   0.000      511.038    539.1013
-=======
 ##   _2_ID_PAYS |  -26.35308   10.98239    -2.40   0.016    -47.87816   -4.827999
 ##        _cons |   525.0697   6.986143    75.16   0.000     511.3771    538.7622
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## ------------------------------------------------------------------------------</code></pre>
 <p>Mathematics proficiency levels are <span class="math inline">\(26.4\)</span> points lower in Burkina Faso compared to Benin, a statistically significant difference.</p>
 </div>
@@ -1010,13 +771,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb37"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb37-1"><a href="c06-stata.html#cb37-1" tabindex="-1"></a>*Test <span class="kw">for</span> differences <span class="fu">at</span> the 25th and 75th percentile between boys and girls <span class="kw">in</span> Benin </span>
 <span id="cb37-2"><a href="c06-stata.html#cb37-2" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="c06-stata.html#cb37-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">qreg</span> MATHS_PV@ girl, <span class="kw">quantile</span>(0.25)) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))</span></code></pre></div>
-<<<<<<< HEAD
-<pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_754c_000005.tmp not found)
-## file C:\Users\cash\AppData\Local\Temp\ST_754c_000005.tmp saved
-=======
 <pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_7708_000005.tmp not found)
 ## file C:\Users\cash\AppData\Local\Temp\ST_7708_000005.tmp saved
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## 
 ## _pooled.....
 ##  : _pooled
@@ -1027,13 +783,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##        _cons |   460.3875   7.622528    60.40   0.000     445.4476    475.3274
 ## ------------------------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb39-1"><a href="c06-stata.html#cb39-1" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">qreg</span> MATHS_PV@ girl, <span class="kw">quantile</span>(0.75)) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))  </span></code></pre></div>
-<<<<<<< HEAD
-<pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_7624_000005.tmp not found)
-## file C:\Users\cash\AppData\Local\Temp\ST_7624_000005.tmp saved
-=======
 <pre><code>## (file C:\Users\cash\AppData\Local\Temp\ST_4eec_000005.tmp not found)
 ## file C:\Users\cash\AppData\Local\Temp\ST_4eec_000005.tmp saved
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## 
 ## _pooled.....
 ##  : _pooled
@@ -1048,17 +799,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="multivariate-regression" class="section level3 hasAnchor" number="6.6.6">
 <h3><span class="header-section-number">6.6.6</span> Multivariate Regression<a href="c06-stata.html#multivariate-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<<<<<<< HEAD
-<p>Now let’s use the Grade <span class="math inline">\(6\)</span> data. There are <span class="math inline">\(90\)</span> replicate weights so we will need to replace <code>NREP(45)</code> with <code>NREP(90)</code> in the <code>svyparm()</code> suboptions.</p>
-<p>Grade 6 setup</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb41-1"><a href="c06-stata.html#cb41-1" tabindex="-1"></a>repest SVY [<span class="kw">if</span>] [<span class="kw">in</span>] , estimate(cmd [,cmd_options]) [options] svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(90) variancefactor(1)) </span></code></pre></div>
-<p>In this example, we’ll analyze the association between students’ math scores (<em>MATHS_PV@</em>) and their gender (<em>qe63</em>) and socio-economic status (<em>ses</em>) in Cote D’Ivoire. The ses variable is a composite socioeconomic status index derived from the PASEC household questionnaire.</p>
-=======
 <p>Now letΓÇÖs use the Grade <span class="math inline">\(6\)</span> data. There are <span class="math inline">\(90\)</span> replicate weights so we will need to replace <code>NREP(45)</code> with <code>NREP(90)</code> in the <code>svyparm()</code> suboptions.</p>
 <p>Grade 6 setup</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb41-1"><a href="c06-stata.html#cb41-1" tabindex="-1"></a>repest SVY [<span class="kw">if</span>] [<span class="kw">in</span>] , estimate(cmd [,cmd_options]) [options] svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(90) variancefactor(1)) </span></code></pre></div>
 <p>In this example, weΓÇÖll analyze the association between studentsΓÇÖ math scores (<em>MATHS_PV@</em>) and their gender (<em>qe63</em>) and socio-economic status (<em>ses</em>) in Cote DΓÇÖIvoire. The ses variable is a composite socioeconomic status index derived from the PASEC household questionnaire.</p>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <div class="sourceCode" id="cb42"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb42-1"><a href="c06-stata.html#cb42-1" tabindex="-1"></a>* Load Grade 6 <span class="kw">data</span></span>
 <span id="cb42-2"><a href="c06-stata.html#cb42-2" tabindex="-1"></a><span class="kw">use</span> <span class="st">&quot;data/PASEC2019_GRADE6_INT.dta&quot;</span>, <span class="kw">clear</span></span></code></pre></div>
 <pre><code>## (PASEC2019_LIVRET_D_FIN_PRIMAIRE)</code></pre>
@@ -1092,21 +836,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## r(111);</code></pre>
 <p>The <code>results(add(r2 N))</code> option: This option allows you to add extra statistics to the results table, which Stata stores by default. Here, we add R-squared (<code>e_r2</code>) - a measure of model fit, and number of observations (<code>e_N</code>). Note that <code>repest</code> stores these additional statistics internally as <code>e_r2</code> and <code>e_N</code>, and these are the names shown in the output table.</p>
-<<<<<<< HEAD
-<p>The regression estimates the association between mathematics proficiency, socioeconomic status (SES), and gender among Grade <span class="math inline">\(6\)</span> students in Côte d’Ivoire while correctly accounting for both plausible values and the PASEC replicate-weight design.</p>
-<p>The results indicate a strong positive association between socioeconomic status and mathematics achievement. A one-unit increase in the SES index is associated with an increase of approximately <span class="math inline">\(2.17\)</span> points in mathematics proficiency (coefficient <span class="math inline">\(= 2.17\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>). This relationship is statistically significant, suggesting that students from more advantaged socioeconomic backgrounds tend to perform better in mathematics.</p>
-<p>The coefficient on the female indicator (girl) is <span class="math inline">\(-11.62\)</span> (<span class="math inline">\(p &lt; 0.001\)</span>), indicating that girls score, on average, about 12 points lower than boys with similar socioeconomic status. Because SES is included in the model, this estimated gender gap reflects differences between boys and girls after accounting for socioeconomic background.</p>
-<p>The constant term (<span class="math inline">\(349\)</span>) represents the predicted mathematics score for a boy with an SES value of zero. While the intercept is necessary for estimation, it is typically of limited substantive interest because an SES value of zero may not correspond to a meaningful student profile.</p>
-<p>Overall, the results suggest that both socioeconomic status and gender are important correlates of mathematics achievement in Côte d’Ivoire. Higher socioeconomic status is associated with better performance, while girls perform less well than boys on average, even after controlling for socioeconomic differences.</p>
-<p>It is important to remember that these coefficients describe associations rather than causal effects. The regression does not imply that increasing a student’s socioeconomic status by one unit would necessarily increase their mathematics score by <span class="math inline">\(2.17\)</span> points. Other factors associated with socioeconomic status, such as school quality, parental education, household resources, and learning opportunities, may also contribute to the observed relationship.</p>
-=======
 <p>The regression estimates the association between mathematics proficiency, socioeconomic status (SES), and gender among Grade <span class="math inline">\(6\)</span> students in C├┤te dΓÇÖIvoire while correctly accounting for both plausible values and the PASEC replicate-weight design.</p>
 <p>The results indicate a strong positive association between socioeconomic status and mathematics achievement. A one-unit increase in the SES index is associated with an increase of approximately <span class="math inline">\(2.17\)</span> points in mathematics proficiency (coefficient <span class="math inline">\(= 2.17\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>). This relationship is statistically significant, suggesting that students from more advantaged socioeconomic backgrounds tend to perform better in mathematics.</p>
 <p>The coefficient on the female indicator (girl) is <span class="math inline">\(-11.62\)</span> (<span class="math inline">\(p &lt; 0.001\)</span>), indicating that girls score, on average, about 12 points lower than boys with similar socioeconomic status. Because SES is included in the model, this estimated gender gap reflects differences between boys and girls after accounting for socioeconomic background.</p>
 <p>The constant term (<span class="math inline">\(349\)</span>) represents the predicted mathematics score for a boy with an SES value of zero. While the intercept is necessary for estimation, it is typically of limited substantive interest because an SES value of zero may not correspond to a meaningful student profile.</p>
 <p>Overall, the results suggest that both socioeconomic status and gender are important correlates of mathematics achievement in C├┤te dΓÇÖIvoire. Higher socioeconomic status is associated with better performance, while girls perform less well than boys on average, even after controlling for socioeconomic differences.</p>
 <p>It is important to remember that these coefficients describe associations rather than causal effects. The regression does not imply that increasing a studentΓÇÖs socioeconomic status by one unit would necessarily increase their mathematics score by <span class="math inline">\(2.17\)</span> points. Other factors associated with socioeconomic status, such as school quality, parental education, household resources, and learning opportunities, may also contribute to the observed relationship.</p>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 
 </div>
 </div>

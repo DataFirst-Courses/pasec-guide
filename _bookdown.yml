@@ -8,10 +8,6 @@ language:
     chapter_name: " "
 rmd_files:
   - index.Rmd
-<<<<<<< HEAD
-  - 02-stata.Rmd
-  - 03-r.Rmd
-=======
   - 01-intro.Rmd
   - 02-replicate-weights.Rmd
   - 03-plausible-values.Rmd
@@ -19,6 +15,5 @@ rmd_files:
   - 05-resources.Rmd
   - 06-stata.Rmd
   - 07-r.Rmd
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 after_render: ["R/publish-nav.R"]
 

@@ -264,16 +264,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb54-11"><a href="c07-r.html#cb54-11" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 21,933
 ## Columns: 8
-<<<<<<< HEAD
-## $ LECT_PV1  &lt;dbl&gt; 640.5484, 752.6683, 533.4055, 452.2114, 653.5640, 567.1990, 791.0265, 601.9592, 643.6853, 597.2301, 631.8771, 671.0275, 711…
-## $ LECT_PV5  &lt;dbl&gt; 681.0913, 750.5060, 520.3950, 454.3549, 670.3465, 584.3690, 703.6523, 583.4270, 630.7553, 640.1383, 646.9531, 649.6097, 711…
-## $ MATHS_PV1 &lt;dbl&gt; 627.7454, 686.3843, 492.4545, 456.3050, 699.5146, 594.5303, 605.2292, 625.7197, 583.2004, 598.8627, 672.5724, 661.6907, 688…
-## $ MATHS_PV5 &lt;dbl&gt; 649.4599, 656.8358, 475.3191, 481.9290, 663.3732, 612.6745, 615.9355, 649.5237, 555.9525, 618.9540, 651.0314, 645.4049, 688…
-## $ ID_PAYS   &lt;dbl+lbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3,…
-## $ rwgt0     &lt;dbl&gt; 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153…
-## $ rwgt1     &lt;dbl&gt; 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306…
-## $ rwgt45    &lt;dbl&gt; 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153…</code></pre>
-=======
 ## $ LECT_PV1  &lt;dbl&gt; 640.5484, 752.6683, 533.4055, 452.2114, 653.5640, 567.1990, 791.0265, 601…
 ## $ LECT_PV5  &lt;dbl&gt; 681.0913, 750.5060, 520.3950, 454.3549, 670.3465, 584.3690, 703.6523, 583…
 ## $ MATHS_PV1 &lt;dbl&gt; 627.7454, 686.3843, 492.4545, 456.3050, 699.5146, 594.5303, 605.2292, 625…
@@ -282,7 +272,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ rwgt0     &lt;dbl&gt; 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153…
 ## $ rwgt1     &lt;dbl&gt; 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306.6116, 306…
 ## $ rwgt45    &lt;dbl&gt; 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153.3058, 153…</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 </div>
 <div id="rrepest-command-syntax" class="section level2 hasAnchor" number="7.4">
 <h2><span class="header-section-number">7.4</span> <code>Rrepest</code> command syntax<a href="c07-r.html#rrepest-command-syntax" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -487,24 +476,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb73-10"><a href="c07-r.html#cb73-10" tabindex="-1"></a>)</span>
 <span id="cb73-11"><a href="c07-r.html#cb73-11" tabindex="-1"></a><span class="fu">print</span>(result_by_country)</span></code></pre></div>
 <pre><code>## # A tibble: 14 × 5
-<<<<<<< HEAD
-##    ID_PAYS                      `b.mean.maths_pv@` `se.mean.maths_pv@` `b.mean.lect_pv@` `se.mean.lect_pv@`
-##    &lt;chr&gt;                                     &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;
-##  1 Benin                                      525.                7.16              525.               7.71
-##  2 Burkina Faso                               499.                8.23              493.               9.75
-##  3 Burundi                                    614.                2.37              625.               4.53
-##  4 Cameroun                                   517.                7.99              522.               8.39
-##  5 Chad                                       522.                6.84              508.               7.80
-##  6 Congo                                      592.                6.30              582.               7.48
-##  7 Cote D&#39;Ivoire                              523.                4.06              517.               5.40
-##  8 Democratic Republic of Congo               568.                8.24              531.              10.5 
-##  9 Gabon                                      596.                9.40              610.              14.5 
-## 10 Guinee                                     519.                9.40              469.              10.3 
-## 11 Madagascar                                 550.                3.80              569.               6.90
-## 12 Niger                                      545.                6.36              535.               7.19
-## 13 Senegal                                    563.                6.08              557.               9.34
-## 14 Togo                                       489.                5.29              475.               7.20</code></pre>
-=======
 ##    ID_PAYS        `b.mean.maths_pv@` `se.mean.maths_pv@` `b.mean.lect_pv@` `se.mean.lect_pv@`
 ##    &lt;chr&gt;                       &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;
 ##  1 Benin                        525.                7.16              525.               7.71
@@ -521,7 +492,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 12 Niger                        545.                6.36              535.               7.19
 ## 13 Senegal                      563.                6.08              557.               9.34
 ## 14 Togo                         489.                5.29              475.               7.20</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>There is substantial variation in achievement across participating countries. Burundi records the highest Grade 2 mathematics score (<span class="math inline">\(614\)</span> points), while Togo records the lowest (<span class="math inline">\(489\)</span> points). Reading and mathematics performance are strongly correlated across countries, although some countries perform relatively better in one domain than the other. Formal statistical comparisons between countries should be conducted using regression models rather than visual inspection of the means alone.</p>
 <p>Notice that standard errors vary considerably across countries — Burundi (country 3) has notably smaller standard errors than countries such as Gabon (7) or Guinea (8). This reflects differences in the homogeneity of performance within schools and the precision of the sampling design in each country.</p>
 <div id="moving-beyond-means-summary-statistics-with-rrepest" class="section level3 hasAnchor" number="7.6.3">
@@ -546,14 +516,6 @@ The <code>est()</code> function with multiple statistics generates point estimat
 <span id="cb75-16"><a href="c07-r.html#cb75-16" tabindex="-1"></a></span>
 <span id="cb75-17"><a href="c07-r.html#cb75-17" tabindex="-1"></a><span class="fu">print</span>(result_dist)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 15
-<<<<<<< HEAD
-##   girl  `b.mean.maths_pv@` `se.mean.maths_pv@` `b.std.maths_pv@` `se.std.maths_pv@` `b.quant00.maths_pv@` `se.quant00.maths_pv@`
-##   &lt;chr&gt;              &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;                 &lt;dbl&gt;                  &lt;dbl&gt;
-## 1 0                   536.                7.35              107.               7.38                  372.                   9.42
-## 2 1                   513.                7.80              101.               6.81                  364.                  10.5 
-## # ℹ 8 more variables: `b.quant025.maths_pv@` &lt;dbl&gt;, `se.quant025.maths_pv@` &lt;dbl&gt;, `b.quant05.maths_pv@` &lt;dbl&gt;, `se.quant05.maths_pv@` &lt;dbl&gt;,
-## #   `b.quant075.maths_pv@` &lt;dbl&gt;, `se.quant075.maths_pv@` &lt;dbl&gt;, `b.quant095.maths_pv@` &lt;dbl&gt;, `se.quant095.maths_pv@` &lt;dbl&gt;</code></pre>
-=======
 ##   girl  `b.mean.maths_pv@` `se.mean.maths_pv@` `b.std.maths_pv@` `se.std.maths_pv@`
 ##   &lt;chr&gt;              &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;
 ## 1 0                   536.                7.35              107.               7.38
@@ -563,7 +525,6 @@ The <code>est()</code> function with multiple statistics generates point estimat
 ## #   `b.quant05.maths_pv@` &lt;dbl&gt;, `se.quant05.maths_pv@` &lt;dbl&gt;, `b.quant075.maths_pv@` &lt;dbl&gt;,
 ## #   `se.quant075.maths_pv@` &lt;dbl&gt;, `b.quant095.maths_pv@` &lt;dbl&gt;,
 ## #   `se.quant095.maths_pv@` &lt;dbl&gt;</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>Looking beyond average performance reveals important differences across the distribution. Boys in Benin have higher mathematics scores at the mean, median and upper tail of the distribution. For example, the median score among boys is approximately <span class="math inline">\(536\)</span> points compared with <span class="math inline">\(508\)</span> points among girls. The percentile estimates show that the gender gap is not confined to a small group of high-performing students but is evident across much of the achievement distribution.</p>
 <p>Quantiles divide a distribution into equal-sized groups and are commonly used to examine how achievement is distributed across students. The code below produces the quintile cut-points (<span class="math inline">\(20th\)</span>, <span class="math inline">\(40th\)</span>, <span class="math inline">\(60th\)</span>, <span class="math inline">\(80th\)</span> percentiles) for mathematics and literacy in Benin.</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="c07-r.html#cb77-1" tabindex="-1"></a><span class="co"># Quintile boundaries for mathematics and language in Benin</span></span>
@@ -579,13 +540,6 @@ The <code>est()</code> function with multiple statistics generates point estimat
 <span id="cb77-11"><a href="c07-r.html#cb77-11" tabindex="-1"></a>)</span>
 <span id="cb77-12"><a href="c07-r.html#cb77-12" tabindex="-1"></a><span class="fu">print</span>(result_quint)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 17
-<<<<<<< HEAD
-##   .     `b.quant02.maths_pv@` `se.quant02.maths_pv@` `b.quant04.maths_pv@` `se.quant04.maths_pv@` `b.quant06.maths_pv@` `se.quant06.maths_pv@`
-##   &lt;chr&gt;                 &lt;dbl&gt;                  &lt;dbl&gt;                 &lt;dbl&gt;                  &lt;dbl&gt;                 &lt;dbl&gt;                  &lt;dbl&gt;
-## 1 Total                  435.                   6.68                  495.                   8.07                  548.                   7.46
-## # ℹ 10 more variables: `b.quant08.maths_pv@` &lt;dbl&gt;, `se.quant08.maths_pv@` &lt;dbl&gt;, `b.quant02.lect_pv@` &lt;dbl&gt;, `se.quant02.lect_pv@` &lt;dbl&gt;,
-## #   `b.quant04.lect_pv@` &lt;dbl&gt;, `se.quant04.lect_pv@` &lt;dbl&gt;, `b.quant06.lect_pv@` &lt;dbl&gt;, `se.quant06.lect_pv@` &lt;dbl&gt;,
-=======
 ##   .     `b.quant02.maths_pv@` `se.quant02.maths_pv@` `b.quant04.maths_pv@`
 ##   &lt;chr&gt;                 &lt;dbl&gt;                  &lt;dbl&gt;                 &lt;dbl&gt;
 ## 1 Total                  435.                   6.68                  495.
@@ -593,7 +547,6 @@ The <code>est()</code> function with multiple statistics generates point estimat
 ## #   `se.quant06.maths_pv@` &lt;dbl&gt;, `b.quant08.maths_pv@` &lt;dbl&gt;, `se.quant08.maths_pv@` &lt;dbl&gt;,
 ## #   `b.quant02.lect_pv@` &lt;dbl&gt;, `se.quant02.lect_pv@` &lt;dbl&gt;, `b.quant04.lect_pv@` &lt;dbl&gt;,
 ## #   `se.quant04.lect_pv@` &lt;dbl&gt;, `b.quant06.lect_pv@` &lt;dbl&gt;, `se.quant06.lect_pv@` &lt;dbl&gt;,
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 ## #   `b.quant08.lect_pv@` &lt;dbl&gt;, `se.quant08.lect_pv@` &lt;dbl&gt;</code></pre>
 <p>The quintile boundaries divide the mathematics and reading distributions into five equal-sized groups. The reported values correspond to the score thresholds separating adjacent quintiles. For example, students scoring above approximately <span class="math inline">\(576\)</span> points in mathematics fall in the highest-performing quintile in Benin.</p>
 </div>
@@ -657,19 +610,12 @@ The <code>est()</code> function with multiple statistics generates point estimat
 <pre><code>## 5</code></pre>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="c07-r.html#cb86-1" tabindex="-1"></a><span class="fu">print</span>(result_levels)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 9
-<<<<<<< HEAD
-##   .     `b.mean.prop1_maths_pv@` `se.mean.prop1_maths_pv@` `b.mean.prop2_maths_pv@` `se.mean.prop2_maths_pv@` `b.mean.prop3_maths_pv@`
-##   &lt;chr&gt;                    &lt;dbl&gt;                     &lt;dbl&gt;                    &lt;dbl&gt;                     &lt;dbl&gt;                    &lt;dbl&gt;
-## 1 Total                    0.110                    0.0136                    0.271                    0.0186                    0.331
-## # ℹ 3 more variables: `se.mean.prop3_maths_pv@` &lt;dbl&gt;, `b.mean.prop4_maths_pv@` &lt;dbl&gt;, `se.mean.prop4_maths_pv@` &lt;dbl&gt;</code></pre>
-=======
 ##   .     `b.mean.prop1_maths_pv@` `se.mean.prop1_maths_pv@` `b.mean.prop2_maths_pv@`
 ##   &lt;chr&gt;                    &lt;dbl&gt;                     &lt;dbl&gt;                    &lt;dbl&gt;
 ## 1 Total                    0.110                    0.0136                    0.271
 ## # ℹ 5 more variables: `se.mean.prop2_maths_pv@` &lt;dbl&gt;, `b.mean.prop3_maths_pv@` &lt;dbl&gt;,
 ## #   `se.mean.prop3_maths_pv@` &lt;dbl&gt;, `b.mean.prop4_maths_pv@` &lt;dbl&gt;,
 ## #   `se.mean.prop4_maths_pv@` &lt;dbl&gt;</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>The results indicate that approximately <span class="math inline">\(11\%\)</span> of Grade 2 students in Benin fall below Level 1 (the lowest proficiency threshold), while around <span class="math inline">\(29\%\)</span> reach the highest level. The largest share of students falls in the middle proficiency levels. Because these estimates are derived from plausible values, the reported standard errors incorporate both measurement and sampling uncertainty.</p>
 </div>
 <div id="testing-for-differences-between-groups-1" class="section level3 hasAnchor" number="7.6.5">
@@ -717,18 +663,11 @@ The <code>est()</code> function with multiple statistics generates point estimat
 <span id="cb88-9"><a href="c07-r.html#cb88-9" tabindex="-1"></a>)</span>
 <span id="cb88-10"><a href="c07-r.html#cb88-10" tabindex="-1"></a><span class="fu">print</span>(result_gender)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
-<<<<<<< HEAD
-##   .     `b.reg_maths_pv@.intercept` `se.reg_maths_pv@.intercept` `b.reg_maths_pv@.girl` `se.reg_maths_pv@.girl` `b.reg_maths_pv@.rsqr`
-##   &lt;chr&gt;                       &lt;dbl&gt;                        &lt;dbl&gt;                  &lt;dbl&gt;                   &lt;dbl&gt;                  &lt;dbl&gt;
-## 1 Total                        536.                         7.35                  -22.7                    4.89                 0.0117
-## # ℹ 1 more variable: `se.reg_maths_pv@.rsqr` &lt;dbl&gt;</code></pre>
-=======
 ##   .     `b.reg_maths_pv@.intercept` `se.reg_maths_pv@.intercept` `b.reg_maths_pv@.girl`
 ##   &lt;chr&gt;                       &lt;dbl&gt;                        &lt;dbl&gt;                  &lt;dbl&gt;
 ## 1 Total                        536.                         7.35                  -22.7
 ## # ℹ 3 more variables: `se.reg_maths_pv@.girl` &lt;dbl&gt;, `b.reg_maths_pv@.rsqr` &lt;dbl&gt;,
 ## #   `se.reg_maths_pv@.rsqr` &lt;dbl&gt;</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>The coefficient on girl provides the estimated difference in mathematics proficiency between girls and boys, together with the appropriate standard error and significance test. On average, girls’ scores are <span class="math inline">\(22.7\)</span> points lower than boys in Benin.
 What about differences in the proportion reaching PASEC level 4?</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="c07-r.html#cb90-1" tabindex="-1"></a><span class="co"># Test differences between boys and girls in percentage reaching PASEC level 4 in Benin</span></span>
@@ -748,21 +687,12 @@ What about differences in the proportion reaching PASEC level 4?</p>
 <pre><code>## 5</code></pre>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="c07-r.html#cb97-1" tabindex="-1"></a><span class="fu">print</span>(result_lev4)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
-<<<<<<< HEAD
-##   .     `b.reg_prop4_maths_pv@.intercept` se.reg_prop4_maths_pv@.interce…¹ b.reg_prop4_maths_pv…² se.reg_prop4_maths_p…³ b.reg_prop4_maths_pv…⁴
-##   &lt;chr&gt;                             &lt;dbl&gt;                            &lt;dbl&gt;                  &lt;dbl&gt;                  &lt;dbl&gt;                  &lt;dbl&gt;
-## 1 Total                             0.329                           0.0268                -0.0850                 0.0286                0.00898
-## # ℹ abbreviated names: ¹​`se.reg_prop4_maths_pv@.intercept`, ²​`b.reg_prop4_maths_pv@.girl`, ³​`se.reg_prop4_maths_pv@.girl`,
-## #   ⁴​`b.reg_prop4_maths_pv@.rsqr`
-## # ℹ 1 more variable: `se.reg_prop4_maths_pv@.rsqr` &lt;dbl&gt;</code></pre>
-=======
 ##   .     `b.reg_prop4_maths_pv@.intercept` se.reg_prop4_maths_pv@.int…¹ b.reg_prop4_maths_pv…²
 ##   &lt;chr&gt;                             &lt;dbl&gt;                        &lt;dbl&gt;                  &lt;dbl&gt;
 ## 1 Total                             0.329                       0.0268                -0.0850
 ## # ℹ abbreviated names: ¹​`se.reg_prop4_maths_pv@.intercept`, ²​`b.reg_prop4_maths_pv@.girl`
 ## # ℹ 3 more variables: `se.reg_prop4_maths_pv@.girl` &lt;dbl&gt;,
 ## #   `b.reg_prop4_maths_pv@.rsqr` &lt;dbl&gt;, `se.reg_prop4_maths_pv@.rsqr` &lt;dbl&gt;</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>Girls are <span class="math inline">\(8.5\)</span> percentage points less likely to reach the highest proficiency level in mathematics than boys in Benin.</p>
 </div>
 <div id="testing-for-differences-between-countries-1" class="section level4 hasAnchor" number="7.6.5.2">
@@ -781,19 +711,11 @@ What about differences in the proportion reaching PASEC level 4?</p>
 <span id="cb99-11"><a href="c07-r.html#cb99-11" tabindex="-1"></a>)</span>
 <span id="cb99-12"><a href="c07-r.html#cb99-12" tabindex="-1"></a><span class="fu">print</span>(result_between)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
-<<<<<<< HEAD
-##   .     `b.reg_maths_pv@.intercept` `se.reg_maths_pv@.intercept` `b.reg_maths_pv@.id_pays_f` se.reg_maths_pv@.id_pays_…¹ `b.reg_maths_pv@.rsqr`
-##   &lt;chr&gt;                       &lt;dbl&gt;                        &lt;dbl&gt;                       &lt;dbl&gt;                       &lt;dbl&gt;                  &lt;dbl&gt;
-## 1 Total                        551.                         16.8                       -26.4                        11.1                 0.0139
-## # ℹ abbreviated name: ¹​`se.reg_maths_pv@.id_pays_f`
-## # ℹ 1 more variable: `se.reg_maths_pv@.rsqr` &lt;dbl&gt;</code></pre>
-=======
 ##   .     `b.reg_maths_pv@.intercept` `se.reg_maths_pv@.intercept` `b.reg_maths_pv@.id_pays_f`
 ##   &lt;chr&gt;                       &lt;dbl&gt;                        &lt;dbl&gt;                       &lt;dbl&gt;
 ## 1 Total                        551.                         16.8                       -26.4
 ## # ℹ 3 more variables: `se.reg_maths_pv@.id_pays_f` &lt;dbl&gt;, `b.reg_maths_pv@.rsqr` &lt;dbl&gt;,
 ## #   `se.reg_maths_pv@.rsqr` &lt;dbl&gt;</code></pre>
->>>>>>> 50e75e3d3020a783a9b64a9685cf321138e27b49
 <p>Mathematics proficiency levels are <span class="math inline">\(26.4\)</span> points lower in Burkina Faso compared to Benin, a statistically significant difference.
 #### Testing for differences in percentiles
 You cannot use standard linear regression (<code>lm</code>) because it only models the conditional arithmetic mean. Instead, to test differences in percentiles, you must use Quantile Regression.
