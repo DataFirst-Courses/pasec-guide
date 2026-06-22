@@ -1,0 +1,416 @@
+---
+title: "PASEC Analysis Guide"
+output:
+  html_document:
+    theme: null
+    highlight: null
+    self_contained: false
+    css: null
+    df_print: default
+---
+
+```{=html}
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* Page layout */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: #0B1F3A !important;
+  color: white;
+}
+
+/* Hide R Markdown / GitBook chrome if this page is wrapped by bookdown */
+#header,
+.book-header,
+.book-summary {
+  display: none !important;
+}
+
+.book .book-body,
+.book .page-inner,
+.book .page-wrapper,
+.book .section.normal {
+  background-color: #0B1F3A !important;
+  border: none !important;
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.book-body {
+  margin-left: 0 !important;
+}
+
+#pasec-landing {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Filter buttons */
+.filter-btn {
+  border: 1px solid #F5B14C;
+  font-size: 12px;
+  padding: 10px 15px;
+  transition: all 0.2s ease;
+}
+
+/* Active button */
+.filter-btn.active {
+  background: #F5B14C;
+  color: #0A1F4A;
+  font-weight: 700;
+}
+
+/* Inactive buttons */
+.filter-btn:not(.active) {
+  background: white;
+  color: #0A1F4A;
+}
+
+/* Hover effect */
+.filter-btn:hover {
+  background: #FFD08A;
+  color: #0A1F4A;
+}
+
+/* ==================================================
+   TITLE AND INTRODUCTION
+   ================================================== 
+   */
+
+.guide-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: white;
+}
+
+.guide-subtitle {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ==================================================
+   RESOURCE CARDS
+   ================================================== */
+
+.resource-card {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+  color: #1e293b;
+}
+
+.resource-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+/* ==================================================
+   CARD TEXT
+   ================================================== */
+
+.resource-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.resource-card p {
+  font-size: 13px;
+}
+
+</style>
+
+<!-- ==================================================
+     MAIN CONTAINER
+     max-w-7xl = overall width of page
+     px = left/right spacing
+     py = top/bottom spacing
+     ================================================== -->
+
+<div id="pasec-landing" class="px-4 md:px-6 py-20">
+
+<!-- ==================================================
+     PAGE TITLE
+     ================================================== -->
+
+<div class="flex items-center justify-center gap-14 mb-10">
+
+  <!-- Logo -->
+  <img src="files/AFLEARN logo.png"
+       alt="AFLEARN Data Hub"
+       style="width:130px;">
+
+  <!-- Title block -->
+  <div>
+
+    <!-- Small AFLEARN label -->
+    <div style="
+    font-size:12px;
+    font-weight:600;
+    color:#66DEFB;
+    margin-bottom:8px;">
+    AFLEARN Data Hub Resource
+    </div>
+
+    <h1 class="guide-title mb-8">
+
+      <span style="
+      display:block;
+      font-weight:700;
+      font-size:28px;">
+      Analysing PASEC 2019 Data in Stata and R
+      </span>
+
+      <span style="
+      display:block;
+      font-weight:400;
+      font-size:20px;
+      color:#66DEFB;
+      margin-top:4px;">
+      A Practical Guide
+      </span>
+
+    </h1>
+
+    <!-- Divider -->
+    <div style="
+    width:180px;
+    height:4px;
+    background:orange;
+    margin-top:10px;
+    border-radius:999px;">
+    </div>
+
+  </div>
+
+</div>
+<!-- ==================================================
+     INTRODUCTION
+     Change text here
+     ================================================== -->
+
+<p class="guide-subtitle text-justify max-w-none mb-10 font-base">
+This guide is designed as a practical companion for new users of the PASEC data. It explains the key concepts needed to analyse the data correctly, including plausible values and replicate weights, and provides step-by-step examples in both Stata and R for common analytical tasks such as calculating means, estimating proficiency levels, testing group differences, and running regression models.
+</p>
+
+<div style="
+text-align:center;
+padding:13px;
+margin:20px auto 25px auto;
+max-width:700px;
+background:#EAFBFF;
+border:1px solid #66DEFB;
+border-radius:12px;">
+
+<p style="
+margin:0;
+font-size:13px;
+font-weight:500;
+color:#0A1F4A;">
+Use the navigation pane below to explore the guide's sections
+</p>
+
+</div>
+
+<!-- ==================================================
+     FILTER BUTTONS
+     Add new buttons here if needed
+     ================================================== -->
+
+<nav class="flex flex-wrap justify-center gap-3 mb-8">
+
+<button class="filter-btn active rounded-full"
+        data-filter="all">
+All
+</button>
+
+<button class="filter-btn rounded-full"
+        data-filter="guide">
+Guides
+</button>
+
+<button class="filter-btn rounded-full"
+        data-filter="concept">
+Concepts
+</button>
+
+<button class="filter-btn rounded-full"
+        data-filter="analysis">
+Analysis
+</button>
+
+</nav>
+
+<div id="card-grid"
+     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+<!-- ==================================================
+     GUIDE CARDS
+     ================================================== -->
+
+<a href="ch04-download.html"
+   class="resource-card block rounded-xl p-5 border border-slate-200"
+   data-category="guide"
+   style="border-top:6px solid #66DEFB;">
+
+<span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 mb-3">
+Guide
+</span>
+
+<h3 class="font-semibold mb-2">
+Download the PASEC Data
+</h3>
+
+<p>
+Access datasets, documentation, and supporting resources.
+</p>
+
+</a>
+
+<a href="ch01-intro.html"
+   class="resource-card block rounded-xl p-5 border border-slate-200"
+   data-category="guide"
+   style="border-top:6px solid #66DEFB;">
+
+<span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 mb-3">
+Guide
+</span>
+
+<h3 class="font-semibold mb-2">
+Understanding PASEC Data
+</h3>
+
+<p>
+Learn about the assessment design, sample, and dataset structure.
+</p>
+
+</a>
+
+<!-- ==================================================
+     CONCEPT CARDS
+     ================================================== -->
+
+<a href="c02-replicate-weights.html"
+   class="resource-card block rounded-xl p-5 border border-slate-200"
+   data-category="concept"
+   style="border-top:6px solid #F5B14C;">
+
+<span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700 mb-3">
+Concept
+</span>
+
+<h3 class="font-semibold mb-2">
+Replicate Weights
+</h3>
+
+<p>
+Understand why replicate weights are required and how to use them.
+</p>
+
+</a>
+
+<a href="c03-plausible-values.html"
+   class="resource-card block rounded-xl p-5 border border-slate-200"
+   data-category="concept"
+   style="border-top:6px solid #F5B14C;">
+
+<span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700 mb-3">
+Concept
+</span>
+
+<h3 class="font-semibold mb-2">
+Plausible Values
+</h3>
+
+<p>
+Learn how achievement scores are represented and analysed.
+</p>
+
+</a>
+
+<!-- ==================================================
+     ANALYSIS CARDS
+     ================================================== -->
+
+<a href="c06-stata.html"
+   class="resource-card block rounded-xl p-5 border border-slate-200"
+   data-category="analysis"
+   style="border-top:6px solid #183CFD;">
+
+<span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 mb-3">
+Analysis
+</span>
+
+<h3 class="font-semibold mb-2">
+Analysis in Stata
+</h3>
+
+<p>
+Worked examples for common analytical tasks in Stata.
+</p>
+
+</a>
+
+<a href="c07-r.html"
+   class="resource-card block rounded-xl p-5 border border-slate-200"
+   data-category="analysis"
+   style="border-top:6px solid #183CFD;">
+
+<span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 mb-3">
+Analysis
+</span>
+
+<h3 class="font-semibold mb-2">
+Analysis in R
+</h3>
+
+<p>
+Worked examples for common analytical tasks in R.
+</p>
+
+</a>
+
+</div>
+
+</div>
+
+
+<!-- ==================================================
+     FILTER SCRIPT
+     Leave this unchanged
+     ================================================== -->
+
+<script>
+const filterBtns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('#card-grid a');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const filter = btn.dataset.filter;
+
+    cards.forEach(card => {
+      card.style.display =
+        (filter === 'all' ||
+         card.dataset.category === filter)
+         ? ''
+         : 'none';
+    });
+  });
+});
+</script>
+
+```
