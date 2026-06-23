@@ -3,3 +3,16 @@
 .Rproj.user
 *.Rproj
 _bookdown_files/
+bookdownproj_cache/
+
+# PASEC microdata (download from portal; too large for GitHub)
+data/*.dta
+
+# Nav page build artifacts at project root
+nav-guide.html
+nav-guide_files/
+
+# Local Stata scratch files
+*.log
+profile.do
+stata*.do
