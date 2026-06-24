@@ -1,0 +1,542 @@
+# What's in the data? {#ch-whats-in-data}
+
+```{css, echo=FALSE}
+.pasec-table-wrap {
+  overflow-x: auto;
+  margin: 1.25em 0;
+}
+
+.pasec-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92em;
+}
+
+.pasec-data-table td {
+  border: 1px solid #d0d0d0;
+  padding: 0.45em 0.65em;
+  vertical-align: top;
+}
+
+.pasec-data-table td[style*="background-color: #002060"]:not([style*="color:"]) {
+  color: #FFFFFF !important;
+}
+.pasec-data-table td[style*="background-color: #0F4761"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #156082"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #3A7C22"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #45B0E1"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #83CAEB"]:not([style*="color:"]) {
+  color: #FFFFFF !important;
+}
+
+
+/* GitBook zebra-striping targets all tables; keep cell colours from the docx */
+.book .book-body .page-wrapper .page-inner section.normal table.pasec-data-table tr,
+.book .book-body .page-wrapper .page-inner section.normal table.pasec-data-table tr:nth-child(2n) {
+  background-color: transparent !important;
+}
+```
+
+The public release comprises a Grade 2 and a Grade 6 dataset including all 14 countries. These learner datasets contain both the learner level assessment and contextual questionnaire data. In addition, each dataset contains responses to the principal and teacher questionnaires.
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Sections of the datasets</td>
+  </tr>
+  <tr>
+    <td>Student assessment</td>
+  </tr>
+  <tr>
+    <td>Student proficiency scores</td>
+  </tr>
+  <tr>
+    <td>Student questionnaire</td>
+  </tr>
+  <tr>
+    <td>Teacher questionnaire</td>
+  </tr>
+  <tr>
+    <td>Principal questionnaire</td>
+  </tr>
+  <tr>
+    <td>Derived variables</td>
+  </tr>
+  <tr>
+    <td>Administrative variables</td>
+  </tr>
+</table>
+</div>
+```
+
+Each of these sections is described in more detail below.
+
+## Grade 2 student assessment
+
+The PASEC 2019 Grade 2 student assessment was designed to measure foundational literacy and numeracy skills acquired during the early years of primary schooling. Assessments were administered individually (one-on-one) and took approximately 30 minutes per subject (language and mathematics). The assessments were conducted individually by trained administrators over four mornings, with a maximum of 16 learners per selected school divided into two sub-groups from the same class.
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Subject</td>
+    <td style="background-color: #002060; color: #FFFFFF">Variables in dataset</td>
+  </tr>
+  <tr>
+    <td>Reading</td>
+    <td>l11–l114</td>
+  </tr>
+  <tr>
+    <td>Mathematics</td>
+    <td>m11–m123</td>
+  </tr>
+</table>
+</div>
+```
+
+### Areas assessed by PASEC2019 in Reading – Early primary
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+    <td style="background-color: #002060; color: #FFFFFF">Exercises and skills assessed</td>
+  </tr>
+  <tr>
+    <td>Listening comprehension: Listening comprehension was assessed with oral messages combined with isolated words and sentences and texts. Developing skills in this area enables students to expand their vocabulary and thus achieve fluency when decoding a text by making links between oral and written language</td>
+    <td>Understanding vocabulary Recognising vocabulary Recognising word families Understanding a text</td>
+  </tr>
+  <tr>
+    <td>Reading-decoding: Reading-decoding was assessed through exercises requiring graphophonological identification (letters, syllables, words) and simple letter and word reading activities. Developing skills in this area enables students to achieve reading fluency so that they can focus on the meaning of words and sentences, and thus expand their vocabulary</td>
+    <td>Reading letters Recognising syllables Reading words</td>
+  </tr>
+  <tr>
+    <td>Reading comprehension: Reading comprehension was assessed through exercises requiring students to read isolated words and sentences as well as texts, and then find, combine and interpret information. Developing skills in this area enables students to read autonomously in a variety of everyday situations and thus develop their knowledge and participate in society</td>
+    <td>Decoding the meaning of words Reading and understanding sentences Understanding a text</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.2 pp 28.*
+
+### Areas assessed by PASEC2019 in mathematics – Early primary
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+    <td style="background-color: #002060; color: #FFFFFF">Exercises and skills assessed</td>
+  </tr>
+  <tr>
+    <td>Arithmetic: Arithmetic was assessed through exercises involving counting, enumerating and handling quantities of objects, operations, number series and problem-solving. Developing skills in this area enables students to progress from an intuitive to a symbolic understanding of numbers.</td>
+    <td>Counting to 100 Recognising figures and numbers Quantifying objects Distinguishing quantities of objects Arranging numbers in order - (the largest) Arranging numbers in order - (the smallest) Completing number series Adding and subtracting Solving problems</td>
+  </tr>
+  <tr>
+    <td>Geometry, space and measurement: Measurement was assessed through the recognition of geometric shapes, and the concepts of size and location in space. Developing skills in this area enables students to progress from an intuitive to a symbolic understanding of geometry, space and measurement.</td>
+    <td>Recognising geometric shapes Determining spatial location Appraising sizes</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.3 pp 29.*
+
+## Grade 6 student assessment
+
+Unlike the Grade 2 assessment, the Grade 6 assessment was administered as a group-based written test and consisted entirely of multiple-choice questions (MCQs), with response options coded from 1 to 4. To accommodate the large volume of assessment content, PASEC used a rotating booklet design, whereby students were randomly assigned one of four booklets (A, B, C, or D) within each selected class. The assessment lasted up to two hours per subject.
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Subject</td>
+    <td style="background-color: #002060; color: #FFFFFF">Variables in dataset</td>
+  </tr>
+  <tr>
+    <td>Reading</td>
+    <td>f1–f98</td>
+  </tr>
+  <tr>
+    <td>Mathematics</td>
+    <td>m1–m84</td>
+  </tr>
+</table>
+</div>
+```
+
+### Areas assessed by PASEC2019 in reading – Late primary
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+    <td style="background-color: #002060; color: #FFFFFF">Written materials</td>
+  </tr>
+  <tr>
+    <td>Comprehension of isolated words and sentences: Comprehension of isolated words and sentences was assessed through reading exercises focusing on discovering the explicit meaning of isolated words and sentences. Developing skills in this area enables students to achieve reading fluency to gradually understand the meaning of sentences and texts and expand their vocabulary. The level of these tasks was very basic and reflected the objectives of curricula for early primary education</td>
+    <td>Isolated pictures, words and sentences</td>
+  </tr>
+  <tr>
+    <td>Reading comprehension: Reading comprehension was assessed through exercises requiring students to read narrative and informative texts as well as documents, and then extract information, perform simple inferences, and interpret and combine information. Developing skills in this area enables students to read autonomously in a variety of everyday situations and thus develop their knowledge and participate in society</td>
+    <td>Narrative texts (39%) and informative texts and documents (45%)</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.4 pp 30.*
+
+### Areas assessed by PASEC2019 in mathematics – Late primary
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td colspan="2" style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+  </tr>
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Arithmetic</td>
+    <td>Arithmetic skills were assessed with reference to the understanding of numbers: knowledge and understanding of the sequence of operations and of the properties of the four operations; and operations on numbers such as adding, subtracting, multiplying and dividing. They were also assessed through the understanding of decimals and percentages.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Measurement and size</td>
+    <td>Skills relating to measurements and sizes were assessed with reference to the knowledge and understanding of units of measurement for length, mass, capacity, angle and duration, and the conversion of these measurement units. They were also assessed through calculations of size (length, duration, mass, capacity, angle, area, volume) in different contexts, in particular using plane geometric figures (triangles, rectangles, squares, parallelograms, disks) and solids (cubes or rectangular parallelepipeds).</td>
+  </tr>
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Geometry and space</td>
+    <td>Skills relating to geometry and space were assessed through exercises involving recognition of the properties of two or three-dimensional geometric shapes, geometric relations and transformations, and spatial position and representation.</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.5 pp 30.*
+
+## Student Reading and Mathematics Proficiency Scores
+
+PASEC uses Item Response Theory (IRT) to estimate student proficiency in reading and mathematics from responses to the assessment items together with background information. These estimates are provided as five plausible values for reading (**LECT_PV1 – LECT_PV5**) and five plausible values for mathematics (**MATHS_PV1 – MATHS_PV5**). [Learn more about plausible values and how to use them in your analysis](c03-plausible-values.html).
+
+The PASEC 2019 proficiency scores are reported on the same scale as PASEC 2014, which was standardised to have an international mean of 500 and a standard deviation of 100, with each participating country contributing equally to the scaling. The use of common assessment items allows results from 2019 to be compared directly with those from 2014.
+
+The scales are divided into a series of proficiency levels that represent increasingly complex knowledge and skills. Each level corresponds to a specific score range and is defined by groups of assessment tasks that share common conceptual and statistical characteristics. Because the levels are hierarchical, students performing at a given level are also expected to be able to complete tasks associated with lower levels.
+
+PASEC defines a **minimum proficiency level** representing the knowledge and skills considered necessary for successful progression through the education system. For mathematics, the minimum proficiency level corresponds to Level 2 in both Grade 2 and Grade 6. For language of instruction, the minimum proficiency level corresponds to Level 3.
+
+For reporting on Sustainable Development Goal (SDG) indicator 4.1.1, the PASEC minimum proficiency level aligns with the SDG minimum proficiency level for Grade 2 (SDG 4.1.1a). In Grade 6, however, the SDG 4.1.1b minimum proficiency level is set one level higher than the PASEC minimum proficiency level.
+
+### Reading proficiency scale – Early primary (Grade 2)
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #0F4761; color: #FFFFFF">Level 4</td>
+    <td>&gt;610 points</td>
+    <td>Intermediate reader: moving towards independent reading and understanding sentences and texts Students at this level have achieved a level in the decoding of written text and in listening comprehension that enables them to understand explicit information in short sentences and texts. They are able to combine their decoding skills and their command of spoken language to piece together the literal meaning of a short text</td>
+  </tr>
+  <tr>
+    <td style="background-color: #156082; color: #FFFFFF">Level 3</td>
+    <td>Between 540 and 610 points</td>
+    <td>Learner reader: moving towards the perfecting of decoding skills, listening skills and understanding of written words Students at this level have perfected their listening comprehension and decoding skills, enabling them to focus on understanding words. In listening comprehension, they are able to understand explicit information in a short text which uses familiar vocabulary. They are gradually developing links between spoken and written language and thus improving their decoding skills and expanding their vocabulary. In reading comprehension, students are able to identify the meaning of isolated words.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC &amp; SDG 4.1.1a Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #45B0E1; color: #FFFFFF">Level 2</td>
+    <td>Between 540 and 610 points</td>
+    <td>Learner reader: moving towards the perfecting of decoding skills, listening skills and understanding of written words Students at this level have perfected their listening comprehension and decoding skills, enabling them to focus on understanding words. In listening comprehension, they are able to understand explicit information in a short text which uses familiar vocabulary. They are gradually developing links between spoken and written language and thus improving their decoding skills and expanding their vocabulary. In reading comprehension, students are able to identify the meaning of isolated words.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #83CAEB; color: #FFFFFF">Level 1</td>
+    <td>Between 399 and 469 points</td>
+    <td>Emergent reader: towards developing decoding skills and strengthening listening comprehension skills Students are able to understand very short-spoken messages that use isolated words and refer to familiar objects. They have great difficulty with decoding the written word and with graphophonological identification (letters, syllables, graphemes and phonemes).</td>
+  </tr>
+  <tr>
+    <td style="background-color: #C1E4F5; color: #FFFFFF">Below Level 1</td>
+    <td>&lt; 399 points</td>
+    <td>Students below Level 1 do not sufficiently demonstrate the skills measured by this test in the language of instruction. These students struggle with the knowledge and skills of Level 1.</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.1 pp 47.*
+
+### Mathematics proficiency scale – Early primary (Grade 2)
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #3A7C22; color: #FFFFFF">Level 3</td>
+    <td>&gt; 577 points</td>
+    <td>Students are familiar with the verbal number sequence (they can count up to 60 in two minutes) and are able to read numbers, compare numbers, complete number series and perform operations (addition and subtraction) on numbers greater than 50. They can use reasoning in basic problems involving numbers less than 20</td>
+  </tr>
+  <tr>
+    <td style="background-color: #8DD873">Level 2</td>
+    <td>Between 489 and 577 points</td>
+    <td>Students can read numbers, compare numbers, complete logical series and perform operations (addition and subtraction) on numbers less than 50. They can work with the concepts of location in space (e.g. in front of, on top of, etc.). They are beginning to develop reasoning skills in basic problems involving numbers less than 20. They can also identify most simple geometric shapes.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC and SDG 4.1.1a Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #D9F2D0">Level 1</td>
+    <td>Between 400 and 489 points</td>
+    <td>Students are gradually developing their knowledge of mathematical language: they are beginning to read the first numbers (less than 10) and have an initial understanding of quantity (counting, comparison) with numbers less than 20. They show awareness of the relative size of objects and are beginning to identify the first simple geometric shapes</td>
+  </tr>
+  <tr>
+    <td style="background-color: #E8E8E8">Below Level 1</td>
+    <td>&lt; 400 points</td>
+    <td>Students at this level do not sufficiently demonstrate the skills measured by this test in mathematics. These students struggle with the knowledge and skills of Level 1</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.2 pp 53.*
+
+### Reading proficiency scale – late primary (Grade 6)
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #0F4761; color: #FFFFFF">Level 4</td>
+    <td>&gt;595 points</td>
+    <td>Students can process narrative and informative texts and documents at a general level. They are able to combine and interpret multiple implicit ideas in such material, drawing on their own experience and knowledge. When reading literary texts, students are able to identify the author’s intention and determine the implicit meaning of a story. When reading informative texts and documents, they are able to link pieces of information and compare data in order to make use of them.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">SDG 4.1.1b Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #156082; color: #FFFFFF">Level 3</td>
+    <td>518-595 points</td>
+    <td>Students are able to combine two explicit pieces of information in a document or to make simple inferences in a narrative or informative text. They can extract implicit information from written material by giving meaning to implicit connectors, anaphoras and referents. Students are able to locate explicit information in long texts and documents with discontinuous text.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #45B0E1; color: #FFFFFF">Level 2</td>
+    <td>441 – 518 points</td>
+    <td>Students have improved their decoding skills so that they can understand isolated words derived from their daily life and isolated sentences. They are also able to locate explicit information in short and medium texts by taking cues from the text and the questions. Students are able to paraphrase explicit information from a text.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #83CAEB; color: #FFFFFF">Level 1</td>
+    <td>365 – 411 points</td>
+    <td>Students have developed decoding skills and are able to use them to understand isolated words derived from their daily life or very short, isolated sentences but have difficulty understanding the meaning of short and simple texts.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #C1E4F5; color: #FFFFFF">Below Level 1</td>
+    <td>&lt; 365 points</td>
+    <td>Students at this level do not sufficiently demonstrate the skills in the language of instruction measured by this test. These students struggle with the knowledge and skills of Level 1.</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.6 pp 70.*
+
+### Mathematics proficiency scale – Late primary (Grade 6)
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #3A7C22; color: #FFFFFF">Level 3</td>
+    <td>&gt; 609 points</td>
+    <td>Students are able to solve problems in which a situation, usually presented in the form of a short text of 2 to 3 lines, needs to be analysed in order to identify the procedure(s) to be used. In the area of numbers and operations, they can solve direct proportionality problems and problems involving fractions or decimals. Their understanding of fractions is still growing (they understand the comparison of fractions and the relationship between fractions and decimals). In the field of quantities and measures, they can solve various problems involving calculations of area or perimeter, presented without visuals and sometimes requiring two stages of reasoning (e.g. finding the area of a square once its perimeter is known, or carrying out conversions involving data provided in area or hectares). They can also perform calculations and conversions involving hours, minutes or seconds.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">SDG 4.1.1b Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #8DD873">Level 2</td>
+    <td>Between 521 and 609 points</td>
+    <td>Students are able to answer short questions using the three assessed processes: knowledge, application and problem-solving. While most questions require factual knowledge or a specific procedure, some require analysis of the situation to determine the appropriate approach. In the area of numbers and operations, students perform operations with decimals; they have an increasing understanding of fractions (they can identify them in less typical situations and have started to be able to use them to perform simple operations) and are familiar with the concept of percentage. They have also begun to solve simple problems, usually involving a single operation. In the area of quantities and measures, students are able to read the time and can convert units of measurement with or without a conversion table. They are also able to solve initial simple problems involving calculations of perimeters and area, usually accompanied by a visual. In the field of solids and figures, they are able to use their basic knowledge to solve problems that require situation analysis (e.g. locating x triangles in a set of figures or identifying parallel lines in a bundle of lines).</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #D9F2D0">Level 1</td>
+    <td>Between 433 and 521 points</td>
+    <td>Students can answer very short questions that require factual knowledge or a specific procedure. In the area of numbers and operations, they are ableto perform the four basic operations with whole numbers, including those requiring a written calculation with regrouping. They have also begun to develop an initial understanding of fractions and can identify them when they are presented in a conventional way (e.g. a pie divided into x parts). In the field of quantities and measures, they can identify the usual conventional units (e.g. m, m², m³ and kg). In the field of solids and figures, they have some basic knowledge of various geometrical objects (e.g. identifying a disc or a cylinder, locating a right angle or parallel lines).</td>
+  </tr>
+  <tr>
+    <td style="background-color: #E8E8E8">Below Level 1</td>
+    <td>&lt; 433 points</td>
+    <td>Students at this level do not sufficiently demonstrate the skills measured by this test. These students struggle with the knowledge and skills of Level 1.</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.7 pp 74.*
+
+## Grade 2 student contextual questionnaire
+
+The questionnaire was administered as part of the same booklet that contained the language and mathematics assessment items. In the dataset, all Grade 2 student questionnaire variables are identified by the prefix **qe2**. The questionnaire collected contextual information in two main areas: student characteristics and family background (**qe21–qe210**) and educational resources available to the learner (**qe211–qe217**).
+
+## Grade 6 student contextual questionnaire
+
+The Grade 6 student contextual questionnaire was included in the same booklet as the reading and mathematics assessments and was administered before the cognitive tests. The contextual questionnaire collected information on learners' personal characteristics, family background, educational resources, and well-being at school. In the dataset, all Grade 6 student questionnaire variables are identified by the prefix **qe6**. Variables **qe61–qe626** capture learner and family background characteristics, while variables **qe627–qe643** focus on educational resources and school well-being.
+
+## Teacher questionnaire
+
+The teacher survey was administered on the fourth day of data collection and was completed by all eligible teachers in each sampled school during a single morning session. The teacher questionnaire collected detailed information on teachers' individual characteristics, academic and professional qualifications, employment status and remuneration, class characteristics, instructional practices, participation in meetings and supervision activities, working conditions, and the infrastructure and resources available in their classrooms.
+
+In the dataset, teacher questionnaire variables are identified by the prefix **qm** and range from **qm1 to qm46p**.
+
+## Principal questionnaire
+
+The principal questionnaire was administered to the principals of all sampled schools and collected contextual information about school leadership, management, and school characteristics. In the dataset, all principal questionnaire variables are identified by the prefix **qd**. The questionnaire covers principals' individual characteristics, academic and professional qualifications, employment status and remuneration, school characteristics, management practices, relationships with parents and the wider community, pedagogical and administrative aspects of school operation, the school calendar, and the availability of infrastructure and educational resources.
+
+## Derived variables
+
+PASEC 2019 includes a number of derived indices that summarise information collected through the student, teacher, and principal questionnaires. These indices were constructed using Item Response Theory (IRT), specifically the Rasch model, in a manner similar to the construction of learner achievement scores. These indices provide ready-made measures of learner, classroom, school, and community contexts and can be used directly in analyses examining factors associated with student achievement. At the student level, no derived indices were created for Grade 2 learners.
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Level</td>
+    <td style="background-color: #002060; color: #FFFFFF">Variable</td>
+    <td style="background-color: #002060; color: #FFFFFF">Description</td>
+    <td style="background-color: #002060; color: #FFFFFF">Based On</td>
+  </tr>
+  <tr>
+    <td>Student (Grade 6 only)</td>
+    <td>ses</td>
+    <td>Student socio-economic status index. Measures the socio-economic background of learners and their households.</td>
+    <td>Household assets and services reported by students, including electricity, television, computer, radio, telephone, vehicles, running water, and sanitation facilities.</td>
+  </tr>
+  <tr>
+    <td>Teacher</td>
+    <td>INDICE_EQUIP_CLASSE</td>
+    <td>Classroom equipment index. Measures the availability of teaching and learning resources within the classroom.</td>
+    <td>Textbooks, teaching guides, curriculum materials, teaching aids, classroom furniture, storage facilities, reading corners, and other instructional resources.</td>
+  </tr>
+  <tr>
+    <td>Teacher</td>
+    <td>INDICE_PERCEPT_MT</td>
+    <td>Teacher working conditions perception index. Measures teachers&#x27; perceptions of their working environment and conditions.</td>
+    <td>Teacher responses relating to working conditions and the school environment.</td>
+  </tr>
+  <tr>
+    <td>School</td>
+    <td>INDICE_INFRASTRUCTURES</td>
+    <td>School infrastructure index. Measures the availability and quality of school facilities and resources.</td>
+    <td>Classrooms, principal&#x27;s office, teacher rooms, storage facilities, playgrounds, sports fields, fencing, water, electricity, sanitation facilities, first aid equipment, and staff accommodation.</td>
+  </tr>
+  <tr>
+    <td>School</td>
+    <td>INDICE_IMPLI_COMMUNAU</td>
+    <td>Community involvement index. Measures the level of engagement between the school and the surrounding community.</td>
+    <td>Parent associations, teacher associations, school councils, school cooperatives, community meetings, and other forms of community participation.</td>
+  </tr>
+  <tr>
+    <td>School</td>
+    <td>INDICE_AMENAG_TERRI</td>
+    <td>Territorial planning index. Measures the availability of services and infrastructure in the area surrounding the school.</td>
+    <td>Roads, electricity, secondary schools, health facilities, police stations, banks, post offices, libraries, and cultural centres.</td>
+  </tr>
+</table>
+</div>
+```
+
+## Administrative variables
+
+PASEC 2019 includes several identifiers that enable analysts to uniquely identify records across students, teachers, schools, strata, and countries. These identifiers are essential for accounting for the survey design, and conducting multilevel analyses.
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Variable</td>
+    <td style="background-color: #002060; color: #FFFFFF">Description</td>
+  </tr>
+  <tr>
+    <td>ID_TOT</td>
+    <td>Unique student identifier</td>
+  </tr>
+  <tr>
+    <td>ID_ECOLE</td>
+    <td>School identifier</td>
+  </tr>
+  <tr>
+    <td>ID_ELEVE</td>
+    <td>Student identifier within a school</td>
+  </tr>
+  <tr>
+    <td>ID_STRATE</td>
+    <td>Stratum identifier within a country</td>
+  </tr>
+  <tr>
+    <td>ID_PAYS</td>
+    <td>Country identifier</td>
+  </tr>
+  <tr>
+    <td>PAYS</td>
+    <td>Country name</td>
+  </tr>
+  <tr>
+    <td>ID_ENSEIGNANT</td>
+    <td>Teacher identifier</td>
+  </tr>
+  <tr>
+    <td>ID_LIVRET</td>
+    <td>Grade 6 booklet identifier (A–D)</td>
+  </tr>
+  <tr>
+    <td>LANGUE</td>
+    <td>Language of assessment</td>
+  </tr>
+  <tr>
+    <td>rwgt0</td>
+    <td>Final student weight</td>
+  </tr>
+  <tr>
+    <td>W_ECOLE</td>
+    <td>School weight</td>
+  </tr>
+  <tr>
+    <td>rwgt1-rwgt45(90)</td>
+    <td>Replicate weights (45 in Grade 2, 90 in Grade 6)</td>
+  </tr>
+</table>
+</div>
+```
+
+The primary weight used for student-level analyses is the **final student weight (rwgt0).** This weight incorporates all stages of the sampling process and adjustments for nonresponse. Specifically, it combines the initial school selection weight, adjustments for school nonresponse, the class selection weight (where applicable), the student selection weight, and adjustments for student nonparticipation. As a result, rwgt0 represents the number of students in the population represented by each sampled learner and should be used in most student-level analyses.
+
+For school-level analyses, PASEC provides the **school weight (W_ECOLE)**, which reflects the probability of school selection and adjustments for school nonresponse. This weight should be used when the unit of analysis is the school rather than the student.
+
+Standard error calculations need to take the three-stage stratified sampling design of PASEC 2019 into account. PASEC provides 90 replicate weights (**rwgt1-rwgt90**) for Grade 6 and 45 replicate weights (**rwgt1-rwgt45**) to calculate the correct sampling variance. [Learn more about replicate weights and how to use them](c02-replicate-weights.html)

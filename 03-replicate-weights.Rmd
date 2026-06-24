@@ -1,4 +1,3 @@
-# (PART) Concept {-}
 # What are replicate weights {#c02-replicate-weights}
 
 PASEC does not use a simple random sample of students. Instead, students are selected through a complex multi-stage sampling design involving schools, classrooms and students. As a result, observations are not statistically independent and standard formulas for standard errors are inappropriate.

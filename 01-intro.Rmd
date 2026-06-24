@@ -21,4 +21,8 @@ Working with PASEC data differs from working with many conventional survey datas
 
 - Ignoring plausible values introduces bias in distributional estimates and underestimates the uncertainty around all proficiency-related statistics.  
 
-- The good news is , there are Stata and R packages that make it relatively straightforward to analyse PASEC data while correctly accounting for both plausible values and replicate weights. 
+- The good news is that there are Stata and R packages that make it relatively straightforward to analyse PASEC data while correctly accounting for both plausible values and replicate weights. 
+
+The information included in this guide has been compiled and synthesised from two primary sources: PASEC 2019: Quality of Education Systems in French-Speaking Sub-Saharan Africa and an automated English translation of the PASEC 2019 Data Operations Manual for International Evaluation. The aim is to consolidate key technical information into a single, accessible reference that facilitates data exploration, management, and analysis. 
+
+ 

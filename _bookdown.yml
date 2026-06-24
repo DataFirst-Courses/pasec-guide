@@ -10,11 +10,12 @@ language:
 rmd_files:
   - index.Rmd
   - 01-intro.Rmd
-  - 02-replicate-weights.Rmd
-  - 03-plausible-values.Rmd
-  - 04-download-data.Rmd
-  - 05-resources.Rmd
-  - 06-stata.Rmd
-  - 07-r.Rmd
+  - 02-whats-in-the-data.Rmd
+  - 03-replicate-weights.Rmd
+  - 04-plausible-values.Rmd
+  - 05-download-data.Rmd
+  - 06-resources.Rmd
+  - 07-stata.Rmd
+  - 08-r.Rmd
 after_render: ["R/publish-nav.R"]
 

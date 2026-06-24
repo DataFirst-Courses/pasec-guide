@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 2 What’s in the data? | bookdownproj.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 2 What’s in the data? | bookdownproj.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 2 What’s in the data? | bookdownproj.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch01-intro.html"/>
+<link rel="next" href="c02-replicate-weights.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="index.html"><img src="files/AFLEARN logo.png" alt="AFLEARN"></a></li>
+<li class="home-link"><a href="index.html"><i class="fa fa-home"></i> Guide home</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="ch01-intro.html"><a href="ch01-intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to the Guide</a></li>
+<li class="chapter" data-level="2" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html"><i class="fa fa-check"></i><b>2</b> What’s in the data?</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#grade-2-student-assessment"><i class="fa fa-check"></i><b>2.1</b> Grade 2 student assessment</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#areas-assessed-by-pasec2019-in-reading-early-primary"><i class="fa fa-check"></i><b>2.1.1</b> Areas assessed by PASEC2019 in Reading – Early primary</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#areas-assessed-by-pasec2019-in-mathematics-early-primary"><i class="fa fa-check"></i><b>2.1.2</b> Areas assessed by PASEC2019 in mathematics – Early primary</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#grade-6-student-assessment"><i class="fa fa-check"></i><b>2.2</b> Grade 6 student assessment</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#areas-assessed-by-pasec2019-in-reading-late-primary"><i class="fa fa-check"></i><b>2.2.1</b> Areas assessed by PASEC2019 in reading – Late primary</a></li>
+<li class="chapter" data-level="2.2.2" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#areas-assessed-by-pasec2019-in-mathematics-late-primary"><i class="fa fa-check"></i><b>2.2.2</b> Areas assessed by PASEC2019 in mathematics – Late primary</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#student-reading-and-mathematics-proficiency-scores"><i class="fa fa-check"></i><b>2.3</b> Student Reading and Mathematics Proficiency Scores</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#reading-proficiency-scale-early-primary-grade-2"><i class="fa fa-check"></i><b>2.3.1</b> Reading proficiency scale – Early primary (Grade 2)</a></li>
+<li class="chapter" data-level="2.3.2" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#mathematics-proficiency-scale-early-primary-grade-2"><i class="fa fa-check"></i><b>2.3.2</b> Mathematics proficiency scale – Early primary (Grade 2)</a></li>
+<li class="chapter" data-level="2.3.3" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#reading-proficiency-scale-late-primary-grade-6"><i class="fa fa-check"></i><b>2.3.3</b> Reading proficiency scale – late primary (Grade 6)</a></li>
+<li class="chapter" data-level="2.3.4" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#mathematics-proficiency-scale-late-primary-grade-6"><i class="fa fa-check"></i><b>2.3.4</b> Mathematics proficiency scale – Late primary (Grade 6)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#grade-2-student-contextual-questionnaire"><i class="fa fa-check"></i><b>2.4</b> Grade 2 student contextual questionnaire</a></li>
+<li class="chapter" data-level="2.5" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#grade-6-student-contextual-questionnaire"><i class="fa fa-check"></i><b>2.5</b> Grade 6 student contextual questionnaire</a></li>
+<li class="chapter" data-level="2.6" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#teacher-questionnaire"><i class="fa fa-check"></i><b>2.6</b> Teacher questionnaire</a></li>
+<li class="chapter" data-level="2.7" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#principal-questionnaire"><i class="fa fa-check"></i><b>2.7</b> Principal questionnaire</a></li>
+<li class="chapter" data-level="2.8" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#derived-variables"><i class="fa fa-check"></i><b>2.8</b> Derived variables</a></li>
+<li class="chapter" data-level="2.9" data-path="ch-whats-in-data.html"><a href="ch-whats-in-data.html#administrative-variables"><i class="fa fa-check"></i><b>2.9</b> Administrative variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="c02-replicate-weights.html"><a href="c02-replicate-weights.html"><i class="fa fa-check"></i><b>3</b> What are replicate weights</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="c02-replicate-weights.html"><a href="c02-replicate-weights.html#worked-example-mean-age-in-grade-2-benin"><i class="fa fa-check"></i><b>3.1</b> Worked example: mean age in Grade 2, Benin</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="c03-plausible-values.html"><a href="c03-plausible-values.html"><i class="fa fa-check"></i><b>4</b> What are plausible values?</a>
+<ul>
+<li class="chapter" data-level="" data-path="c03-plausible-values.html"><a href="c03-plausible-values.html#alt5"><i class="fa fa-check"></i>Warning</a></li>
+<li class="chapter" data-level="4.1" data-path="c03-plausible-values.html"><a href="c03-plausible-values.html#worked-example-mean-language-proficiency-in-grade-2"><i class="fa fa-check"></i><b>4.1</b> Worked example: mean language proficiency in Grade 2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ch04-download.html"><a href="ch04-download.html"><i class="fa fa-check"></i><b>5</b> Downloading the data</a></li>
+<li class="chapter" data-level="6" data-path="ch05-resources.html"><a href="ch05-resources.html"><i class="fa fa-check"></i><b>6</b> Resources for non-French speaking researchers</a></li>
+<li class="chapter" data-level="7" data-path="c06-stata.html"><a href="c06-stata.html"><i class="fa fa-check"></i><b>7</b> Analyzing PASEC 2019 data in Stata</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="c06-stata.html"><a href="c06-stata.html#loading-data-in-stata"><i class="fa fa-check"></i><b>7.1</b> Loading data in Stata</a></li>
+<li class="chapter" data-level="7.2" data-path="c06-stata.html"><a href="c06-stata.html#applying-english-labels"><i class="fa fa-check"></i><b>7.2</b> Applying English labels</a></li>
+<li class="chapter" data-level="7.3" data-path="c06-stata.html"><a href="c06-stata.html#the-repest-package"><i class="fa fa-check"></i><b>7.3</b> The <code>repest</code> package</a></li>
+<li class="chapter" data-level="7.4" data-path="c06-stata.html"><a href="c06-stata.html#repest-command-syntax"><i class="fa fa-check"></i><b>7.4</b> <code>repest</code> command syntax</a></li>
+<li class="chapter" data-level="7.5" data-path="c06-stata.html"><a href="c06-stata.html#before-you-begin-set-up-repest-for-pasec"><i class="fa fa-check"></i><b>7.5</b> Before You begin: Set up <code>repest</code> for PASEC</a></li>
+<li class="chapter" data-level="7.6" data-path="c06-stata.html"><a href="c06-stata.html#pasec-analyses-examples"><i class="fa fa-check"></i><b>7.6</b> PASEC Analyses Examples</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="c06-stata.html"><a href="c06-stata.html#calculating-mean-age"><i class="fa fa-check"></i><b>7.6.1</b> Calculating Mean Age</a></li>
+<li class="chapter" data-level="" data-path="c06-stata.html"><a href="c06-stata.html#alt1"><i class="fa fa-check"></i>Alternative to generate the same result - svy</a></li>
+<li class="chapter" data-level="7.6.2" data-path="c06-stata.html"><a href="c06-stata.html#calculating-mean-mathematics-proficiency"><i class="fa fa-check"></i><b>7.6.2</b> Calculating Mean Mathematics Proficiency</a></li>
+<li class="chapter" data-level="" data-path="c06-stata.html"><a href="c06-stata.html#alt2"><i class="fa fa-check"></i>Alternative to generate the same result - pv</a></li>
+<li class="chapter" data-level="7.6.3" data-path="c06-stata.html"><a href="c06-stata.html#moving-beyond-means-summary-statistics-with-repest"><i class="fa fa-check"></i><b>7.6.3</b> Moving beyond means: summary statistics with <code>repest</code></a></li>
+<li class="chapter" data-level="7.6.4" data-path="c06-stata.html"><a href="c06-stata.html#estimating-pasec-proficiency-levels"><i class="fa fa-check"></i><b>7.6.4</b> Estimating PASEC proficiency levels</a></li>
+<li class="chapter" data-level="7.6.5" data-path="c06-stata.html"><a href="c06-stata.html#testing-for-differences-between-groups"><i class="fa fa-check"></i><b>7.6.5</b> Testing for differences between groups</a></li>
+<li class="chapter" data-level="7.6.6" data-path="c06-stata.html"><a href="c06-stata.html#multivariate-regression"><i class="fa fa-check"></i><b>7.6.6</b> Multivariate Regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="c07-r.html"><a href="c07-r.html"><i class="fa fa-check"></i><b>8</b> Analyzing PASEC 2019 data in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="c07-r.html"><a href="c07-r.html#package-installation"><i class="fa fa-check"></i><b>8.1</b> Package installation</a></li>
+<li class="chapter" data-level="8.2" data-path="c07-r.html"><a href="c07-r.html#loading-data-in-r"><i class="fa fa-check"></i><b>8.2</b> Loading data in R</a></li>
+<li class="chapter" data-level="8.3" data-path="c07-r.html"><a href="c07-r.html#applying-english-labels-1"><i class="fa fa-check"></i><b>8.3</b> Applying English Labels</a></li>
+<li class="chapter" data-level="8.4" data-path="c07-r.html"><a href="c07-r.html#rrepest-command-syntax"><i class="fa fa-check"></i><b>8.4</b> <code>Rrepest</code> command syntax</a></li>
+<li class="chapter" data-level="8.5" data-path="c07-r.html"><a href="c07-r.html#before-you-begin-set-up-rrepest-for-pasec"><i class="fa fa-check"></i><b>8.5</b> Before you begin: Set up <code>Rrepest</code> for PASEC</a></li>
+<li class="chapter" data-level="8.6" data-path="c07-r.html"><a href="c07-r.html#pasec-analyses-examples-1"><i class="fa fa-check"></i><b>8.6</b> PASEC Analyses Examples</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="c07-r.html"><a href="c07-r.html#calculating-mean-age-by-country"><i class="fa fa-check"></i><b>8.6.1</b> Calculating Mean Age by Country</a></li>
+<li class="chapter" data-level="" data-path="c07-r.html"><a href="c07-r.html#alt3"><i class="fa fa-check"></i>Alternative to generate the same result using survey package</a></li>
+<li class="chapter" data-level="8.6.2" data-path="c07-r.html"><a href="c07-r.html#calculating-mean-mathematics-proficiency-1"><i class="fa fa-check"></i><b>8.6.2</b> Calculating mean mathematics proficiency</a></li>
+<li class="chapter" data-level="" data-path="c07-r.html"><a href="c07-r.html#alt4"><i class="fa fa-check"></i>Alternative to generate the same result using survey and mitools package</a></li>
+<li class="chapter" data-level="8.6.3" data-path="c07-r.html"><a href="c07-r.html#moving-beyond-means-summary-statistics-with-rrepest"><i class="fa fa-check"></i><b>8.6.3</b> Moving beyond means: summary statistics with <code>Rrepest</code></a></li>
+<li class="chapter" data-level="8.6.4" data-path="c07-r.html"><a href="c07-r.html#estimating-pasec-proficiency-levels-1"><i class="fa fa-check"></i><b>8.6.4</b> Estimating PASEC proficiency levels</a></li>
+<li class="chapter" data-level="8.6.5" data-path="c07-r.html"><a href="c07-r.html#testing-for-differences-between-groups-1"><i class="fa fa-check"></i><b>8.6.5</b> Testing for differences between groups</a></li>
+<li class="chapter" data-level="8.6.6" data-path="c07-r.html"><a href="c07-r.html#multivariate-regression-1"><i class="fa fa-check"></i><b>8.6.6</b> Multivariate regression</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<p class="guide-home-link">
+  <a href="index.html"><i class="fa fa-arrow-left"></i> Back to guide home</a>
+</p>
+<div id="ch-whats-in-data" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number"> 2</span> What’s in the data?<a href="ch-whats-in-data.html#ch-whats-in-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<style type="text/css">
+.pasec-table-wrap {
+  overflow-x: auto;
+  margin: 1.25em 0;
+}
+
+.pasec-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92em;
+}
+
+.pasec-data-table td {
+  border: 1px solid #d0d0d0;
+  padding: 0.45em 0.65em;
+  vertical-align: top;
+}
+
+.pasec-data-table td[style*="background-color: #002060"]:not([style*="color:"]) {
+  color: #FFFFFF !important;
+}
+.pasec-data-table td[style*="background-color: #0F4761"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #156082"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #3A7C22"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #45B0E1"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #83CAEB"]:not([style*="color:"]) {
+  color: #FFFFFF !important;
+}
+
+
+/* GitBook zebra-striping targets all tables; keep cell colours from the docx */
+.book .book-body .page-wrapper .page-inner section.normal table.pasec-data-table tr,
+.book .book-body .page-wrapper .page-inner section.normal table.pasec-data-table tr:nth-child(2n) {
+  background-color: transparent !important;
+}
+</style>
+<p>The public release comprises a Grade 2 and a Grade 6 dataset including all 14 countries. These learner datasets contain both the learner level assessment and contextual questionnaire data. In addition, each dataset contains responses to the principal and teacher questionnaires.</p>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Sections of the datasets</td>
+  </tr>
+  <tr>
+    <td>Student assessment</td>
+  </tr>
+  <tr>
+    <td>Student proficiency scores</td>
+  </tr>
+  <tr>
+    <td>Student questionnaire</td>
+  </tr>
+  <tr>
+    <td>Teacher questionnaire</td>
+  </tr>
+  <tr>
+    <td>Principal questionnaire</td>
+  </tr>
+  <tr>
+    <td>Derived variables</td>
+  </tr>
+  <tr>
+    <td>Administrative variables</td>
+  </tr>
+</table>
+</div>
+<p>Each of these sections is described in more detail below.</p>
+<div id="grade-2-student-assessment" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Grade 2 student assessment<a href="ch-whats-in-data.html#grade-2-student-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The PASEC 2019 Grade 2 student assessment was designed to measure foundational literacy and numeracy skills acquired during the early years of primary schooling. Assessments were administered individually (one-on-one) and took approximately 30 minutes per subject (language and mathematics). The assessments were conducted individually by trained administrators over four mornings, with a maximum of 16 learners per selected school divided into two sub-groups from the same class.</p>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Subject</td>
+    <td style="background-color: #002060; color: #FFFFFF">Variables in dataset</td>
+  </tr>
+  <tr>
+    <td>Reading</td>
+    <td>l11–l114</td>
+  </tr>
+  <tr>
+    <td>Mathematics</td>
+    <td>m11–m123</td>
+  </tr>
+</table>
+</div>
+<div id="areas-assessed-by-pasec2019-in-reading-early-primary" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Areas assessed by PASEC2019 in Reading – Early primary<a href="ch-whats-in-data.html#areas-assessed-by-pasec2019-in-reading-early-primary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+    <td style="background-color: #002060; color: #FFFFFF">Exercises and skills assessed</td>
+  </tr>
+  <tr>
+    <td>Listening comprehension: Listening comprehension was assessed with oral messages combined with isolated words and sentences and texts. Developing skills in this area enables students to expand their vocabulary and thus achieve fluency when decoding a text by making links between oral and written language</td>
+    <td>Understanding vocabulary Recognising vocabulary Recognising word families Understanding a text</td>
+  </tr>
+  <tr>
+    <td>Reading-decoding: Reading-decoding was assessed through exercises requiring graphophonological identification (letters, syllables, words) and simple letter and word reading activities. Developing skills in this area enables students to achieve reading fluency so that they can focus on the meaning of words and sentences, and thus expand their vocabulary</td>
+    <td>Reading letters Recognising syllables Reading words</td>
+  </tr>
+  <tr>
+    <td>Reading comprehension: Reading comprehension was assessed through exercises requiring students to read isolated words and sentences as well as texts, and then find, combine and interpret information. Developing skills in this area enables students to read autonomously in a variety of everyday situations and thus develop their knowledge and participate in society</td>
+    <td>Decoding the meaning of words Reading and understanding sentences Understanding a text</td>
+  </tr>
+</table>
+</div>
+<p><em>Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.2 pp 28.</em></p>
+</div>
+<div id="areas-assessed-by-pasec2019-in-mathematics-early-primary" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Areas assessed by PASEC2019 in mathematics – Early primary<a href="ch-whats-in-data.html#areas-assessed-by-pasec2019-in-mathematics-early-primary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+    <td style="background-color: #002060; color: #FFFFFF">Exercises and skills assessed</td>
+  </tr>
+  <tr>
+    <td>Arithmetic: Arithmetic was assessed through exercises involving counting, enumerating and handling quantities of objects, operations, number series and problem-solving. Developing skills in this area enables students to progress from an intuitive to a symbolic understanding of numbers.</td>
+    <td>Counting to 100 Recognising figures and numbers Quantifying objects Distinguishing quantities of objects Arranging numbers in order - (the largest) Arranging numbers in order - (the smallest) Completing number series Adding and subtracting Solving problems</td>
+  </tr>
+  <tr>
+    <td>Geometry, space and measurement: Measurement was assessed through the recognition of geometric shapes, and the concepts of size and location in space. Developing skills in this area enables students to progress from an intuitive to a symbolic understanding of geometry, space and measurement.</td>
+    <td>Recognising geometric shapes Determining spatial location Appraising sizes</td>
+  </tr>
+</table>
+</div>
+<p><em>Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.3 pp 29.</em></p>
+</div>
+</div>
+<div id="grade-6-student-assessment" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Grade 6 student assessment<a href="ch-whats-in-data.html#grade-6-student-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Unlike the Grade 2 assessment, the Grade 6 assessment was administered as a group-based written test and consisted entirely of multiple-choice questions (MCQs), with response options coded from 1 to 4. To accommodate the large volume of assessment content, PASEC used a rotating booklet design, whereby students were randomly assigned one of four booklets (A, B, C, or D) within each selected class. The assessment lasted up to two hours per subject.</p>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Subject</td>
+    <td style="background-color: #002060; color: #FFFFFF">Variables in dataset</td>
+  </tr>
+  <tr>
+    <td>Reading</td>
+    <td>f1–f98</td>
+  </tr>
+  <tr>
+    <td>Mathematics</td>
+    <td>m1–m84</td>
+  </tr>
+</table>
+</div>
+<div id="areas-assessed-by-pasec2019-in-reading-late-primary" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Areas assessed by PASEC2019 in reading – Late primary<a href="ch-whats-in-data.html#areas-assessed-by-pasec2019-in-reading-late-primary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+    <td style="background-color: #002060; color: #FFFFFF">Written materials</td>
+  </tr>
+  <tr>
+    <td>Comprehension of isolated words and sentences: Comprehension of isolated words and sentences was assessed through reading exercises focusing on discovering the explicit meaning of isolated words and sentences. Developing skills in this area enables students to achieve reading fluency to gradually understand the meaning of sentences and texts and expand their vocabulary. The level of these tasks was very basic and reflected the objectives of curricula for early primary education</td>
+    <td>Isolated pictures, words and sentences</td>
+  </tr>
+  <tr>
+    <td>Reading comprehension: Reading comprehension was assessed through exercises requiring students to read narrative and informative texts as well as documents, and then extract information, perform simple inferences, and interpret and combine information. Developing skills in this area enables students to read autonomously in a variety of everyday situations and thus develop their knowledge and participate in society</td>
+    <td>Narrative texts (39%) and informative texts and documents (45%)</td>
+  </tr>
+</table>
+</div>
+<p><em>Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.4 pp 30.</em></p>
+</div>
+<div id="areas-assessed-by-pasec2019-in-mathematics-late-primary" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Areas assessed by PASEC2019 in mathematics – Late primary<a href="ch-whats-in-data.html#areas-assessed-by-pasec2019-in-mathematics-late-primary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td colspan="2" style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+  </tr>
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Arithmetic</td>
+    <td>Arithmetic skills were assessed with reference to the understanding of numbers: knowledge and understanding of the sequence of operations and of the properties of the four operations; and operations on numbers such as adding, subtracting, multiplying and dividing. They were also assessed through the understanding of decimals and percentages.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Measurement and size</td>
+    <td>Skills relating to measurements and sizes were assessed with reference to the knowledge and understanding of units of measurement for length, mass, capacity, angle and duration, and the conversion of these measurement units. They were also assessed through calculations of size (length, duration, mass, capacity, angle, area, volume) in different contexts, in particular using plane geometric figures (triangles, rectangles, squares, parallelograms, disks) and solids (cubes or rectangular parallelepipeds).</td>
+  </tr>
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Geometry and space</td>
+    <td>Skills relating to geometry and space were assessed through exercises involving recognition of the properties of two or three-dimensional geometric shapes, geometric relations and transformations, and spatial position and representation.</td>
+  </tr>
+</table>
+</div>
+<p><em>Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.5 pp 30.</em></p>
+</div>
+</div>
+<div id="student-reading-and-mathematics-proficiency-scores" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Student Reading and Mathematics Proficiency Scores<a href="ch-whats-in-data.html#student-reading-and-mathematics-proficiency-scores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>PASEC uses Item Response Theory (IRT) to estimate student proficiency in reading and mathematics from responses to the assessment items together with background information. These estimates are provided as five plausible values for reading (<strong>LECT_PV1 – LECT_PV5</strong>) and five plausible values for mathematics (<strong>MATHS_PV1 – MATHS_PV5</strong>). <a href="c03-plausible-values.html">Learn more about plausible values and how to use them in your analysis</a>.</p>
+<p>The PASEC 2019 proficiency scores are reported on the same scale as PASEC 2014, which was standardised to have an international mean of 500 and a standard deviation of 100, with each participating country contributing equally to the scaling. The use of common assessment items allows results from 2019 to be compared directly with those from 2014.</p>
+<p>The scales are divided into a series of proficiency levels that represent increasingly complex knowledge and skills. Each level corresponds to a specific score range and is defined by groups of assessment tasks that share common conceptual and statistical characteristics. Because the levels are hierarchical, students performing at a given level are also expected to be able to complete tasks associated with lower levels.</p>
+<p>PASEC defines a <strong>minimum proficiency level</strong> representing the knowledge and skills considered necessary for successful progression through the education system. For mathematics, the minimum proficiency level corresponds to Level 2 in both Grade 2 and Grade 6. For language of instruction, the minimum proficiency level corresponds to Level 3.</p>
+<p>For reporting on Sustainable Development Goal (SDG) indicator 4.1.1, the PASEC minimum proficiency level aligns with the SDG minimum proficiency level for Grade 2 (SDG 4.1.1a). In Grade 6, however, the SDG 4.1.1b minimum proficiency level is set one level higher than the PASEC minimum proficiency level.</p>
+<div id="reading-proficiency-scale-early-primary-grade-2" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Reading proficiency scale – Early primary (Grade 2)<a href="ch-whats-in-data.html#reading-proficiency-scale-early-primary-grade-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #0F4761; color: #FFFFFF">Level 4</td>
+    <td>&gt;610 points</td>
+    <td>Intermediate reader: moving towards independent reading and understanding sentences and texts Students at this level have achieved a level in the decoding of written text and in listening comprehension that enables them to understand explicit information in short sentences and texts. They are able to combine their decoding skills and their command of spoken language to piece together the literal meaning of a short text</td>
+  </tr>
+  <tr>
+    <td style="background-color: #156082; color: #FFFFFF">Level 3</td>
+    <td>Between 540 and 610 points</td>
+    <td>Learner reader: moving towards the perfecting of decoding skills, listening skills and understanding of written words Students at this level have perfected their listening comprehension and decoding skills, enabling them to focus on understanding words. In listening comprehension, they are able to understand explicit information in a short text which uses familiar vocabulary. They are gradually developing links between spoken and written language and thus improving their decoding skills and expanding their vocabulary. In reading comprehension, students are able to identify the meaning of isolated words.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC &amp; SDG 4.1.1a Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #45B0E1; color: #FFFFFF">Level 2</td>
+    <td>Between 540 and 610 points</td>
+    <td>Learner reader: moving towards the perfecting of decoding skills, listening skills and understanding of written words Students at this level have perfected their listening comprehension and decoding skills, enabling them to focus on understanding words. In listening comprehension, they are able to understand explicit information in a short text which uses familiar vocabulary. They are gradually developing links between spoken and written language and thus improving their decoding skills and expanding their vocabulary. In reading comprehension, students are able to identify the meaning of isolated words.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #83CAEB; color: #FFFFFF">Level 1</td>
+    <td>Between 399 and 469 points</td>
+    <td>Emergent reader: towards developing decoding skills and strengthening listening comprehension skills Students are able to understand very short-spoken messages that use isolated words and refer to familiar objects. They have great difficulty with decoding the written word and with graphophonological identification (letters, syllables, graphemes and phonemes).</td>
+  </tr>
+  <tr>
+    <td style="background-color: #C1E4F5; color: #FFFFFF">Below Level 1</td>
+    <td>&lt; 399 points</td>
+    <td>Students below Level 1 do not sufficiently demonstrate the skills measured by this test in the language of instruction. These students struggle with the knowledge and skills of Level 1.</td>
+  </tr>
+</table>
+</div>
+<p><em>Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.1 pp 47.</em></p>
+</div>
+<div id="mathematics-proficiency-scale-early-primary-grade-2" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Mathematics proficiency scale – Early primary (Grade 2)<a href="ch-whats-in-data.html#mathematics-proficiency-scale-early-primary-grade-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #3A7C22; color: #FFFFFF">Level 3</td>
+    <td>&gt; 577 points</td>
+    <td>Students are familiar with the verbal number sequence (they can count up to 60 in two minutes) and are able to read numbers, compare numbers, complete number series and perform operations (addition and subtraction) on numbers greater than 50. They can use reasoning in basic problems involving numbers less than 20</td>
+  </tr>
+  <tr>
+    <td style="background-color: #8DD873">Level 2</td>
+    <td>Between 489 and 577 points</td>
+    <td>Students can read numbers, compare numbers, complete logical series and perform operations (addition and subtraction) on numbers less than 50. They can work with the concepts of location in space (e.g. in front of, on top of, etc.). They are beginning to develop reasoning skills in basic problems involving numbers less than 20. They can also identify most simple geometric shapes.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC and SDG 4.1.1a Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #D9F2D0">Level 1</td>
+    <td>Between 400 and 489 points</td>
+    <td>Students are gradually developing their knowledge of mathematical language: they are beginning to read the first numbers (less than 10) and have an initial understanding of quantity (counting, comparison) with numbers less than 20. They show awareness of the relative size of objects and are beginning to identify the first simple geometric shapes</td>
+  </tr>
+  <tr>
+    <td style="background-color: #E8E8E8">Below Level 1</td>
+    <td>&lt; 400 points</td>
+    <td>Students at this level do not sufficiently demonstrate the skills measured by this test in mathematics. These students struggle with the knowledge and skills of Level 1</td>
+  </tr>
+</table>
+</div>
+<p><em>Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.2 pp 53.</em></p>
+</div>
+<div id="reading-proficiency-scale-late-primary-grade-6" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Reading proficiency scale – late primary (Grade 6)<a href="ch-whats-in-data.html#reading-proficiency-scale-late-primary-grade-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #0F4761; color: #FFFFFF">Level 4</td>
+    <td>&gt;595 points</td>
+    <td>Students can process narrative and informative texts and documents at a general level. They are able to combine and interpret multiple implicit ideas in such material, drawing on their own experience and knowledge. When reading literary texts, students are able to identify the author’s intention and determine the implicit meaning of a story. When reading informative texts and documents, they are able to link pieces of information and compare data in order to make use of them.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">SDG 4.1.1b Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #156082; color: #FFFFFF">Level 3</td>
+    <td>518-595 points</td>
+    <td>Students are able to combine two explicit pieces of information in a document or to make simple inferences in a narrative or informative text. They can extract implicit information from written material by giving meaning to implicit connectors, anaphoras and referents. Students are able to locate explicit information in long texts and documents with discontinuous text.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #45B0E1; color: #FFFFFF">Level 2</td>
+    <td>441 – 518 points</td>
+    <td>Students have improved their decoding skills so that they can understand isolated words derived from their daily life and isolated sentences. They are also able to locate explicit information in short and medium texts by taking cues from the text and the questions. Students are able to paraphrase explicit information from a text.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #83CAEB; color: #FFFFFF">Level 1</td>
+    <td>365 – 411 points</td>
+    <td>Students have developed decoding skills and are able to use them to understand isolated words derived from their daily life or very short, isolated sentences but have difficulty understanding the meaning of short and simple texts.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #C1E4F5; color: #FFFFFF">Below Level 1</td>
+    <td>&lt; 365 points</td>
+    <td>Students at this level do not sufficiently demonstrate the skills in the language of instruction measured by this test. These students struggle with the knowledge and skills of Level 1.</td>
+  </tr>
+</table>
+</div>
+<p><em>Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.6 pp 70.</em></p>
+</div>
+<div id="mathematics-proficiency-scale-late-primary-grade-6" class="section level3 hasAnchor" number="2.3.4">
+<h3><span class="header-section-number">2.3.4</span> Mathematics proficiency scale – Late primary (Grade 6)<a href="ch-whats-in-data.html#mathematics-proficiency-scale-late-primary-grade-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #3A7C22; color: #FFFFFF">Level 3</td>
+    <td>&gt; 609 points</td>
+    <td>Students are able to solve problems in which a situation, usually presented in the form of a short text of 2 to 3 lines, needs to be analysed in order to identify the procedure(s) to be used. In the area of numbers and operations, they can solve direct proportionality problems and problems involving fractions or decimals. Their understanding of fractions is still growing (they understand the comparison of fractions and the relationship between fractions and decimals). In the field of quantities and measures, they can solve various problems involving calculations of area or perimeter, presented without visuals and sometimes requiring two stages of reasoning (e.g. finding the area of a square once its perimeter is known, or carrying out conversions involving data provided in area or hectares). They can also perform calculations and conversions involving hours, minutes or seconds.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">SDG 4.1.1b Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #8DD873">Level 2</td>
+    <td>Between 521 and 609 points</td>
+    <td>Students are able to answer short questions using the three assessed processes: knowledge, application and problem-solving. While most questions require factual knowledge or a specific procedure, some require analysis of the situation to determine the appropriate approach. In the area of numbers and operations, students perform operations with decimals; they have an increasing understanding of fractions (they can identify them in less typical situations and have started to be able to use them to perform simple operations) and are familiar with the concept of percentage. They have also begun to solve simple problems, usually involving a single operation. In the area of quantities and measures, students are able to read the time and can convert units of measurement with or without a conversion table. They are also able to solve initial simple problems involving calculations of perimeters and area, usually accompanied by a visual. In the field of solids and figures, they are able to use their basic knowledge to solve problems that require situation analysis (e.g. locating x triangles in a set of figures or identifying parallel lines in a bundle of lines).</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #D9F2D0">Level 1</td>
+    <td>Between 433 and 521 points</td>
+    <td>Students can answer very short questions that require factual knowledge or a specific procedure. In the area of numbers and operations, they are ableto perform the four basic operations with whole numbers, including those requiring a written calculation with regrouping. They have also begun to develop an initial understanding of fractions and can identify them when they are presented in a conventional way (e.g. a pie divided into x parts). In the field of quantities and measures, they can identify the usual conventional units (e.g. m, m², m³ and kg). In the field of solids and figures, they have some basic knowledge of various geometrical objects (e.g. identifying a disc or a cylinder, locating a right angle or parallel lines).</td>
+  </tr>
+  <tr>
+    <td style="background-color: #E8E8E8">Below Level 1</td>
+    <td>&lt; 433 points</td>
+    <td>Students at this level do not sufficiently demonstrate the skills measured by this test. These students struggle with the knowledge and skills of Level 1.</td>
+  </tr>
+</table>
+</div>
+<p><em>Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.7 pp 74.</em></p>
+</div>
+</div>
+<div id="grade-2-student-contextual-questionnaire" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Grade 2 student contextual questionnaire<a href="ch-whats-in-data.html#grade-2-student-contextual-questionnaire" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The questionnaire was administered as part of the same booklet that contained the language and mathematics assessment items. In the dataset, all Grade 2 student questionnaire variables are identified by the prefix <strong>qe2</strong>. The questionnaire collected contextual information in two main areas: student characteristics and family background (<strong>qe21–qe210</strong>) and educational resources available to the learner (<strong>qe211–qe217</strong>).</p>
+</div>
+<div id="grade-6-student-contextual-questionnaire" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Grade 6 student contextual questionnaire<a href="ch-whats-in-data.html#grade-6-student-contextual-questionnaire" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Grade 6 student contextual questionnaire was included in the same booklet as the reading and mathematics assessments and was administered before the cognitive tests. The contextual questionnaire collected information on learners’ personal characteristics, family background, educational resources, and well-being at school. In the dataset, all Grade 6 student questionnaire variables are identified by the prefix <strong>qe6</strong>. Variables <strong>qe61–qe626</strong> capture learner and family background characteristics, while variables <strong>qe627–qe643</strong> focus on educational resources and school well-being.</p>
+</div>
+<div id="teacher-questionnaire" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Teacher questionnaire<a href="ch-whats-in-data.html#teacher-questionnaire" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The teacher survey was administered on the fourth day of data collection and was completed by all eligible teachers in each sampled school during a single morning session. The teacher questionnaire collected detailed information on teachers’ individual characteristics, academic and professional qualifications, employment status and remuneration, class characteristics, instructional practices, participation in meetings and supervision activities, working conditions, and the infrastructure and resources available in their classrooms.</p>
+<p>In the dataset, teacher questionnaire variables are identified by the prefix <strong>qm</strong> and range from <strong>qm1 to qm46p</strong>.</p>
+</div>
+<div id="principal-questionnaire" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Principal questionnaire<a href="ch-whats-in-data.html#principal-questionnaire" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The principal questionnaire was administered to the principals of all sampled schools and collected contextual information about school leadership, management, and school characteristics. In the dataset, all principal questionnaire variables are identified by the prefix <strong>qd</strong>. The questionnaire covers principals’ individual characteristics, academic and professional qualifications, employment status and remuneration, school characteristics, management practices, relationships with parents and the wider community, pedagogical and administrative aspects of school operation, the school calendar, and the availability of infrastructure and educational resources.</p>
+</div>
+<div id="derived-variables" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Derived variables<a href="ch-whats-in-data.html#derived-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>PASEC 2019 includes a number of derived indices that summarise information collected through the student, teacher, and principal questionnaires. These indices were constructed using Item Response Theory (IRT), specifically the Rasch model, in a manner similar to the construction of learner achievement scores. These indices provide ready-made measures of learner, classroom, school, and community contexts and can be used directly in analyses examining factors associated with student achievement. At the student level, no derived indices were created for Grade 2 learners.</p>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Level</td>
+    <td style="background-color: #002060; color: #FFFFFF">Variable</td>
+    <td style="background-color: #002060; color: #FFFFFF">Description</td>
+    <td style="background-color: #002060; color: #FFFFFF">Based On</td>
+  </tr>
+  <tr>
+    <td>Student (Grade 6 only)</td>
+    <td>ses</td>
+    <td>Student socio-economic status index. Measures the socio-economic background of learners and their households.</td>
+    <td>Household assets and services reported by students, including electricity, television, computer, radio, telephone, vehicles, running water, and sanitation facilities.</td>
+  </tr>
+  <tr>
+    <td>Teacher</td>
+    <td>INDICE_EQUIP_CLASSE</td>
+    <td>Classroom equipment index. Measures the availability of teaching and learning resources within the classroom.</td>
+    <td>Textbooks, teaching guides, curriculum materials, teaching aids, classroom furniture, storage facilities, reading corners, and other instructional resources.</td>
+  </tr>
+  <tr>
+    <td>Teacher</td>
+    <td>INDICE_PERCEPT_MT</td>
+    <td>Teacher working conditions perception index. Measures teachers&#x27; perceptions of their working environment and conditions.</td>
+    <td>Teacher responses relating to working conditions and the school environment.</td>
+  </tr>
+  <tr>
+    <td>School</td>
+    <td>INDICE_INFRASTRUCTURES</td>
+    <td>School infrastructure index. Measures the availability and quality of school facilities and resources.</td>
+    <td>Classrooms, principal&#x27;s office, teacher rooms, storage facilities, playgrounds, sports fields, fencing, water, electricity, sanitation facilities, first aid equipment, and staff accommodation.</td>
+  </tr>
+  <tr>
+    <td>School</td>
+    <td>INDICE_IMPLI_COMMUNAU</td>
+    <td>Community involvement index. Measures the level of engagement between the school and the surrounding community.</td>
+    <td>Parent associations, teacher associations, school councils, school cooperatives, community meetings, and other forms of community participation.</td>
+  </tr>
+  <tr>
+    <td>School</td>
+    <td>INDICE_AMENAG_TERRI</td>
+    <td>Territorial planning index. Measures the availability of services and infrastructure in the area surrounding the school.</td>
+    <td>Roads, electricity, secondary schools, health facilities, police stations, banks, post offices, libraries, and cultural centres.</td>
+  </tr>
+</table>
+</div>
+</div>
+<div id="administrative-variables" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Administrative variables<a href="ch-whats-in-data.html#administrative-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>PASEC 2019 includes several identifiers that enable analysts to uniquely identify records across students, teachers, schools, strata, and countries. These identifiers are essential for accounting for the survey design, and conducting multilevel analyses.</p>
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Variable</td>
+    <td style="background-color: #002060; color: #FFFFFF">Description</td>
+  </tr>
+  <tr>
+    <td>ID_TOT</td>
+    <td>Unique student identifier</td>
+  </tr>
+  <tr>
+    <td>ID_ECOLE</td>
+    <td>School identifier</td>
+  </tr>
+  <tr>
+    <td>ID_ELEVE</td>
+    <td>Student identifier within a school</td>
+  </tr>
+  <tr>
+    <td>ID_STRATE</td>
+    <td>Stratum identifier within a country</td>
+  </tr>
+  <tr>
+    <td>ID_PAYS</td>
+    <td>Country identifier</td>
+  </tr>
+  <tr>
+    <td>PAYS</td>
+    <td>Country name</td>
+  </tr>
+  <tr>
+    <td>ID_ENSEIGNANT</td>
+    <td>Teacher identifier</td>
+  </tr>
+  <tr>
+    <td>ID_LIVRET</td>
+    <td>Grade 6 booklet identifier (A–D)</td>
+  </tr>
+  <tr>
+    <td>LANGUE</td>
+    <td>Language of assessment</td>
+  </tr>
+  <tr>
+    <td>rwgt0</td>
+    <td>Final student weight</td>
+  </tr>
+  <tr>
+    <td>W_ECOLE</td>
+    <td>School weight</td>
+  </tr>
+  <tr>
+    <td>rwgt1-rwgt45(90)</td>
+    <td>Replicate weights (45 in Grade 2, 90 in Grade 6)</td>
+  </tr>
+</table>
+</div>
+<p>The primary weight used for student-level analyses is the <strong>final student weight (rwgt0).</strong> This weight incorporates all stages of the sampling process and adjustments for nonresponse. Specifically, it combines the initial school selection weight, adjustments for school nonresponse, the class selection weight (where applicable), the student selection weight, and adjustments for student nonparticipation. As a result, rwgt0 represents the number of students in the population represented by each sampled learner and should be used in most student-level analyses.</p>
+<p>For school-level analyses, PASEC provides the <strong>school weight (W_ECOLE)</strong>, which reflects the probability of school selection and adjustments for school nonresponse. This weight should be used when the unit of analysis is the school rather than the student.</p>
+<p>Standard error calculations need to take the three-stage stratified sampling design of PASEC 2019 into account. PASEC provides 90 replicate weights (<strong>rwgt1-rwgt90</strong>) for Grade 6 and 45 replicate weights (<strong>rwgt1-rwgt45</strong>) to calculate the correct sampling variance. <a href="c02-replicate-weights.html">Learn more about replicate weights and how to use them</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch01-intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="c02-replicate-weights.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/DataFirst-Courses/pasec-guide/edit/main/02-whats-in-the-data.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/DataFirst-Courses/pasec-guide/blob/main/02-whats-in-the-data.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

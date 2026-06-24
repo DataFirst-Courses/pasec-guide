@@ -16,3 +16,7 @@ nav-guide_files/
 *.log
 profile.do
 stata*.do
+
+# Docx conversion temp files
+_docx_extract/
+_docx_temp.zip

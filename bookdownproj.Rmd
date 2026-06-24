@@ -1,0 +1,1903 @@
+---
+site: bookdown::bookdown_site
+---
+
+```{r setup, include=FALSE}
+library(Statamarkdown)
+
+stataexe = "C:/Program Files/Stata18/StataMP-64.exe"
+knitr::opts_chunk$set(
+  engine.path = list(stata = stataexe),
+  cache = FALSE
+)
+knitr::opts_knit$set(root.dir = normalizePath("."))
+```
+
+<!--chapter:end:index.Rmd-->
+
+# Introduction to the Guide {#ch01-intro}
+The public release of the PASEC microdata has created new opportunities for researchers, policymakers, and practitioners to explore learning outcomes across francophone Africa. The datasets can now be downloaded from the PASEC data portal, making it possible to conduct independent analyses of student achievement, educational inequalities, school effectiveness, and the factors associated with learning outcomes. 
+
+PASEC (Programme d'Analyse des Systèmes Éducatifs de la CONFEMEN) is one of the most important sources of comparative evidence on learning outcomes in francophone Africa. The 2019 assessment collected information on the reading and mathematics proficiency of students in Grade 2 and Grade 6 across fourteen countries, together with extensive contextual information on students, households, teachers, classrooms and schools. 
+
+This guide is designed as a practical companion for new users of the PASEC data. It explains the key concepts needed to analyse the data correctly, including plausible values and replicate weights, and provides step-by-step examples in both Stata and R for common analytical tasks such as calculating means, estimating proficiency levels, testing group differences, and running regression models. 
+
+To support wider use of the data, AFLEARN also provides English-language documentation and resources for users who are not familiar with French-language variable names and supporting materials.
+
+Working with PASEC data differs from working with many conventional survey datasets because PASEC uses two statistical features that are designed to produce valid population estimates: 
+
+- Replicate weights, which account for the complex sampling design and are used to calculate correct standard errors. 
+
+- Plausible values, which account for uncertainty in the measurement of student proficiency. 
+
+**Why Does This Matter?** 
+
+- Ignoring these features can lead to incorrect estimates of uncertainty and potentially misleading conclusions. 
+
+- In practice, ignoring replicate weights typically leads to standard errors that are too small, which inflates test statistics and produces confidence intervals that are too narrow. 
+
+- Ignoring plausible values introduces bias in distributional estimates and underestimates the uncertainty around all proficiency-related statistics.  
+
+- The good news is that there are Stata and R packages that make it relatively straightforward to analyse PASEC data while correctly accounting for both plausible values and replicate weights. 
+
+The information included in this guide has been compiled and synthesised from two primary sources: PASEC 2019: Quality of Education Systems in French-Speaking Sub-Saharan Africa and an automated English translation of the PASEC 2019 Data Operations Manual for International Evaluation. The aim is to consolidate key technical information into a single, accessible reference that facilitates data exploration, management, and analysis. 
+
+ 
+
+<!--chapter:end:01-intro.Rmd-->
+
+# What's in the data? {#ch-whats-in-data}
+
+```{css, echo=FALSE}
+.pasec-table-wrap {
+  overflow-x: auto;
+  margin: 1.25em 0;
+}
+
+.pasec-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92em;
+}
+
+.pasec-data-table td {
+  border: 1px solid #d0d0d0;
+  padding: 0.45em 0.65em;
+  vertical-align: top;
+}
+
+.pasec-data-table td[style*="background-color: #002060"]:not([style*="color:"]) {
+  color: #FFFFFF !important;
+}
+.pasec-data-table td[style*="background-color: #0F4761"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #156082"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #3A7C22"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #45B0E1"]:not([style*="color:"]),
+.pasec-data-table td[style*="background-color: #83CAEB"]:not([style*="color:"]) {
+  color: #FFFFFF !important;
+}
+
+
+/* GitBook zebra-striping targets all tables; keep cell colours from the docx */
+.book .book-body .page-wrapper .page-inner section.normal table.pasec-data-table tr,
+.book .book-body .page-wrapper .page-inner section.normal table.pasec-data-table tr:nth-child(2n) {
+  background-color: transparent !important;
+}
+```
+
+The public release comprises a Grade 2 and a Grade 6 dataset including all 14 countries. These learner datasets contain both the learner level assessment and contextual questionnaire data. In addition, each dataset contains responses to the principal and teacher questionnaires.
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Sections of the datasets</td>
+  </tr>
+  <tr>
+    <td>Student assessment</td>
+  </tr>
+  <tr>
+    <td>Student proficiency scores</td>
+  </tr>
+  <tr>
+    <td>Student questionnaire</td>
+  </tr>
+  <tr>
+    <td>Teacher questionnaire</td>
+  </tr>
+  <tr>
+    <td>Principal questionnaire</td>
+  </tr>
+  <tr>
+    <td>Derived variables</td>
+  </tr>
+  <tr>
+    <td>Administrative variables</td>
+  </tr>
+</table>
+</div>
+```
+
+Each of these sections is described in more detail below.
+
+## Grade 2 student assessment
+
+The PASEC 2019 Grade 2 student assessment was designed to measure foundational literacy and numeracy skills acquired during the early years of primary schooling. Assessments were administered individually (one-on-one) and took approximately 30 minutes per subject (language and mathematics). The assessments were conducted individually by trained administrators over four mornings, with a maximum of 16 learners per selected school divided into two sub-groups from the same class.
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Subject</td>
+    <td style="background-color: #002060; color: #FFFFFF">Variables in dataset</td>
+  </tr>
+  <tr>
+    <td>Reading</td>
+    <td>l11–l114</td>
+  </tr>
+  <tr>
+    <td>Mathematics</td>
+    <td>m11–m123</td>
+  </tr>
+</table>
+</div>
+```
+
+### Areas assessed by PASEC2019 in Reading – Early primary
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+    <td style="background-color: #002060; color: #FFFFFF">Exercises and skills assessed</td>
+  </tr>
+  <tr>
+    <td>Listening comprehension: Listening comprehension was assessed with oral messages combined with isolated words and sentences and texts. Developing skills in this area enables students to expand their vocabulary and thus achieve fluency when decoding a text by making links between oral and written language</td>
+    <td>Understanding vocabulary Recognising vocabulary Recognising word families Understanding a text</td>
+  </tr>
+  <tr>
+    <td>Reading-decoding: Reading-decoding was assessed through exercises requiring graphophonological identification (letters, syllables, words) and simple letter and word reading activities. Developing skills in this area enables students to achieve reading fluency so that they can focus on the meaning of words and sentences, and thus expand their vocabulary</td>
+    <td>Reading letters Recognising syllables Reading words</td>
+  </tr>
+  <tr>
+    <td>Reading comprehension: Reading comprehension was assessed through exercises requiring students to read isolated words and sentences as well as texts, and then find, combine and interpret information. Developing skills in this area enables students to read autonomously in a variety of everyday situations and thus develop their knowledge and participate in society</td>
+    <td>Decoding the meaning of words Reading and understanding sentences Understanding a text</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.2 pp 28.*
+
+### Areas assessed by PASEC2019 in mathematics – Early primary
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+    <td style="background-color: #002060; color: #FFFFFF">Exercises and skills assessed</td>
+  </tr>
+  <tr>
+    <td>Arithmetic: Arithmetic was assessed through exercises involving counting, enumerating and handling quantities of objects, operations, number series and problem-solving. Developing skills in this area enables students to progress from an intuitive to a symbolic understanding of numbers.</td>
+    <td>Counting to 100 Recognising figures and numbers Quantifying objects Distinguishing quantities of objects Arranging numbers in order - (the largest) Arranging numbers in order - (the smallest) Completing number series Adding and subtracting Solving problems</td>
+  </tr>
+  <tr>
+    <td>Geometry, space and measurement: Measurement was assessed through the recognition of geometric shapes, and the concepts of size and location in space. Developing skills in this area enables students to progress from an intuitive to a symbolic understanding of geometry, space and measurement.</td>
+    <td>Recognising geometric shapes Determining spatial location Appraising sizes</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.3 pp 29.*
+
+## Grade 6 student assessment
+
+Unlike the Grade 2 assessment, the Grade 6 assessment was administered as a group-based written test and consisted entirely of multiple-choice questions (MCQs), with response options coded from 1 to 4. To accommodate the large volume of assessment content, PASEC used a rotating booklet design, whereby students were randomly assigned one of four booklets (A, B, C, or D) within each selected class. The assessment lasted up to two hours per subject.
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Subject</td>
+    <td style="background-color: #002060; color: #FFFFFF">Variables in dataset</td>
+  </tr>
+  <tr>
+    <td>Reading</td>
+    <td>f1–f98</td>
+  </tr>
+  <tr>
+    <td>Mathematics</td>
+    <td>m1–m84</td>
+  </tr>
+</table>
+</div>
+```
+
+### Areas assessed by PASEC2019 in reading – Late primary
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+    <td style="background-color: #002060; color: #FFFFFF">Written materials</td>
+  </tr>
+  <tr>
+    <td>Comprehension of isolated words and sentences: Comprehension of isolated words and sentences was assessed through reading exercises focusing on discovering the explicit meaning of isolated words and sentences. Developing skills in this area enables students to achieve reading fluency to gradually understand the meaning of sentences and texts and expand their vocabulary. The level of these tasks was very basic and reflected the objectives of curricula for early primary education</td>
+    <td>Isolated pictures, words and sentences</td>
+  </tr>
+  <tr>
+    <td>Reading comprehension: Reading comprehension was assessed through exercises requiring students to read narrative and informative texts as well as documents, and then extract information, perform simple inferences, and interpret and combine information. Developing skills in this area enables students to read autonomously in a variety of everyday situations and thus develop their knowledge and participate in society</td>
+    <td>Narrative texts (39%) and informative texts and documents (45%)</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.4 pp 30.*
+
+### Areas assessed by PASEC2019 in mathematics – Late primary
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td colspan="2" style="background-color: #002060; color: #FFFFFF">Areas assessed</td>
+  </tr>
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Arithmetic</td>
+    <td>Arithmetic skills were assessed with reference to the understanding of numbers: knowledge and understanding of the sequence of operations and of the properties of the four operations; and operations on numbers such as adding, subtracting, multiplying and dividing. They were also assessed through the understanding of decimals and percentages.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Measurement and size</td>
+    <td>Skills relating to measurements and sizes were assessed with reference to the knowledge and understanding of units of measurement for length, mass, capacity, angle and duration, and the conversion of these measurement units. They were also assessed through calculations of size (length, duration, mass, capacity, angle, area, volume) in different contexts, in particular using plane geometric figures (triangles, rectangles, squares, parallelograms, disks) and solids (cubes or rectangular parallelepipeds).</td>
+  </tr>
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Geometry and space</td>
+    <td>Skills relating to geometry and space were assessed through exercises involving recognition of the properties of two or three-dimensional geometric shapes, geometric relations and transformations, and spatial position and representation.</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 1.5 pp 30.*
+
+## Student Reading and Mathematics Proficiency Scores
+
+PASEC uses Item Response Theory (IRT) to estimate student proficiency in reading and mathematics from responses to the assessment items together with background information. These estimates are provided as five plausible values for reading (**LECT_PV1 – LECT_PV5**) and five plausible values for mathematics (**MATHS_PV1 – MATHS_PV5**). [Learn more about plausible values and how to use them in your analysis](c03-plausible-values.html).
+
+The PASEC 2019 proficiency scores are reported on the same scale as PASEC 2014, which was standardised to have an international mean of 500 and a standard deviation of 100, with each participating country contributing equally to the scaling. The use of common assessment items allows results from 2019 to be compared directly with those from 2014.
+
+The scales are divided into a series of proficiency levels that represent increasingly complex knowledge and skills. Each level corresponds to a specific score range and is defined by groups of assessment tasks that share common conceptual and statistical characteristics. Because the levels are hierarchical, students performing at a given level are also expected to be able to complete tasks associated with lower levels.
+
+PASEC defines a **minimum proficiency level** representing the knowledge and skills considered necessary for successful progression through the education system. For mathematics, the minimum proficiency level corresponds to Level 2 in both Grade 2 and Grade 6. For language of instruction, the minimum proficiency level corresponds to Level 3.
+
+For reporting on Sustainable Development Goal (SDG) indicator 4.1.1, the PASEC minimum proficiency level aligns with the SDG minimum proficiency level for Grade 2 (SDG 4.1.1a). In Grade 6, however, the SDG 4.1.1b minimum proficiency level is set one level higher than the PASEC minimum proficiency level.
+
+### Reading proficiency scale – Early primary (Grade 2)
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #0F4761; color: #FFFFFF">Level 4</td>
+    <td>&gt;610 points</td>
+    <td>Intermediate reader: moving towards independent reading and understanding sentences and texts Students at this level have achieved a level in the decoding of written text and in listening comprehension that enables them to understand explicit information in short sentences and texts. They are able to combine their decoding skills and their command of spoken language to piece together the literal meaning of a short text</td>
+  </tr>
+  <tr>
+    <td style="background-color: #156082; color: #FFFFFF">Level 3</td>
+    <td>Between 540 and 610 points</td>
+    <td>Learner reader: moving towards the perfecting of decoding skills, listening skills and understanding of written words Students at this level have perfected their listening comprehension and decoding skills, enabling them to focus on understanding words. In listening comprehension, they are able to understand explicit information in a short text which uses familiar vocabulary. They are gradually developing links between spoken and written language and thus improving their decoding skills and expanding their vocabulary. In reading comprehension, students are able to identify the meaning of isolated words.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC &amp; SDG 4.1.1a Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #45B0E1; color: #FFFFFF">Level 2</td>
+    <td>Between 540 and 610 points</td>
+    <td>Learner reader: moving towards the perfecting of decoding skills, listening skills and understanding of written words Students at this level have perfected their listening comprehension and decoding skills, enabling them to focus on understanding words. In listening comprehension, they are able to understand explicit information in a short text which uses familiar vocabulary. They are gradually developing links between spoken and written language and thus improving their decoding skills and expanding their vocabulary. In reading comprehension, students are able to identify the meaning of isolated words.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #83CAEB; color: #FFFFFF">Level 1</td>
+    <td>Between 399 and 469 points</td>
+    <td>Emergent reader: towards developing decoding skills and strengthening listening comprehension skills Students are able to understand very short-spoken messages that use isolated words and refer to familiar objects. They have great difficulty with decoding the written word and with graphophonological identification (letters, syllables, graphemes and phonemes).</td>
+  </tr>
+  <tr>
+    <td style="background-color: #C1E4F5; color: #FFFFFF">Below Level 1</td>
+    <td>&lt; 399 points</td>
+    <td>Students below Level 1 do not sufficiently demonstrate the skills measured by this test in the language of instruction. These students struggle with the knowledge and skills of Level 1.</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.1 pp 47.*
+
+### Mathematics proficiency scale – Early primary (Grade 2)
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #3A7C22; color: #FFFFFF">Level 3</td>
+    <td>&gt; 577 points</td>
+    <td>Students are familiar with the verbal number sequence (they can count up to 60 in two minutes) and are able to read numbers, compare numbers, complete number series and perform operations (addition and subtraction) on numbers greater than 50. They can use reasoning in basic problems involving numbers less than 20</td>
+  </tr>
+  <tr>
+    <td style="background-color: #8DD873">Level 2</td>
+    <td>Between 489 and 577 points</td>
+    <td>Students can read numbers, compare numbers, complete logical series and perform operations (addition and subtraction) on numbers less than 50. They can work with the concepts of location in space (e.g. in front of, on top of, etc.). They are beginning to develop reasoning skills in basic problems involving numbers less than 20. They can also identify most simple geometric shapes.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC and SDG 4.1.1a Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #D9F2D0">Level 1</td>
+    <td>Between 400 and 489 points</td>
+    <td>Students are gradually developing their knowledge of mathematical language: they are beginning to read the first numbers (less than 10) and have an initial understanding of quantity (counting, comparison) with numbers less than 20. They show awareness of the relative size of objects and are beginning to identify the first simple geometric shapes</td>
+  </tr>
+  <tr>
+    <td style="background-color: #E8E8E8">Below Level 1</td>
+    <td>&lt; 400 points</td>
+    <td>Students at this level do not sufficiently demonstrate the skills measured by this test in mathematics. These students struggle with the knowledge and skills of Level 1</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.2 pp 53.*
+
+### Reading proficiency scale – late primary (Grade 6)
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #0F4761; color: #FFFFFF">Level 4</td>
+    <td>&gt;595 points</td>
+    <td>Students can process narrative and informative texts and documents at a general level. They are able to combine and interpret multiple implicit ideas in such material, drawing on their own experience and knowledge. When reading literary texts, students are able to identify the author’s intention and determine the implicit meaning of a story. When reading informative texts and documents, they are able to link pieces of information and compare data in order to make use of them.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">SDG 4.1.1b Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #156082; color: #FFFFFF">Level 3</td>
+    <td>518-595 points</td>
+    <td>Students are able to combine two explicit pieces of information in a document or to make simple inferences in a narrative or informative text. They can extract implicit information from written material by giving meaning to implicit connectors, anaphoras and referents. Students are able to locate explicit information in long texts and documents with discontinuous text.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #45B0E1; color: #FFFFFF">Level 2</td>
+    <td>441 – 518 points</td>
+    <td>Students have improved their decoding skills so that they can understand isolated words derived from their daily life and isolated sentences. They are also able to locate explicit information in short and medium texts by taking cues from the text and the questions. Students are able to paraphrase explicit information from a text.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #83CAEB; color: #FFFFFF">Level 1</td>
+    <td>365 – 411 points</td>
+    <td>Students have developed decoding skills and are able to use them to understand isolated words derived from their daily life or very short, isolated sentences but have difficulty understanding the meaning of short and simple texts.</td>
+  </tr>
+  <tr>
+    <td style="background-color: #C1E4F5; color: #FFFFFF">Below Level 1</td>
+    <td>&lt; 365 points</td>
+    <td>Students at this level do not sufficiently demonstrate the skills in the language of instruction measured by this test. These students struggle with the knowledge and skills of Level 1.</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.6 pp 70.*
+
+### Mathematics proficiency scale – Late primary (Grade 6)
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #E8E8E8">Level</td>
+    <td style="background-color: #E8E8E8">Score</td>
+    <td style="background-color: #E8E8E8">Description of skills</td>
+  </tr>
+  <tr>
+    <td style="background-color: #3A7C22; color: #FFFFFF">Level 3</td>
+    <td>&gt; 609 points</td>
+    <td>Students are able to solve problems in which a situation, usually presented in the form of a short text of 2 to 3 lines, needs to be analysed in order to identify the procedure(s) to be used. In the area of numbers and operations, they can solve direct proportionality problems and problems involving fractions or decimals. Their understanding of fractions is still growing (they understand the comparison of fractions and the relationship between fractions and decimals). In the field of quantities and measures, they can solve various problems involving calculations of area or perimeter, presented without visuals and sometimes requiring two stages of reasoning (e.g. finding the area of a square once its perimeter is known, or carrying out conversions involving data provided in area or hectares). They can also perform calculations and conversions involving hours, minutes or seconds.</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">SDG 4.1.1b Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #8DD873">Level 2</td>
+    <td>Between 521 and 609 points</td>
+    <td>Students are able to answer short questions using the three assessed processes: knowledge, application and problem-solving. While most questions require factual knowledge or a specific procedure, some require analysis of the situation to determine the appropriate approach. In the area of numbers and operations, students perform operations with decimals; they have an increasing understanding of fractions (they can identify them in less typical situations and have started to be able to use them to perform simple operations) and are familiar with the concept of percentage. They have also begun to solve simple problems, usually involving a single operation. In the area of quantities and measures, students are able to read the time and can convert units of measurement with or without a conversion table. They are also able to solve initial simple problems involving calculations of perimeters and area, usually accompanied by a visual. In the field of solids and figures, they are able to use their basic knowledge to solve problems that require situation analysis (e.g. locating x triangles in a set of figures or identifying parallel lines in a bundle of lines).</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="background-color: #E59EDC">PASEC Minimum proficiency level</td>
+  </tr>
+  <tr>
+    <td style="background-color: #D9F2D0">Level 1</td>
+    <td>Between 433 and 521 points</td>
+    <td>Students can answer very short questions that require factual knowledge or a specific procedure. In the area of numbers and operations, they are ableto perform the four basic operations with whole numbers, including those requiring a written calculation with regrouping. They have also begun to develop an initial understanding of fractions and can identify them when they are presented in a conventional way (e.g. a pie divided into x parts). In the field of quantities and measures, they can identify the usual conventional units (e.g. m, m², m³ and kg). In the field of solids and figures, they have some basic knowledge of various geometrical objects (e.g. identifying a disc or a cylinder, locating a right angle or parallel lines).</td>
+  </tr>
+  <tr>
+    <td style="background-color: #E8E8E8">Below Level 1</td>
+    <td>&lt; 433 points</td>
+    <td>Students at this level do not sufficiently demonstrate the skills measured by this test. These students struggle with the knowledge and skills of Level 1.</td>
+  </tr>
+</table>
+</div>
+```
+
+*Source: PASEC 2019 QUALITY OF EDUCATION SYSTEMS IN FRENCH-SPEAKING SUB-SAHARAN AFRICA Table 2.7 pp 74.*
+
+## Grade 2 student contextual questionnaire
+
+The questionnaire was administered as part of the same booklet that contained the language and mathematics assessment items. In the dataset, all Grade 2 student questionnaire variables are identified by the prefix **qe2**. The questionnaire collected contextual information in two main areas: student characteristics and family background (**qe21–qe210**) and educational resources available to the learner (**qe211–qe217**).
+
+## Grade 6 student contextual questionnaire
+
+The Grade 6 student contextual questionnaire was included in the same booklet as the reading and mathematics assessments and was administered before the cognitive tests. The contextual questionnaire collected information on learners' personal characteristics, family background, educational resources, and well-being at school. In the dataset, all Grade 6 student questionnaire variables are identified by the prefix **qe6**. Variables **qe61–qe626** capture learner and family background characteristics, while variables **qe627–qe643** focus on educational resources and school well-being.
+
+## Teacher questionnaire
+
+The teacher survey was administered on the fourth day of data collection and was completed by all eligible teachers in each sampled school during a single morning session. The teacher questionnaire collected detailed information on teachers' individual characteristics, academic and professional qualifications, employment status and remuneration, class characteristics, instructional practices, participation in meetings and supervision activities, working conditions, and the infrastructure and resources available in their classrooms.
+
+In the dataset, teacher questionnaire variables are identified by the prefix **qm** and range from **qm1 to qm46p**.
+
+## Principal questionnaire
+
+The principal questionnaire was administered to the principals of all sampled schools and collected contextual information about school leadership, management, and school characteristics. In the dataset, all principal questionnaire variables are identified by the prefix **qd**. The questionnaire covers principals' individual characteristics, academic and professional qualifications, employment status and remuneration, school characteristics, management practices, relationships with parents and the wider community, pedagogical and administrative aspects of school operation, the school calendar, and the availability of infrastructure and educational resources.
+
+## Derived variables
+
+PASEC 2019 includes a number of derived indices that summarise information collected through the student, teacher, and principal questionnaires. These indices were constructed using Item Response Theory (IRT), specifically the Rasch model, in a manner similar to the construction of learner achievement scores. These indices provide ready-made measures of learner, classroom, school, and community contexts and can be used directly in analyses examining factors associated with student achievement. At the student level, no derived indices were created for Grade 2 learners.
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Level</td>
+    <td style="background-color: #002060; color: #FFFFFF">Variable</td>
+    <td style="background-color: #002060; color: #FFFFFF">Description</td>
+    <td style="background-color: #002060; color: #FFFFFF">Based On</td>
+  </tr>
+  <tr>
+    <td>Student (Grade 6 only)</td>
+    <td>ses</td>
+    <td>Student socio-economic status index. Measures the socio-economic background of learners and their households.</td>
+    <td>Household assets and services reported by students, including electricity, television, computer, radio, telephone, vehicles, running water, and sanitation facilities.</td>
+  </tr>
+  <tr>
+    <td>Teacher</td>
+    <td>INDICE_EQUIP_CLASSE</td>
+    <td>Classroom equipment index. Measures the availability of teaching and learning resources within the classroom.</td>
+    <td>Textbooks, teaching guides, curriculum materials, teaching aids, classroom furniture, storage facilities, reading corners, and other instructional resources.</td>
+  </tr>
+  <tr>
+    <td>Teacher</td>
+    <td>INDICE_PERCEPT_MT</td>
+    <td>Teacher working conditions perception index. Measures teachers&#x27; perceptions of their working environment and conditions.</td>
+    <td>Teacher responses relating to working conditions and the school environment.</td>
+  </tr>
+  <tr>
+    <td>School</td>
+    <td>INDICE_INFRASTRUCTURES</td>
+    <td>School infrastructure index. Measures the availability and quality of school facilities and resources.</td>
+    <td>Classrooms, principal&#x27;s office, teacher rooms, storage facilities, playgrounds, sports fields, fencing, water, electricity, sanitation facilities, first aid equipment, and staff accommodation.</td>
+  </tr>
+  <tr>
+    <td>School</td>
+    <td>INDICE_IMPLI_COMMUNAU</td>
+    <td>Community involvement index. Measures the level of engagement between the school and the surrounding community.</td>
+    <td>Parent associations, teacher associations, school councils, school cooperatives, community meetings, and other forms of community participation.</td>
+  </tr>
+  <tr>
+    <td>School</td>
+    <td>INDICE_AMENAG_TERRI</td>
+    <td>Territorial planning index. Measures the availability of services and infrastructure in the area surrounding the school.</td>
+    <td>Roads, electricity, secondary schools, health facilities, police stations, banks, post offices, libraries, and cultural centres.</td>
+  </tr>
+</table>
+</div>
+```
+
+## Administrative variables
+
+PASEC 2019 includes several identifiers that enable analysts to uniquely identify records across students, teachers, schools, strata, and countries. These identifiers are essential for accounting for the survey design, and conducting multilevel analyses.
+
+```{=html}
+<div class="pasec-table-wrap">
+<table class="pasec-data-table">
+  <tr>
+    <td style="background-color: #002060; color: #FFFFFF">Variable</td>
+    <td style="background-color: #002060; color: #FFFFFF">Description</td>
+  </tr>
+  <tr>
+    <td>ID_TOT</td>
+    <td>Unique student identifier</td>
+  </tr>
+  <tr>
+    <td>ID_ECOLE</td>
+    <td>School identifier</td>
+  </tr>
+  <tr>
+    <td>ID_ELEVE</td>
+    <td>Student identifier within a school</td>
+  </tr>
+  <tr>
+    <td>ID_STRATE</td>
+    <td>Stratum identifier within a country</td>
+  </tr>
+  <tr>
+    <td>ID_PAYS</td>
+    <td>Country identifier</td>
+  </tr>
+  <tr>
+    <td>PAYS</td>
+    <td>Country name</td>
+  </tr>
+  <tr>
+    <td>ID_ENSEIGNANT</td>
+    <td>Teacher identifier</td>
+  </tr>
+  <tr>
+    <td>ID_LIVRET</td>
+    <td>Grade 6 booklet identifier (A–D)</td>
+  </tr>
+  <tr>
+    <td>LANGUE</td>
+    <td>Language of assessment</td>
+  </tr>
+  <tr>
+    <td>rwgt0</td>
+    <td>Final student weight</td>
+  </tr>
+  <tr>
+    <td>W_ECOLE</td>
+    <td>School weight</td>
+  </tr>
+  <tr>
+    <td>rwgt1-rwgt45(90)</td>
+    <td>Replicate weights (45 in Grade 2, 90 in Grade 6)</td>
+  </tr>
+</table>
+</div>
+```
+
+The primary weight used for student-level analyses is the **final student weight (rwgt0).** This weight incorporates all stages of the sampling process and adjustments for nonresponse. Specifically, it combines the initial school selection weight, adjustments for school nonresponse, the class selection weight (where applicable), the student selection weight, and adjustments for student nonparticipation. As a result, rwgt0 represents the number of students in the population represented by each sampled learner and should be used in most student-level analyses.
+
+For school-level analyses, PASEC provides the **school weight (W_ECOLE)**, which reflects the probability of school selection and adjustments for school nonresponse. This weight should be used when the unit of analysis is the school rather than the student.
+
+Standard error calculations need to take the three-stage stratified sampling design of PASEC 2019 into account. PASEC provides 90 replicate weights (**rwgt1-rwgt90**) for Grade 6 and 45 replicate weights (**rwgt1-rwgt45**) to calculate the correct sampling variance. [Learn more about replicate weights and how to use them](c02-replicate-weights.html)
+
+<!--chapter:end:02-whats-in-the-data.Rmd-->
+
+# What are replicate weights {#c02-replicate-weights}
+
+PASEC does not use a simple random sample of students. Instead, students are selected through a complex multi-stage sampling design involving schools, classrooms and students. As a result, observations are not statistically independent and standard formulas for standard errors are inappropriate.
+
+If we ignored the sampling design and analysed the data using ordinary weighted statistics, point estimates such as means would often remain similar, but standard errors would usually be underestimated.
+
+**The idea behind replicate weights**
+
+Replicate weights provide a practical way of estimating sampling variance.
+
+Rather than calculating standard errors directly from information about strata and primary sampling units, PASEC supplies a series of alternative weights known as replicate weights. Each replicate weight reflects a slightly modified version of the original sample.
+
+The statistic of interest is calculated repeatedly:
+
+-   Once using the final weight.
+-   Once for each replicate weight.
+
+The variation across these replicate estimates is then used to calculate the sampling variance.
+
+**Replicate weights in PASEC**
+
+PASEC 2019 uses the paired jackknife replication method.
+
+In statistical resampling, the delete-one jackknife (leave-one-out) omits a single observation per iteration, generating n subsamples. The paired jackknife (delete-groups) omits predefined clusters or pairs of observations together. Delete-one is standard for simple, small datasets; the paired approach is essential for complex, stratified survey data where dropping single random observations would destroy the correlation structures and clustering inherent in the data. For practical purposes, this means that the replicate weights supplied in the PASEC datasets should be used as-is. Researchers do not need to create or modify them.
+
+The student-level datasets contain:
+
+| Dataset | Final weight | Replicate weights |
+|---------|--------------|-------------------|
+| Grade 2 | rwgt0        | rwgt1-rwgt45      |
+| Grade 6 | rwgt0        | rwgt1-rwgt90      |
+
+
+
+The final weight (rwgt0) is used to produce population estimates. The replicate weights are used to estimate standard errors.
+
+Fortunately, researchers do not need to perform these calculations manually. R packages such as `Rrepest` and Stata's survey commands perform these calculations automatically.
+
+The paired jackknife variance estimator can be written as:
+
+$$
+\mathrm{Var}(\hat{\theta}) = \sum_{r=1}^{R} (\hat{\theta}_r - \hat{\theta})^2
+$$
+
+where
+
+-   $\hat{\theta}$ is the estimate using the final weight *rwgt0*
+
+-   $\hat{\theta}_r$ is the estimate using replicate weight $r$ (*rwgt1*-*rwgt45*)
+
+-   $R$ is the number of replicate weights ($R = 45$ for grade 2; $R = 90$ for grade 6).
+
+The standard error is $\sqrt{\mathrm{Var}(\hat{\theta})}$
+
+Because age is an observed variable, only this sampling variance is needed — there is no imputation variance to combine.
+
+## Worked example: mean age in Grade 2, Benin
+
+The following example estimates the weighted mean age (*qe22*) of Grade 2 students in Benin, excluding missing values coded as 99. Each mean is calculated using the final weight or one of the 45 paired jackknife replicate weights.
+
+**Step 1: Calculate the weighted mean using *rwgt0*:** $$
+\hat{\theta} = 7.5865
+$$ **Step 2: Calculate the weighted mean using each replicate weight** $\hat{\theta}_r$**.**
+
+|          | Mean     |
+|----------|----------|
+| *rwgt1*  | 7.561751 |
+| *rwgt2*  | 7.562885 |
+| *rwgt3*  | 7.578231 |
+| *rwgt4*  | 7.587026 |
+| $\vdots$ | $\vdots$ |
+| *rwgt45* | 7.566877 |
+
+The first and last few replicates are shown below; the same calculation is repeated for all 45 replicate weights.
+
+**Step 3: For each replicate, calculate the squared deviation from the final estimate:**
+
+|          | $\hat{\theta}_r$ | $(\hat{\theta}_r - \hat{\theta})^2$ |
+|----------|------------------|-------------------------------------|
+| *rwgt1*  | 7.561751         | 0.0000                              |
+| *rwgt2*  | 7.562885         | 0.0000                              |
+| *rwgt3*  | 7.578231         | 0.0001                              |
+| *rwgt4*  | 7.587026         | 0.0000                              |
+| $\vdots$ | $\vdots$         | $\vdots$                            |
+| *rwgt45* | 7.566877         | 0.0000                              |
+
+The replicate means are all very close to $\hat{\theta}$, so each squared deviation is small.
+
+**Step 4: The sampling variance is the sum the squared deviations across all 45 replicates:** $$
+\mathrm{Var}(\hat{\theta}) = \sum_{r=1}^{45} (\hat{\theta}_r - \hat{\theta})^2 = 0.003582
+$$ **Step 5: Standard error** $$
+SE = \sqrt{0.003582} = 0.0599
+$$ **Summary**
+
+| Quantity          | Symbol                       | Value  |
+|-------------------|------------------------------|--------|
+| Point estimate    | $\hat{\theta}$               | 7.59   |
+| Sampling variance | $\mathrm{Var}(\hat{\theta})$ | 0.0036 |
+| Standard error    | $SE$                         | 0.06   |
+
+The estimated mean age is 7.59 years with a standard error of 0.06 years. This matches the result obtained using `repest` or `Rrepest` in the Stata and R chapters, where the jackknife calculation is carried out automatically.
+
+<!--chapter:end:03-replicate-weights.Rmd-->
+
+# What are plausible values? {#c03-plausible-values}
+
+Unlike variables such as age or gender, proficiency in reading or mathematics cannot be observed directly. Instead, it is inferred from students' responses to assessment items using Item Response Theory (IRT).
+
+**Want to learn more?** [Click here to explore how Item Response Theory (IRT) is used to estimate student proficiency from assessment responses.](https://www.datafirst.uct.ac.za/aflearn/courses)
+
+Each student's observed responses provide only an imperfect indication of their underlying proficiency.
+
+**Why not assign a single score?**
+
+One possibility would be to estimate a single proficiency score for each student.
+
+However, doing so treats proficiency as though it were measured without error. In reality, there is uncertainty around each student's estimated proficiency.
+
+Ignoring this uncertainty leads to:
+
+-   underestimated standard errors;
+-   biased estimates of population distributions;
+-   incorrect inference for subgroup comparisons and regression analyses.
+
+A plausible value is a random draw from the estimated distribution of proficiency for a student, conditional on:
+
+-   the student's item responses; and
+-   characteristics of the students, their teachers and their schools. 
+
+::: alternativebox-header
+`r if (knitr:::is_html_output()) '### Warning {- #alt5}'`
+:::
+
+::: {.alternativebox data-latex="{Warning}"}
+This conditioning on background variables is important because plausible values are generated partly using questionnaire responses. This means that some degree of dependency is introduced between the achievement variables and the background variables. For standard descriptive and associational analyses this is exactly what the methodology is designed for and should not cause concern. However, analysts building complex structural models should be aware of this feature.
+:::
+
+Rather than assigning a single score, PASEC provides 5 plausible values for each student. The table below shows the five plausible values for language and mathematics proficiency for the first two students in the Grade 2 dataset.
+
+| Language | Student 1 | Student 2 | Mathematics | Student 1 | Student 2 |
+|----------|-----------|-----------|-------------|-----------|-----------|
+| LECT_PV1 | 640.55    | 752.67    | MATHS_PV1   | 627.75    | 686.38    |
+| LECT_PV2 | 646.15    | 772.74    | MATHS_PV2   | 612.41    | 637.70    |
+| LECT_PV3 | 637.75    | 797.04    | MATHS_PV3   | 580.13    | 714.87    |
+| LECT_PV4 | 643.14    | 752.71    | MATHS_PV4   | 611.96    | 683.39    |
+| LECT_PV5 | 681.09    | 750.51    | MATHS_PV5   | 649.46    | 656.83    |
+
+These plausible values should be viewed as multiple imputations of latent proficiency
+
+**How are plausible values combined?** 
+
+Suppose we wish to estimate a population parameter $Q$ such as a mean mathematics score, using $M$ plausible values.
+
+First, the statistic is estimated separately using each plausible value:
+
+$$
+Q_1, Q_2, Q_3, Q_4, Q_5
+$$
+
+where $Q_m$ is the estimate obtained using plausible value $m$.
+
+**Step 1: Calculate the final point estimate**
+
+The final estimate is simply the average across the plausible values: $$
+\bar{Q} = \frac{1}{M} \sum_{m=1}^{M} Q_m
+$$ For PASEC: $$
+\bar{Q} = \frac{Q_1 + Q_2 + Q_3 + Q_4 + Q_5}{5}
+$$ For example, if the five plausible-value means were:
+
+| Plausible value | Mean |
+|-----------------|------|
+| PV1             | 522  |
+| PV2             | 528  |
+| PV3             | 526  |
+| PV4             | 524  |
+| PV5             | 525  |
+
+then $$
+\bar{Q} = \frac{522 + 528 + 526 + 524 + 525}{5} = 525
+$$ **Step 2: Calculate the imputation variance**
+
+The imputation variance measures how much the estimates differ across plausible values: $$
+B = \frac{1}{M-1} \sum_{m=1}^{M} (Q_m - \bar{Q})^2
+$$ where - $B$ = imputation variance; - $M$ = number of plausible values; - $Q_m$ = estimate from plausible value $m$. For PASEC: $$
+B = \frac{1}{4} \sum_{m=1}^{5} (Q_m - \bar{Q})^2
+$$ If all five plausible values produce very similar estimates, $B$ will be small. Larger values of $B$ indicate greater uncertainty arising from the measurement of proficiency.
+
+**Step 3: Calculate the sampling variance**
+
+For each plausible value, the paired jackknife replicate weights are used to calculate a sampling variance:
+
+$$
+U_1, U_2, U_3, U_4, U_5
+$$
+
+The average sampling variance is
+
+$$
+\bar{U} = \frac{1}{M} \sum_{m=1}^{M} U_m
+$$
+
+where $U_m$ is the jackknife variance estimate obtained for plausible value $m$.
+
+**Step 4: Calculate the total variance**
+
+The final variance combines both sources of uncertainty:
+
+1.  Sampling uncertainty (from replicate weights)
+2.  Measurement uncertainty (from plausible values)
+
+Using Rubin's multiple-imputation formula:
+
+$$
+T = \bar{U} + \left(1 + \frac{1}{M}\right)B
+$$
+
+For PASEC:
+
+$$
+T = \bar{U} + 1.2B
+$$
+
+The factor $(1 + 1/M) = (1 + 1/5) = 1.2$ slightly inflates the imputation variance to account for the fact that only a finite number of plausible values ($M=5$) is used. With more plausible values, this factor would approach 1.
+
+The standard error is:
+
+$$
+SE = \sqrt{T}
+$$
+
+**Interpretation**
+
+The total variance has two components:
+
+$$
+T = \underbrace{\bar{U}}_{\text{sampling variance}} + \underbrace{\left(1 + \frac{1}{M}\right)B}_{\text{imputation variance}}
+$$
+
+The sampling variance reflects uncertainty due to observing only a sample of students rather than the entire population. The imputation variance reflects uncertainty in students' latent proficiency estimates.
+
+## Worked example: mean language proficiency in Grade 2
+
+The following example applies the four steps to estimate the weighted mean language proficiency among Grade 2 students. For each plausible value, the weighted mean ($Q_m$) was calculated using the final weight *rwgt0*, and the jackknife sampling variance ($U_m$) was calculated using the paired jackknife replicate weights *rwgt1*–*rwgt45* (see the Stata and R chapters for the replicate-weight procedure).
+
+**Step 1: Point estimate**
+
+For each plausible value, calculate the weighted mean. The final point estimate is the average of the five means:
+
+| Plausible value                | Weighted mean ($Q_m$) |
+|:-------------------------------|----------------------:|
+| LECT_PV1                       |              524.0483 |
+| LECT_PV2                       |              525.8366 |
+| LECT_PV3                       |              525.1532 |
+| LECT_PV4                       |              524.8666 |
+| LECT_PV5                       |              524.1773 |
+| **Final estimate (**$\bar{Q}$) |          **524.8164** |
+
+$$
+\bar{Q} = \frac{524.0483 + 525.8366 + 525.1532 + 524.8666 + 524.1773}{5} = 524.8164
+$$
+
+**Step 2: Sampling variance**
+
+For each plausible value, calculate the jackknife sampling variance from the replicate weights. The average sampling variance is:
+
+| Plausible value         | Sampling variance ($U_m$) |
+|:------------------------|--------------------------:|
+| LECT_PV1                |                   59.1751 |
+| LECT_PV2                |                   62.9129 |
+| LECT_PV3                |                   60.3660 |
+| LECT_PV4                |                   56.2916 |
+| LECT_PV5                |                   55.3909 |
+| **Average (**$\bar{U}$) |               **58.8273** |
+
+$$
+\bar{U} = \frac{59.1751 + 62.9129 + 60.3660 + 56.2916 + 55.3909}{5} = 58.8273
+$$
+
+**Step 3: Imputation variance**
+
+Calculate the squared deviation of each plausible-value mean from $\bar{Q}$, sum the deviations, and divide by $M - 1 = 4$:
+
+| Plausible value |    $Q_m$ | $(Q_m - \bar{Q})^2$ |
+|:----------------|---------:|--------------------:|
+| LECT_PV1        | 524.0483 |              0.5900 |
+| LECT_PV2        | 525.8366 |              1.0408 |
+| LECT_PV3        | 525.1532 |              0.1134 |
+| LECT_PV4        | 524.8666 |              0.0025 |
+| LECT_PV5        | 524.1773 |              0.4084 |
+| **Sum**         |          |          **2.1552** |
+
+$$
+B = \frac{1}{4}\left(0.5900 + 1.0408 + 0.1134 + 0.0025 + 0.4084\right) = \frac{2.1552}{4} = 0.5388
+$$
+
+The five plausible-value means are very close to one another, so the imputation variance is small.
+
+**Step 4: Total variance and standard error**
+
+Combine sampling and measurement uncertainty using Rubin's formula:
+
+$$
+T = \bar{U} + 1.2B = 58.8273 + 1.2 \times 0.5388 = 59.4738
+$$
+
+$$
+SE = \sqrt{T} = \sqrt{59.4738} = 7.7119
+$$
+
+**Summary**
+
+| Quantity                  | Symbol    |  Value |
+|:--------------------------|:----------|-------:|
+| Point estimate            | $\bar{Q}$ | 524.82 |
+| Average sampling variance | $\bar{U}$ |  58.83 |
+| Imputation variance       | $B$       |   0.54 |
+| Total variance            | $T$       |  59.47 |
+| Standard error            | $SE$      |   7.71 |
+
+In this example, sampling uncertainty ($\bar{U} = 58.83$) accounts for almost all of the total variance. The imputation variance ($B = 0.54$) is small because the five plausible values produce very similar mean estimates, but it is still included in the final standard error.
+
+<!--chapter:end:04-plausible-values.Rmd-->
+
+# Downloading the data {#ch04-download}
+
+-   Go to the Portal on the [PASEC website](https://pasec.confemen.org/en/data-portal)
+
+-   After completing a short survey, you’ll be able to download PASEC data.
+-   Download the PASEC 2019 data and documentation.
+-   This is a compressed (zip) file. Unzip it. The zip file contains student-level datasets for Grade 2 and Grade 6, together with separate school, teacher, and classroom files. The international datasets (suffix \_INT) pool all fourteen countries; separate national files are also included. This guide uses the international student files.
+-   The datasets are in the *Internationale\\PASEC2019_INT_STATA folder*.
+
+Create a folder on your computer for data, e.g., *C:/pasec_data/*.
+
+Save *PASEC2019_GRADE2_INT.dta* and *PASEC2019_GRADE6_INT.dta* into your working directory.
+
+<!--chapter:end:05-download-data.Rmd-->
+
+# Resources for non-French speaking researchers {#ch05-resources}
+
+The original PASEC datasets and documentation are provided in French. To encourage wider use of the rich PASEC data, AFLEARN provides an English-language codebook and do-files that apply English variable and value labels to both the Grade 2 and Grade 6 datasets.
+
+[Access the English-language resources here](https://github.com/DataFirst-Courses/pasec-guide/tree/main/data)
+
+Copy the labelling do-files (*PASEC2019_Grade2_EN_labels.do* and *PASEC2019_Grade6_EN_labels.do*) into your working directory before proceeding with the examples below.
+
+<!--chapter:end:06-resources.Rmd-->
+
+# Analyzing PASEC 2019 data in Stata {#c06-stata}
+
+This section provides a practical introduction to analysing PASEC 2019 data in Stata using the `repest` package. It is intended for users with a basic working knowledge of Stata and includes step-by-step examples covering common PASEC analyses.
+
+```{r setup-stata, include=FALSE}
+library(Statamarkdown)
+
+stataexe <- "C:/Program Files/Stata18/StataMP-64.exe"
+root_dir <- normalizePath(".", winslash = "/", mustWork = TRUE)
+
+knitr::opts_chunk$set(
+  engine.path = list(stata = stataexe),
+  cache = FALSE
+)
+knitr::opts_knit$set(root.dir = root_dir)
+setwd(root_dir)
+
+# Statamarkdown collectcode uses profile.do in the knitting directory
+if (file.exists("profile.do")) unlink("profile.do")
+```
+
+```{r}
+#| label: desc-styler
+#| include: false
+options(pillar.max_dec_width = 19)
+```
+
+## Loading data in Stata
+
+For hands-on examples we’ll start with the Grade 2 study.
+
+```{stata load-grade2, collectcode=TRUE}
+* Set the path to your working folder if needed.
+* Paths below are relative to the project root.
+
+use "data/PASEC2019_GRADE2_INT.dta", clear
+```
+
+It is good practice to run your analysis from a do-file rather than the command window, as this makes your work reproducible. All examples in this guide are written as do-file code available here.
+
+## Applying English labels
+
+To encourage and assist non-French speaking users to analyse the rich PASEC data, we have supplied do files that apply English variable and value labels. These files are in the `data/` folder of this project.
+
+```{stata apply-labels-grade2, collectcode=TRUE}
+* Apply English labels
+
+do "data/PASEC2019_Grade2_EN_labels.do"
+
+* Show both numeric values and value labels 
+
+numlabel, add 
+```
+
+The `numlabel, add` command displays the numeric code alongside the value label in tabulations (for example, 1. Benin rather than just Benin). This makes it easier to write if conditions using the correct numeric codes in subsequent commands.
+
+After loading the file, let’s check if we have the most important variables that repest uses. The five plausible values for language and mathematics are *LECT_PV1* to *LECT_PV5* and *MATHS_PV1* to *MATHS_PV5*. The final weight is *rwgt0*. The replicate weights are *rwgt1* to *rwgt45* and countries are indicated by *ID_PAYS*.
+
+```{stata, collectcode=TRUE}
+describe LECT_PV1-MATHS_PV5 ID_PAYS rwgt0 rwgt1-rwgt45
+```
+
+## The `repest` package
+
+To get started, you need to install the `repest` package once. This package automates the handling of plausible values and replicate weights. This makes it easier to analyse PASEC data correctly in Stata. In the Stata command window, type:
+
+```{stata eval=FALSE, include=TRUE}
+ssc install repest, replace 
+```
+
+You only need to run this command once; there is no need to re-install `repest` each time you open Stata. The `replace` option updates the package if a newer version is available.
+
+## `repest` command syntax
+
+The basic syntax of the repest command is as follows:
+
+``` stata
+repest svyname [if] [in] , estimate(cmd [,cmd_options]) [options]
+```
+
+-   `svyname`: Either one of the study names supported by the package (e,g., PISA, TIMSS, PIRLS) or SVY which allows you to specify the survey design.
+
+-   `estimate(cmd [,cmd_options)`: Specifies the statistical command to run. `cmd` can be any Stata command that accepts weights — for example, `mean`, `reg`, `qreg`, or the built-in repest commands `means`, `freq`, `summarize`, `corr` and `quantiletable`. Command-specific options are passed after a comma within the parentheses.
+
+## Before You begin: Set up `repest` for PASEC
+
+PASEC is not one of the studies supported by the repest package so you will need to use *SVY* for `svyname` and specify the survey parameters directly within the `svyparm` option.
+
+Throughout this guide we use the *SVY* option in repest because PASEC is not one of the assessments with built-in survey specifications. All survey parameters must therefore be supplied explicitly using the `svyparm()` option.
+
+PASEC uses the paired Jackknife method for creating the replicate weights. There are 90 replicate weights in the Grade 6 data and 45 replicate weights in the Grade 2 data. The final weight is given by *rwgt0*, the replicate weights are *rwgt1* to *rwgt90* in the Grade 6 data and *rwgt1* to *rwgt45* in the Grade 2 data. There are five sets of plausible values for each of mathematics, *MATHS_PV1* to *MATHS_PV5* and language *LECT_PV1* to *LECT_PV5*.
+
+The required parameters are as follows:
+
+| Survey setting | `svyparms()` suboption | PASEC 2019 Grade 6 | PASEC 2019 Grade 2 |
+|------------------|------------------|------------------|------------------|
+| Final weight | `final_weight_name()` | *rwgt0* | *rwgt0* |
+| Replicate weights | `rep_weight_name()` | *rwgt* | *rwgt* |
+| Variance factor | `variancefactor()` | 1 | 1 |
+| Number of replications | `NREP()` | 90 | 45 |
+| Number of plausible values | `NBpv()` | 5 | 5 |
+
+Commands for analyzing the grade 2 data will have the following syntax
+
+``` stata
+repest SVY [if] [in] , estimate(cmd [,cmd_options]) [options] svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+For Grade 6, we need to specify that there are 90 replicate weights. Commands for grade 6 as follows
+
+``` stata
+repest SVY [if] [in] , estimate(cmd [,cmd_options]) [options] svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(90) variancefactor(1)) 
+```
+
+## PASEC Analyses Examples
+
+### Calculating Mean Age
+
+Let’s start by calculating the average age of students in Grade 2 in Benin. The age variable is *qe22*. Let’s inspect the *ID_PAYS* and *qe22* variables.
+
+```{stata, collectcode=TRUE}
+tab ID_PAYS
+```
+
+```{stata, collectcode=TRUE}
+tab qe22
+```
+
+NOTE: Benin is coded as $1$. Missing age values are coded as $99$. Because $99$ is a placeholder used to indicate missing data rather than a learner's actual age, these observations should be excluded from analyses involving age. Failure to do so will produce misleading results. To calculate the average age of students in Grade $2$ in Benin, the syntax is as follows:
+
+```{stata, collectcode=TRUE}
+*Calculating average age in Benin 
+
+repest SVY if ID_PAYS==1&qe22<99, estimate(mean qe22) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+Because age is an observed variable rather than a plausible-value variable, repest uses only the sampling variance derived from the replicate weights. The reported standard error therefore reflects uncertainty arising from the sample design but not measurement uncertainty.
+
+The estimated mean age of Grade 2 students in Benin is $7.57$ years ($95\%$ CI: $7.45–7.68$). This reflects the substantial grade repetition and late entry common in the region, with many students aged 9–11 also enrolled in Grade 2.
+
+::: alternativebox-header
+`r if (knitr:::is_html_output()) '### Alternative to generate the same result - svy {- #alt1}'`
+:::
+
+::: {.alternativebox data-latex="{Alternative to generate the same result - svy}"}
+PASEC provides replicate weights specifically so that users can reproduce the official variance estimation procedure.
+
+If the public data contain:
+
+-   the final sampling weight,
+
+-   the sampling strata,
+
+-   the primary sampling units (PSUs),
+
+and these accurately reflect the actual design, then
+
+```{stata eval=FALSE, include=TRUE}
+svyset psu [pw=weight], strata(strata) 
+svy: mean score 
+
+```
+
+will generally produce design-consistent standard errors.
+
+However, this is not always possible as
+
+1.  The public design variables may be incomplete or masked.
+
+2.  The weighting process may include calibration steps not reflected in the released design variables.
+
+Furthermore, using ordinary survey declarations with `svyset` will generally not reproduce the official PASEC standard error.
+
+Stata's `svyset` can be configured to use the paired jackknife replicate weights, producing the standard errors as official PASEC results.
+
+The syntax to generate the same result is
+
+```{stata, eval=FALSE, include=TRUE}
+*set up for svyset to generate same result: 
+
+svyset [pweight=rwgt0], vce(jackknife) jkrweight(rwgt1-rwgt45, multiplier(1) fpc(0)) mse 
+svy: mean qe22 if ID_PAYS==1&qe22<99 
+
+```
+:::
+
+### Calculating Mean Mathematics Proficiency
+
+Now we will use the $5$ plausible values to estimate mean mathematics scores in Benin.
+
+Plausible Values are a set of multiple imputations. The `repest` package automatically recognises plausible values when the variable name contains the $@$ symbol.
+
+For example:
+
+``` stata
+estimate(mean MATHS_PV@)
+```
+
+tells `repest` to:
+
+-analyse all five mathematics plausible values;
+
+-combine results appropriately; and
+
+-calculate standard errors that reflect both sampling and measurement uncertainty.
+
+This allows researchers to obtain valid estimates without having to implement the multiple-imputation calculations manually.
+
+```{stata, collectcode=TRUE}
+*Calculating mean mathematics scores in Benin 
+
+repest SVY if ID_PAYS==1, estimate(mean MATHS_PV@) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))
+```
+
+The estimated mean mathematics proficiency in Benin is $525$ points. The standard error of $7.16$ reflects both sampling uncertainty and uncertainty arising from the plausible values. The confidence interval indicates that the population mean is likely to lie between $511$ and $539$ points.
+
+PASEC proficiency scales are scaled using IRT procedures and should primarily be interpreted comparatively. The absolute value of the scale has no substantive meaning independent of the proficiency framework.
+
+Unlike age, mathematics proficiency is represented by five plausible values. `repest` estimates the mean separately for each plausible value, combines the five estimates using multiple-imputation formulas, and then incorporates the replicate-weight variance to produce the final standard error.
+
+::: alternativebox-header
+`r if (knitr:::is_html_output()) '### Alternative to generate the same result - pv {- #alt2}'`
+:::
+
+::: {.alternativebox data-latex="{Alternative to generate the same result - pv}"}
+An alternative Stata command for analysing plausible values is pv. The syntax to generate the same result is
+
+```{stata eval=FALSE, include=TRUE}
+pv, pv(LECT_PV*) jrr jk(2) weight(rwgt0) rw(rwgt1-rwgt45): mean  @pv [aw = @w] if ID_PAYS==1 
+```
+:::
+
+Now let’s get means of mathematics and literacy for each country by including the by option.
+
+```{stata, collectcode=TRUE}
+*Means of mathematics and literacy for each country 
+
+repest SVY, estimate(mean MATHS_PV@ LECT_PV@) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) by(ID_PAYS) 
+```
+
+There is substantial variation in achievement across participating countries. Burundi records the highest Grade 2 mathematics score ($614$ points), while Togo records the lowest ($489$ points). Reading and mathematics performance are strongly correlated across countries, although some countries perform relatively better in one domain than the other. Formal statistical comparisons between countries should be conducted using regression models rather than visual inspection of the means alone.
+
+Notice that standard errors vary considerably across countries - Burundi (country $3$) has notably smaller standard errors than countries such as Gabon ($7$) or Guinea ($8$). This reflects differences in the homogeneity of performance within schools and the precision of the sampling design in each country.
+
+### Moving beyond means: summary statistics with `repest`
+
+`repest` has some built in commands that are very useful for analysing large scale assessments, including summary statistics that focus on the full distribution.
+
+The summarize command generates point estimates and standard errors for a range of statistics beyond the mean, such as percentiles, standard deviations etc.
+
+```{stata, collectcode=TRUE}
+*First create an indicator for girl 
+
+gen girl=qe23==2 if qe23<9 
+
+*Beyond means - looking at the distribution of mathematics scores in Benin 
+
+repest SVY if ID_PAYS==1, estimate(summarize MATHS_PV@, stats(mean sd p5 p25 p50 p75 p95)) by(girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+Looking beyond average performance reveals important differences across the distribution. Boys in Benin have higher mathematics scores at the mean, median and upper tail of the distribution. For example, the median score among boys is approximately $536$ points compared with $508$ points among girls. The percentile estimates show that the gender gap is not confined to a small group of high-performing students but is evident across much of the achievement distribution.
+
+The `quantiletable` command creates quantile tables.
+
+```{stata, collectcode=TRUE}
+*Quintile table for mathematics and language in Benin 
+
+repest SVY if ID_PAYS==1, estimate(quantiletable MATHS_PV@ LECT_PV@, nquantiles(5)) svyparm(NBpv(5)  final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+The quantile table divides the mathematics and reading distributions into five equal-sized groups. The reported values correspond to the score thresholds separating adjacent quintiles. For example, students scoring above approximately $675$ points in mathematics belong to the highest-performing quintile in Benin.
+
+Other built-in `repest` commands are `means`, `freq` and `corr`.
+
+### Estimating PASEC proficiency levels
+
+PASEC defines a set of proficiency levels that describe what students know and can do at different points along the mathematics scale. In this example, we estimate the proportion of Grade 2 students in Benin who fall into each of the four PASEC mathematics proficiency levels.
+
+The four proficiency levels for Grade 2 mathematics are defined by PASEC as follows:
+
+| PASEC Proficiency Level | Score             |
+|-------------------------|-------------------|
+| 1                       | $< 400.34$        |
+| 2                       | $400.34 – 489.03$ |
+| 3                       | $489.03–577.73$   |
+| 4                       | $>577.73$         |
+
+These boundaries are set on the PASEC international scale and are the same for all countries, enabling cross-country comparisons. If we want to provide estimates for the PASEC defined levels of proficiency, we first need to create dummy variables for each level.
+
+```{stata, collectcode=TRUE}
+*Use PASEC defined levels 
+
+foreach var of varlist MATHS_PV1-MATHS_PV5{ 
+
+gen prop1_`var'=`var'<=400.34 if `var'<. 
+
+gen prop2_`var'=`var'>400.34&`var'<=489.03 if `var'<.	 
+
+gen prop3_`var'=`var'>489.03&`var'<577.73 if `var'<.	 
+
+gen prop4_`var'=`var'>577.73 if `var'<.	 
+
+} 
+
+repest SVY  if ID_PAYS==1, estimate(mean prop1_MATHS_PV@ prop2_MATHS_PV@ prop3_MATHS_PV@ prop4_MATHS_PV@ ) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+The results indicate that approximately $11\%$ of Grade 2 students in Benin fall below Level 1 (the lowest proficiency threshold), while around $29\%$ reach the highest level. The largest share of students falls in the middle proficiency levels. Because these estimates are derived from plausible values, the reported standard errors incorporate both measurement and sampling uncertainty.
+
+### Testing for differences between groups
+
+The table below highlights the distinction between two common types of comparisons in PASEC data: within-country comparisons (e.g., boys versus girls in the same country) and between-country comparisons (e.g., Benin versus Burkina Faso). Because these comparisons involve different survey structures, they require slightly different analytical approaches. 
+
+The examples that follow demonstrate how to test for differences in achievement between groups using regression models in repest. 
+
+| Comparison Type | What it measures | Survey design impact |
+|------------------------|------------------------|------------------------|
+| Within-Country (e.g., Boys vs. Girls in Senegal) | The gap between two demographic subgroups who share the same sampling strata, schools, and teachers. | High covariance. Because groups are clustered together in the same schools, their errors are correlated. |
+| Between-Country (e.g., Senegal vs Benin) | The gap between two entirely independent populations with completely separate sampling frames | Zero covariance. Sampling units in Country A have no mathematical relationship to sampling units in Country B |
+
+In `repest` you should use `over` for within-country comparisons and `by` for between-country comparisons. You must not use `over` for countries. When using `svy = "SVY"`, THE `over()` option is designed for within-country subgroup comparisons only. Using regression achieves the same goal and works correctly with the SVY option.
+
+#### Testing for differences within countries - differences between boys and girls
+
+Are there differences in mathematics scores between boys and girls? We can use linear regression to test for this.
+
+```{stata, collectcode=TRUE}
+*Test for differences between boys and girls mathematics scores in Benin
+
+repest SVY if ID_PAYS==1, estimate(reg MATHS_PV@ girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+
+```
+
+The coefficient on girl provides the estimated difference in mathematics proficiency between girls and boys, together with the appropriate standard error and significance test. On average, girls’ scores are $22.7$ points lower than boys in Benin. 
+
+What about differences in the proportion reaching PASEC level $4$?
+
+```{stata, collectcode=TRUE}
+*Test differences between boys and girls in percentage reaching PASEC level 4 in Benin
+
+repest SVY if ID_PAYS==1, estimate(reg prop4_MATHS_PV@  girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) 
+```
+
+Girls are $8.5$ percentage points less likely to reach the highest proficiency level in mathematics than boys in Benin.
+
+#### Testing for differences between countries
+
+Are there differences in mean mathematics scores between Benin and Burkina Faso?
+
+```{stata, collectcode=TRUE}
+*Test differences in mathematics scores between Benin and Burkina Faso 
+
+repest SVY if ID_PAYS<=2, estimate(reg MATHS_PV@ i.ID_PAYS) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))  
+```
+
+Mathematics proficiency levels are $26.4$ points lower in Burkina Faso compared to Benin, a statistically significant difference.
+
+#### Testing for differences in percentiles
+
+You cannot use standard linear regression (`regress`) because it only models the conditional arithmetic mean. Instead, to test differences in percentiles, you must use quantile regression (`qreg`) . 
+
+Quantile regression works exactly like linear regression, but instead of drawing a line through the average of the data, it draws a line through a specific percentile (quantile) of the data. 
+
+- `qreg, quantile(0.50)` models the Median ($50th$ Percentile). 
+
+- `qreg, quantile(0.25)` models the $25th$ Percentile (Lower Bound). 
+
+- `qreg, quantile(0.75)` models the $75th$ Percentile (Upper Bound).  
+
+
+Just like `regress`, `qreg` returns standard coefficients ($\beta$) and standard error matrices ($e(b)$).  
+
+If we want to test for differences in percentiles, we can use quantile regression 
+
+```{stata, collectcode=TRUE}
+*Test for differences at the 25th and 75th percentile between boys and girls in Benin 
+
+repest SVY if ID_PAYS==1, estimate(qreg MATHS_PV@ girl, quantile(0.25)) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))
+```
+
+```{stata, collectcode=TRUE}
+repest SVY if ID_PAYS==1, estimate(qreg MATHS_PV@ girl, quantile(0.75)) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))  
+```
+
+The gap between boys and girls increases from $19.3$ points at the $25th$ percentile to $22.3$ points at the $75th$ percentile. 
+
+### Multivariate Regression 
+
+Now let’s use the Grade $6$ data. There are $90$ replicate weights so we will need to replace `NREP(45)` with `NREP(90)` in the `svyparm()` suboptions. 
+
+Grade 6 setup 
+
+```{stata, eval=FALSE, include=TRUE}
+repest SVY [if] [in] , estimate(cmd [,cmd_options]) [options] svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(90) variancefactor(1)) 
+```
+
+In this example, we’ll analyze the association between students’ math scores (*MATHS_PV@*) and their gender (*qe63*) and socio-economic status (*ses*) in Cote D’Ivoire. The ses variable is a composite socioeconomic status index derived from the PASEC household questionnaire. 
+
+```{stata load-grade6, collectcode=TRUE}
+* Load Grade 6 data
+use "data/PASEC2019_GRADE6_INT.dta", clear
+```
+
+```{stata apply-labels-grade6, collectcode=TRUE}
+* Apply English labels
+do "data/PASEC2019_Grade6_EN_labels.do"
+
+* Show both numeric values and value labels
+numlabel, add
+```
+
+```{stata, collectcode=TRUE}
+* Fist generate an indicator variable for girl 
+
+gen girl=qe63==2 if qe63<9 
+
+```
+
+```{stata, collectcode=TRUE}
+*Association between mathematics scores and socio-economic status and gender 
+
+repest SVY if ID_PAYS==6, estimate(reg MATHS_PV@ ses girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(90) variancefactor(1)) results(add(r2 N)) 
+```
+
+The `results(add(r2 N))` option: This option allows you to add extra statistics to the results table, which Stata stores by default. Here, we add R-squared (`e_r2`) - a measure of model fit, and number of observations (`e_N`). Note that `repest` stores these additional statistics internally as `e_r2` and `e_N`, and these are the names shown in the output table. 
+
+The regression estimates the association between mathematics proficiency, socioeconomic status (SES), and gender among Grade $6$ students in Côte d'Ivoire while correctly accounting for both plausible values and the PASEC replicate-weight design. 
+
+The results indicate a strong positive association between socioeconomic status and mathematics achievement. A one-unit increase in the SES index is associated with an increase of approximately $2.17$ points in mathematics proficiency (coefficient $= 2.17$, $p < 0.001$). This relationship is statistically significant, suggesting that students from more advantaged socioeconomic backgrounds tend to perform better in mathematics. 
+
+The coefficient on the female indicator (girl) is $-11.62$ ($p < 0.001$), indicating that girls score, on average, about 12 points lower than boys with similar socioeconomic status. Because SES is included in the model, this estimated gender gap reflects differences between boys and girls after accounting for socioeconomic background. 
+
+The constant term ($349$) represents the predicted mathematics score for a boy with an SES value of zero. While the intercept is necessary for estimation, it is typically of limited substantive interest because an SES value of zero may not correspond to a meaningful student profile. 
+
+Overall, the results suggest that both socioeconomic status and gender are important correlates of mathematics achievement in Côte d'Ivoire. Higher socioeconomic status is associated with better performance, while girls perform less well than boys on average, even after controlling for socioeconomic differences. 
+
+It is important to remember that these coefficients describe associations rather than causal effects. The regression does not imply that increasing a student's socioeconomic status by one unit would necessarily increase their mathematics score by $2.17$ points. Other factors associated with socioeconomic status, such as school quality, parental education, household resources, and learning opportunities, may also contribute to the observed relationship. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--chapter:end:07-stata.Rmd-->
+
+# Analyzing PASEC 2019 data in R {#c07-r}
+
+This section provides a practical introduction to analysing PASEC 2019 data in R. It is intended for users with a basic working knowledge of R and includes step-by-step examples covering common PASEC analyses.
+
+Use the contents below to navigate directly to the topics most relevant to your analysis.
+
+## Package installation
+
+To get started, you need to install the required packages once. In the R console, type:
+
+```{r eval=FALSE}
+install.packages(c('Rrepest', 'haven', 'survey', 'mitools', 'quantreg', 'tidyverse')) 
+```
+
+-   The `haven` package is needed to read Stata files.
+-   The `Rrepest` package automates the handling of plausible values and replicate weights, making it easier to analyse PASEC data correctly in R. It supports a range of common analyses, including means, summary statistics, frequency distributions, quantiles, correlations, group comparisons, and regression models. Throughout this guide we introduce the commands needed for common PASEC analyses.
+-   The `survey` and `mitools` packages are used only for the alternatives analyses shown in ....
+-   While the `tidyverse` package is for data wrangling.
+
+You only need to run `install.packages()` once; there is no need to reinstall each time you open R.
+
+```{r message=FALSE, warning=FALSE}
+# Load packages at the start of every session
+
+library(haven)   
+library(Rrepest)  
+library(survey)
+library(mitools)
+library(tidyverse)  
+```
+
+## Loading data in R
+
+For hands-on examples we’ll start with the Grade 2 study.
+
+```{r message=FALSE, warning=FALSE}
+# Paths below are relative to the project root
+g2 = read_dta("data/PASEC2019_GRADE2_INT.dta")
+```
+
+It is good practice to run your analysis from an R script rather than the console, as this makes your work reproducible. All examples in this section are written as script code.
+
+## Applying English Labels
+
+To encourage and assist non-French speaking users to analyse the rich PASEC data, we have supplied R scripts and do-files that apply English variable and value labels. These files are in the `data/` folder of this project.
+
+```{r}
+# Apply English labels
+source("data/PASEC2019_Grade2_EN_labels.R")
+g2 = apply_pasec_grade2_en_labels(g2)
+```
+
+After loading the file, let’s check if we have the most important variables that `Rrepest` uses. The five plausible values for language and mathematics are *LECT_PV1* to *LECT_PV5* and *MATHS_PV1* to *MATHS_PV5*. The final weight is rwgt0. The replicate weights are *rwgt1* to *rwgt45* and countries are indicated by *ID_PAYS*.
+
+```{r}
+# Confirm key variables exist 
+key_vars <- c('LECT_PV1','LECT_PV5','MATHS_PV1','MATHS_PV5', 
+              'ID_PAYS','rwgt0','rwgt1','rwgt45') 
+stopifnot(all(key_vars %in% names(g2))) 
+
+# Quick look at structure 
+g2 |> 
+  select(all_of(key_vars)) |> 
+  glimpse() 
+```
+
+## `Rrepest` command syntax
+
+The basic syntax of the Rrepest() function is as follows:
+
+``` r
+Rrepest( 
+  data       = <data frame or subset>, 
+  svy        = <survey name>, 
+  est        = est(<statistic>, target = <variable(s)>, regressor = <variable(s)>), 
+  by         = <grouping variable(s)>,  # separate analysis per group 
+  over       = <subgroup variable(s)>,  # within-group comparison 
+  cm.weights = c(<final weight>, <replicate weights>), 
+  var.factor = <variance scaling constant>, 
+  n.pvs      = <number of plausible values> 
+) 
+```
+
+Once these survey settings have been specified, you can use `Rrepest` to estimate means, summary statistics, proficiency levels, group differences, percentiles, and regression models while correctly accounting for both plausible values and replicate weights.
+
+## Before you begin: Set up `Rrepest` for PASEC
+
+PASEC is not one of the studies supported by the `Rrepest` package meaning that there aren’t built-in survey specifications. Therefore, before running any analyses, you need to tell `Rrepest` how the PASEC data are structured.
+
+You will need to use `svy = 'SVY'` and supply the survey parameters directly. To analyse PASEC data correctly, `Rrepest` needs to know the following survey specifications:
+
+-   PASEC uses the paired Jackknife method for creating the replicate weights (JK2).
+
+-   There are 90 replicate weights in the Grade 6 data and 45 replicate weights in the Grade 2 data.
+
+-   The final weight is given by *rwgt0*
+
+-   The replicate weights are *rwgt1* to *rwgt90* in the Grade 6 data and *rwgt1* to *rwgt45* in the Grade 2 data.
+
+-   There are five sets of plausible values for each of mathematics, *MATHS_PV1* to *MATHS_PV5* and language *LECT_PV1* to *LECT_PV5*.
+
+We need to define weight vectors once and reuse them throughout your analyses:
+
+```{r}
+# Weight helpers — define once, use everywhere 
+cm2 = c('rwgt0', paste0('rwgt', 1:45))   # Grade 2: final + 45 replicate weights 
+cm6 = c('rwgt0', paste0('rwgt', 1:90))   # Grade 6: final + 90 replicate weights 
+```
+
+Command for the grade 2 data will have the following syntax
+
+``` r
+Rrepest( 
+  data       = subset(g2, <condition>), 
+  svy        = 'SVY', 
+  est        = est(<statistic>, target = <variable>), 
+  cm.weights = cm2, 
+  var.factor = 45, 
+  n.pvs      = 5 
+) 
+```
+
+For Grade 6, we need to specify that there are 90 replicate weights. Commands for grade 6 as follows
+
+``` r
+Rrepest( 
+  data       = subset(g2, <condition>), 
+  svy        = 'SVY', 
+  est        = est(<statistic>, target = <variable>), 
+  cm.weights = cm6, 
+  var.factor = 90, 
+  n.pvs      = 5 
+) 
+```
+
+## PASEC Analyses Examples
+
+### Calculating Mean Age by Country
+
+Let’s start by calculating the average age of students in Grade 2 in Benin. The age variable is *qe22*. Let’s first inspect the *ID_PAYS* and *qe22* variables.
+
+```{r}
+# Country frequencies 
+g2 |> 
+  count(ID_PAYS)
+```
+
+```{r}
+# Age distribution 
+g2|>
+  count(qe22)
+```
+
+NOTE: Benin is coded as $1$. Missing age values are coded as $99$. Because $99$ is a placeholder used to indicate missing data rather than a learner's actual age, these observations should be excluded from analyses involving age. Failure to do so may produce misleading results.
+
+To calculate the average age of students in Grade 2 in Benin, the syntax is as follows:
+
+```{r}
+# Calculating average age in Benin 
+
+result_age = Rrepest( 
+  data       = subset(g2, ID_PAYS == 1 & qe22 < 99), 
+  svy        = 'SVY', 
+  est        = est('mean', target = 'qe22'), 
+  cm.weights = cm2, 
+  var.factor = 45 
+) 
+print(result_age) 
+```
+
+Because age is an observed variable rather than a plausible-value variable, `Rrepest` uses only the sampling variance derived from the replicate weights. The reported standard error therefore reflects uncertainty arising from the sample design but not measurement uncertainty.
+
+The estimated mean age of Grade 2 students in Benin is $7.57$ years ($95\%$ CI: $7.45–7.68$). This reflects the substantial grade repetition and late entry common in the region, with many students aged $9–11$ also enrolled in Grade 2.
+
+::: alternativebox-header
+`r if (knitr:::is_html_output()) '### Alternative to generate the same result using survey package {- #alt3}'`
+:::
+
+::: {.alternativebox data-latex="{Alternative to generate the same result using survey package}"}
+PASEC provides replicate weights specifically so that users can reproduce the official variance estimation procedure. Stata’s `svyset` can be configured to use the paired jackknife replicate weights; the `survey` package can do the same.
+
+The syntax to generate the same result is:
+
+```{r,  eval=TRUE, include=TRUE}
+options(survey.lonely.psu = 'adjust') 
+# Set up survey design with JK2 replicate weights 
+# scale = 1/45 matches the mean-based JK2 variance formula used by Rrepest/repest 
+des2 = svrepdesign(
+  weights          = ~rwgt0,
+  repweights       = as.matrix(g2[, paste0('rwgt', 1:45)]),   # pass the replicate-weight columns as a matrix
+  type             = 'other',
+  scale            = 1,
+  rscales          = rep(1, 45),
+  combined.weights = TRUE,
+  mse              = TRUE,
+  data             = g2
+)
+svymean(~qe22, subset(des2, ID_PAYS == 1 & qe22 < 99), na.rm = TRUE)
+```
+:::
+
+### Calculating mean mathematics proficiency
+
+Unlike age, mathematics proficiency is represented by five plausible values. Rrepest estimates the mean separately for each plausible value, combines the five estimates using multiple-imputation formulas, and then incorporates the replicate-weight variance to produce the final standard error.
+
+Now we will use the $5$ plausible values to estimate mean mathematics scores in Benin.
+
+Plausible values are a set of multiple imputations. `Rrepest` automatically recognises plausible values when the variable name contains the $@$ symbol.
+
+For example:
+
+``` r
+est('mean', target = 'MATHS_PV@') 
+```
+
+tells \`Rrepest to analyse all five mathematics plausible values; combine results appropriately; and calculate standard errors that reflect both sampling and measurement uncertainty.
+
+This allows researchers to obtain valid estimates without having to implement the multiple-imputation calculations manually.
+
+```{r message=FALSE, warning=FALSE}
+# Calculating mean mathematics scores in Benin 
+
+result_maths = Rrepest( 
+  data       = subset(g2, ID_PAYS == 1), 
+  svy        = 'SVY', 
+  est        = est('mean', target = 'MATHS_PV@'), 
+  cm.weights = cm2, 
+  var.factor = 45, 
+  n.pvs      = 5 
+) 
+print(result_maths) 
+```
+
+The estimated mean mathematics proficiency in Benin is $525$ points. The standard error of $7.16$ reflects both sampling uncertainty and uncertainty arising from the plausible values. The confidence interval indicates that the population mean is likely to lie between $511$ and $539$ points.
+
+PASEC proficiency scales are scaled using IRT procedures and should primarily be interpreted comparatively. The absolute value of the scale has no substantive meaning independent of the proficiency framework.
+
+::: alternativebox-header
+`r if (knitr:::is_html_output()) '### Alternative to generate the same result using survey and mitools package {- #alt4}'`
+:::
+
+::: {.alternativebox data-latex="{Alternative to generate the same result using survey and mitools package}"}
+An alternative approach using the `survey` and `mitools` packages reproduces the same result by looping over plausible values manually.
+
+```{r message=FALSE, warning=FALSE}
+# withPV repeats svymean for each PV then MIcombine applies Rubin's rules 
+pv_results = withPV(
+  mapping = list(maths ~ MATHS_PV1 + MATHS_PV2 + MATHS_PV3 + MATHS_PV4 + MATHS_PV5),
+  data    = subset(des2, ID_PAYS == 1),
+  action  = function(dsgn) svymean(~maths, dsgn, na.rm = TRUE),
+  rewrite = TRUE
+)
+summary(MIcombine(pv_results))
+```
+:::
+
+Now let’s get means of mathematics and literacy for each country by including the by argument.
+
+```{r message=FALSE, warning=FALSE}
+# Means of mathematics and literacy for each country 
+result_by_country = Rrepest( 
+  data       = g2, 
+  svy        = 'SVY', 
+  est        = est('mean', target = c('MATHS_PV@', 'LECT_PV@')), 
+  by         = 'ID_PAYS', 
+  cm.weights = cm2, 
+  var.factor = 45, 
+  n.pvs      = 5 
+) 
+print(result_by_country) 
+```
+
+There is substantial variation in achievement across participating countries. Burundi records the highest Grade 2 mathematics score ($614$ points), while Togo records the lowest ($489$ points). Reading and mathematics performance are strongly correlated across countries, although some countries perform relatively better in one domain than the other. Formal statistical comparisons between countries should be conducted using regression models rather than visual inspection of the means alone.
+
+Notice that standard errors vary considerably across countries — Burundi (country 3) has notably smaller standard errors than countries such as Gabon (7) or Guinea (8). This reflects differences in the homogeneity of performance within schools and the precision of the sampling design in each country.
+
+### Moving beyond means: summary statistics with `Rrepest`
+
+`Rrepest`has built-in support for a range of statistics beyond the mean, including percentiles and standard deviations. The `est()` function with multiple statistics generates point estimates and standard errors for a range of distribution summaries.
+
+```{r message=FALSE, warning=FALSE}
+# First create an indicator for girl 
+g2$girl = ifelse(g2$qe23 < 9, as.integer(g2$qe23 == 2), NA) 
+# Beyond means - looking at the distribution of mathematics scores in Benin by gender 
+# Quantile levels: 0.05, 0.25, 0.50, 0.75, 0.95 
+result_dist = Rrepest( 
+  data       = subset(g2, ID_PAYS == 1), 
+  svy        = 'SVY', 
+  est        = est(c('mean','std','quant',0.05,'quant',0.25,'quant',0.50,'quant',0.75,'quant',0.95), 
+                   target = 'MATHS_PV@'), 
+  by         = 'girl', 
+  cm.weights = cm2, 
+  var.factor = 45, 
+  n.pvs      = 5 
+) 
+
+print(result_dist) 
+```
+
+Looking beyond average performance reveals important differences across the distribution. Boys in Benin have higher mathematics scores at the mean, median and upper tail of the distribution. For example, the median score among boys is approximately $536$ points compared with $508$ points among girls. The percentile estimates show that the gender gap is not confined to a small group of high-performing students but is evident across much of the achievement distribution.
+
+Quantiles divide a distribution into equal-sized groups and are commonly used to examine how achievement is distributed across students. The code below produces the quintile cut-points ($20th$, $40th$, $60th$, $80th$ percentiles) for mathematics and literacy in Benin.
+
+```{r message=FALSE, warning=FALSE}
+# Quintile boundaries for mathematics and language in Benin 
+result_quint = Rrepest( 
+  data       = subset(g2, ID_PAYS == 1), 
+  svy        = 'SVY', 
+  est        = est(c('quant',0.20,'quant',0.40,'quant',0.60,'quant',0.80), 
+                   target = c('MATHS_PV@','LECT_PV@')), 
+  cm.weights = cm2, 
+  var.factor = 45, 
+  n.pvs      = 5 
+) 
+print(result_quint) 
+```
+
+The quintile boundaries divide the mathematics and reading distributions into five equal-sized groups. The reported values correspond to the score thresholds separating adjacent quintiles. For example, students scoring above approximately $576$ points in mathematics fall in the highest-performing quintile in Benin.
+
+### Estimating PASEC proficiency levels
+
+PASEC defines a set of proficiency levels that describe what students know and can do at different points along the mathematics scale. In this example, we estimate the proportion of Grade 2 students in Benin who fall into each of the four PASEC mathematics proficiency levels.
+
+The four proficiency levels for Grade 2 mathematics are defined by PASEC as follows:
+
+| PASEC Proficiency Level | Score             |
+|-------------------------|-------------------|
+| 1                       | $< 400.34$        |
+| 2                       | $400.34 – 489.03$ |
+| 3                       | $489.03–577.73$   |
+| 4                       | $>577.73$         |
+
+These boundaries are set on the PASEC international scale and are the same for all countries, enabling cross-country comparisons. If we want to provide estimates for the PASEC defined levels of proficiency, we first need to create dummy variables for each level.
+
+```{r message=FALSE, warning=FALSE}
+# Create proficiency-level indicator variables for each plausible value 
+for (i in 1:5) { 
+  v = paste0('MATHS_PV', i) 
+  x = g2[[v]] 
+  g2[[paste0('prop1_', v)]] = ifelse(!is.na(x), as.integer(x <= 400.34),              NA) 
+  g2[[paste0('prop2_', v)]] = ifelse(!is.na(x), as.integer(x >  400.34 & x <= 489.03), NA) 
+  g2[[paste0('prop3_', v)]] = ifelse(!is.na(x), as.integer(x >  489.03 & x <  577.73), NA) 
+  g2[[paste0('prop4_', v)]] = ifelse(!is.na(x), as.integer(x >  577.73),              NA) 
+} 
+# Mean proportion in each proficiency level for Benin 
+result_levels = Rrepest( 
+  data       = subset(g2, ID_PAYS == 1), 
+  svy        = 'SVY', 
+  est        = est('mean', target = c('prop1_MATHS_PV@','prop2_MATHS_PV@', 
+                                      'prop3_MATHS_PV@','prop4_MATHS_PV@')), 
+  cm.weights = cm2, 
+  var.factor = 45, 
+  n.pvs      = 5 
+) 
+print(result_levels) 
+```
+
+The results indicate that approximately $11\%$ of Grade 2 students in Benin fall below Level 1 (the lowest proficiency threshold), while around $29\%$ reach the highest level. The largest share of students falls in the middle proficiency levels. Because these estimates are derived from plausible values, the reported standard errors incorporate both measurement and sampling uncertainty.
+
+### Testing for differences between groups
+
+The table below highlights the distinction between two common types of comparisons in PASEC data: within-country comparisons (e.g., boys versus girls in the same country) and between-country comparisons (e.g., Benin versus Burkina Faso). Because these comparisons involve different survey structures, they require slightly different analytical approaches.
+
+The examples that follow demonstrate how to test for differences in achievement between groups using regression models in repest.
+
+| Comparison Type | What it measures | Survey design impact |
+|------------------------|------------------------|------------------------|
+| Within-Country (e.g., Boys vs. Girls in Senegal) | The gap between two demographic subgroups who share the same sampling strata, schools, and teachers. | High covariance. Because groups are clustered together in the same schools, their errors are correlated. |
+| Between-Country (e.g., Senegal vs Benin) | The gap between two entirely independent populations with completely separate sampling frames | Zero covariance. Sampling units in Country A have no mathematical relationship to sampling units in Country B |
+
+In `Rrepest` you should use over for within-country comparisons and by for between-country comparisons. You must NOT use over for countries. When using `svy = 'SVY'`, the `over()` option is designed for within-country subgroup comparisons only. Using regression achieves the same goal and works correctly with the SVY option.
+
+#### Testing for differences within countries - differences between boys and girls
+
+Are there differences in mathematics scores between boys and girls? We can use linear regression to test for this.
+
+```{r message=FALSE, warning=FALSE}
+# Test for differences between boys and girls in mathematics scores in Benin
+result_gender = Rrepest(
+  data       = subset(g2, ID_PAYS == 1),
+  svy        = 'SVY',
+  est        = est('lm', target = 'MATHS_PV@', regressor = 'girl'),
+  cm.weights = cm2,
+  var.factor = 45,
+  n.pvs      = 5
+)
+print(result_gender)
+
+```
+
+The coefficient on girl provides the estimated difference in mathematics proficiency between girls and boys, together with the appropriate standard error and significance test. On average, girls’ scores are $22.7$ points lower than boys in Benin. What about differences in the proportion reaching PASEC level 4?
+
+```{r message=FALSE, warning=FALSE}
+# Test differences between boys and girls in percentage reaching PASEC level 4 in Benin
+result_lev4 = Rrepest(
+  data       = subset(g2, ID_PAYS == 1),
+  svy        = 'SVY',
+  est        = est('lm', target = 'prop4_MATHS_PV@', regressor = 'girl'),
+  cm.weights = cm2,
+  var.factor = 45,
+  n.pvs      = 5
+)
+print(result_lev4)
+```
+
+Girls are $8.5$ percentage points less likely to reach the highest proficiency level in mathematics than boys in Benin.
+
+#### Testing for differences between countries
+
+Are there differences in mean mathematics scores between Benin and Burkina Faso?
+
+```{r message=FALSE, warning=FALSE}
+# Test differences in mathematics scores between Benin and Burkina Faso
+# Convert ID_PAYS to factor so R creates an indicator for country 2
+g2$ID_PAYS_f =factor(g2$ID_PAYS)
+result_between = Rrepest(
+  data       = subset(g2, ID_PAYS <= 2),
+  svy        = 'SVY',
+  est        = est('lm', target = 'MATHS_PV@', regressor = 'ID_PAYS_f'),
+  cm.weights = cm2,
+  var.factor = 45,
+  n.pvs      = 5
+)
+print(result_between)
+
+```
+
+Mathematics proficiency levels are $26.4$ points lower in Burkina Faso compared to Benin, a statistically significant difference.
+
+### Multivariate regression
+
+Now let’s use the Grade 6 data. There are $90$ replicate weights so we will use cm6 instead of cm2. In this example, we’ll analyse the association between students’ maths scores (`MATHS_PV@`) and their gender (`qe63`) and socio-economic status (`ses`) in Côte d’Ivoire. The ses variable is a composite socioeconomic status index derived from the PASEC household questionnaire.
+
+
+```{r message=FALSE, warning=FALSE}
+# Load Grade 6 data
+g6 = read_dta("data/PASEC2019_Grade6_INT.dta")
+
+# Apply English labels
+source("data/PASEC2019_Grade6_EN_labels.R")
+g6 = apply_pasec_grade6_en_labels(g6)
+
+# Generate indicator variable for girl (Grade 6 uses qe63 for gender)
+g6$girl = ifelse(g6$qe63 < 9, as.integer(g6$qe63 == 2), NA)
+
+# Association between mathematics scores and socio-economic status and gender
+result_multi = Rrepest(
+  data       = subset(g6, ID_PAYS == 6),
+  svy        = 'SVY',
+  est        = est('lm', target = 'MATHS_PV@', regressor = c('ses', 'girl')),
+  cm.weights = cm6,
+  var.factor = 90,
+  n.pvs      = 5
+)
+print(result_multi)
+
+```
+
+Rrepest reports R-squared automatically in the regression output (b.reg\_...\_rsqr column). The number of observations can be obtained separately with
+
+``` r
+nrow(subset(g6, ID_PAYS == 6 & !is.na(girl) & !is.na(ses)))
+```
+
+The regression estimates the association between mathematics proficiency, socioeconomic status (SES), and gender among Grade 6 students in Côte d’Ivoire while correctly accounting for both plausible values and the PASEC replicate-weight design.
+
+The results indicate a strong positive association between socioeconomic status and mathematics achievement. A one-unit increase in the SES index is associated with an increase of approximately 2.17 points in mathematics proficiency (coefficient $= 2.17$, p $< 0.001$). This relationship is statistically significant, suggesting that students from more advantaged socioeconomic backgrounds tend to perform better in mathematics.
+
+The coefficient on the female indicator (girl) is $-11.62$ (p $< 0.001$), indicating that girls score, on average, about $12$ points lower than boys with similar socioeconomic status. Because SES is included in the model, this estimated gender gap reflects differences between boys and girls after accounting for socioeconomic background.
+
+The constant term ($349.0$) represents the predicted mathematics score for a boy with an SES value of zero. While the intercept is necessary for estimation, it is typically of limited substantive interest because an SES value of zero may not correspond to a meaningful student profile.
+
+Overall, the results suggest that both socioeconomic status and gender are important correlates of mathematics achievement in Côte d’Ivoire. Higher socioeconomic status is associated with better performance, while girls perform less well than boys on average, even after controlling for socioeconomic differences.
+
+It is important to remember that these coefficients describe associations rather than causal effects. The regression does not imply that increasing a student’s socioeconomic status by one unit would necessarily increase their mathematics score by $2.17$ points. Other factors associated with socioeconomic status, such as school quality, parental education, household resources, and learning opportunities, may also contribute to the observed relationship.
+
+<!--chapter:end:08-r.Rmd-->
+

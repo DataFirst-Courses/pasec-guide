@@ -279,7 +279,7 @@ Access datasets, documentation, and supporting resources.
 
 </a>
 
-<a href="ch01-intro.html"
+<a href="ch-whats-in-data.html"
    class="resource-card block rounded-xl p-5 border border-slate-200"
    data-category="guide"
    style="border-top:6px solid #66DEFB;">
