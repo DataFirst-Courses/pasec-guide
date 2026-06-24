@@ -249,7 +249,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="c06-stata.html#cb1-2" tabindex="-1"></a>* Paths below are relative to the project root.</span>
 <span id="cb1-3"><a href="c06-stata.html#cb1-3" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="c06-stata.html#cb1-4" tabindex="-1"></a><span class="kw">use</span> <span class="st">&quot;data/PASEC2019_GRADE2_INT.dta&quot;</span>, <span class="kw">clear</span></span></code></pre></div>
-<pre><code>## (Data file created by EpiData based on CIV_06_LIVRET_2A.rec)</code></pre>
+<pre><code>(Data file created by EpiData based on CIV_06_LIVRET_2A.rec)</code></pre>
 <p>It is good practice to run your analysis from a do-file rather than the command window, as this makes your work reproducible. All examples in this guide are written as do-file code available here.</p>
 </div>
 <div id="applying-english-labels" class="section level2 hasAnchor" number="7.2">
@@ -262,19 +262,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-5"><a href="c06-stata.html#cb3-5" tabindex="-1"></a>* Show both <span class="kw">numeric</span> <span class="kw">values</span> and <span class="ot">value</span> labels </span>
 <span id="cb3-6"><a href="c06-stata.html#cb3-6" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="c06-stata.html#cb3-7" tabindex="-1"></a><span class="kw">numlabel</span>, add </span></code></pre></div>
-<pre><code>## no variables defined
-## r(111);
-## 
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>qd26y: all characters numeric; replaced as int
+(835 missing values generated)
+
+qd27y: all characters numeric; replaced as int
+(835 missing values generated)
+
+qe21y: all characters numeric; replaced as int
+
+qe21m: all characters numeric; replaced as byte
+
+qe21d: all characters numeric; replaced as byte</code></pre>
 <p>The <code>numlabel, add</code> command displays the numeric code alongside the value label in tabulations (for example, 1. Benin rather than just Benin). This makes it easier to write if conditions using the correct numeric codes in subsequent commands.</p>
 <p>After loading the file, let’s check if we have the most important variables that repest uses. The five plausible values for language and mathematics are <em>LECT_PV1</em> to <em>LECT_PV5</em> and <em>MATHS_PV1</em> to <em>MATHS_PV5</em>. The final weight is <em>rwgt0</em>. The replicate weights are <em>rwgt1</em> to <em>rwgt45</em> and countries are indicated by <em>ID_PAYS</em>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="c06-stata.html#cb5-1" tabindex="-1"></a><span class="kw">describe</span> LECT_PV1-MATHS_PV5 ID_PAYS rwgt0 rwgt1-rwgt45</span></code></pre></div>
-<pre><code>## no variables defined
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+-------------------------------------------------------------------------------
+LECT_PV1        double  %10.0g                First plausible value in reading
+LECT_PV2        double  %10.0g                Second plausible value in reading
+LECT_PV3        double  %10.0g                Third plausible value in reading
+LECT_PV4        double  %10.0g                Fourth plausible value in reading
+LECT_PV5        double  %10.0g                Fifth plausible value in reading
+MATHS_PV1       double  %10.0g                First plausible value in
+                                                mathematics
+MATHS_PV2       double  %10.0g                Second plausible value in
+                                                mathematics
+MATHS_PV3       double  %10.0g                Third plausible value in
+                                                mathematics
+MATHS_PV4       double  %10.0g                Fourth plausible value in
+                                                mathematics
+MATHS_PV5       double  %10.0g                Fifth plausible value in
+                                                mathematics
+ID_PAYS         float   %32.0g     country    Country identifier
+rwgt0           double  %10.0g                Student replicate weight 0
+rwgt1           double  %10.0g                Student replicate weight 1
+rwgt2           double  %10.0g                Student replicate weight 2
+rwgt3           double  %10.0g                Student replicate weight 3
+rwgt4           double  %10.0g                Student replicate weight 4
+rwgt5           double  %10.0g                Student replicate weight 5
+rwgt6           double  %10.0g                Student replicate weight 6
+rwgt7           double  %10.0g                Student replicate weight 7
+rwgt8           double  %10.0g                Student replicate weight 8
+rwgt9           double  %10.0g                Student replicate weight 9
+rwgt10          double  %10.0g                Student replicate weight 10
+rwgt11          double  %10.0g                Student replicate weight 11
+rwgt12          double  %10.0g                Student replicate weight 12
+rwgt13          double  %10.0g                Student replicate weight 13
+rwgt14          double  %10.0g                Student replicate weight 14
+rwgt15          double  %10.0g                Student replicate weight 15
+rwgt16          double  %10.0g                Student replicate weight 16
+rwgt17          double  %10.0g                Student replicate weight 17
+rwgt18          double  %10.0g                Student replicate weight 18
+rwgt19          double  %10.0g                Student replicate weight 19
+rwgt20          double  %10.0g                Student replicate weight 20
+rwgt21          double  %10.0g                Student replicate weight 21
+rwgt22          double  %10.0g                Student replicate weight 22
+rwgt23          double  %10.0g                Student replicate weight 23
+rwgt24          double  %10.0g                Student replicate weight 24
+rwgt25          double  %10.0g                Student replicate weight 25
+rwgt26          double  %10.0g                Student replicate weight 26
+rwgt27          double  %10.0g                Student replicate weight 27
+rwgt28          double  %10.0g                Student replicate weight 28
+rwgt29          double  %10.0g                Student replicate weight 29
+rwgt30          double  %10.0g                Student replicate weight 30
+rwgt31          double  %10.0g                Student replicate weight 31
+rwgt32          double  %10.0g                Student replicate weight 32
+rwgt33          double  %10.0g                Student replicate weight 33
+rwgt34          double  %10.0g                Student replicate weight 34
+rwgt35          double  %10.0g                Student replicate weight 35
+rwgt36          double  %10.0g                Student replicate weight 36
+rwgt37          double  %10.0g                Student replicate weight 37
+rwgt38          double  %10.0g                Student replicate weight 38
+rwgt39          double  %10.0g                Student replicate weight 39
+rwgt40          double  %10.0g                Student replicate weight 40
+rwgt41          double  %10.0g                Student replicate weight 41
+rwgt42          double  %10.0g                Student replicate weight 42
+rwgt43          double  %10.0g                Student replicate weight 43
+rwgt44          double  %10.0g                Student replicate weight 44
+rwgt45          double  %10.0g                Student replicate weight 45</code></pre>
 </div>
 <div id="the-repest-package" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> The <code>repest</code> package<a href="c06-stata.html#the-repest-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -356,23 +422,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.6.1</span> Calculating Mean Age<a href="c06-stata.html#calculating-mean-age" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s start by calculating the average age of students in Grade 2 in Benin. The age variable is <em>qe22</em>. Let’s inspect the <em>ID_PAYS</em> and <em>qe22</em> variables.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb11-1"><a href="c06-stata.html#cb11-1" tabindex="-1"></a><span class="kw">tab</span> ID_PAYS</span></code></pre></div>
-<pre><code>## no variables defined
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>              Country identifier |      Freq.     Percent        Cum.
+---------------------------------+-----------------------------------
+                        1. Benin |      1,654        7.54        7.54
+                 2. Burkina Faso |      1,884        8.59       16.13
+                      3. Burundi |      1,664        7.59       23.72
+                     4. Cameroun |      1,780        8.12       31.83
+                        5. Congo |      1,553        7.08       38.91
+                6. Cote D&#39;Ivoire |      1,332        6.07       44.99
+                        7. Gabon |      1,157        5.28       50.26
+                       8. Guinee |      1,086        4.95       55.21
+                   9. Madagascar |      1,883        8.59       63.80
+                       10. Niger |      1,730        7.89       71.69
+11. Democratic Republic of Congo |      1,050        4.79       76.47
+                     12. Senegal |      1,341        6.11       82.59
+                        13. Chad |      1,727        7.87       90.46
+                        14. Togo |      2,092        9.54      100.00
+---------------------------------+-----------------------------------
+                           Total |     21,933      100.00</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb13-1"><a href="c06-stata.html#cb13-1" tabindex="-1"></a><span class="kw">tab</span> qe22</span></code></pre></div>
-<pre><code>## no variables defined
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>       Student age |
+            [4–16] |      Freq.     Percent        Cum.
+-------------------+-----------------------------------
+                 4 |          2        0.01        0.01
+                 5 |         83        0.38        0.39
+                 6 |      1,295        5.90        6.29
+                 7 |      5,467       24.93       31.22
+                 8 |      6,923       31.56       62.78
+                 9 |      4,261       19.43       82.21
+                10 |      2,099        9.57       91.78
+                11 |        800        3.65       95.43
+                12 |        458        2.09       97.52
+                13 |        189        0.86       98.38
+                14 |         73        0.33       98.71
+                15 |         41        0.19       98.90
+                16 |         19        0.09       98.98
+                17 |          8        0.04       99.02
+                18 |          1        0.00       99.02
+                19 |          1        0.00       99.03
+                20 |          1        0.00       99.03
+                22 |          1        0.00       99.04
+       99. Missing |        211        0.96      100.00
+-------------------+-----------------------------------
+             Total |     21,933      100.00</code></pre>
 <p>NOTE: Benin is coded as <span class="math inline">\(1\)</span>. Missing age values are coded as <span class="math inline">\(99\)</span>. Because <span class="math inline">\(99\)</span> is a placeholder used to indicate missing data rather than a learner’s actual age, these observations should be excluded from analyses involving age. Failure to do so will produce misleading results. To calculate the average age of students in Grade <span class="math inline">\(2\)</span> in Benin, the syntax is as follows:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb15-1"><a href="c06-stata.html#cb15-1" tabindex="-1"></a>*Calculating average age <span class="kw">in</span> Benin </span>
 <span id="cb15-2"><a href="c06-stata.html#cb15-2" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="c06-stata.html#cb15-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1&amp;qe22&lt;99, estimate(<span class="kw">mean</span> qe22) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<pre><code>## ID_PAYS not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(file C:\Users\cash\AppData\Local\Temp\ST_912c_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_912c_000005.tmp saved
+
+_pooled.
+ : _pooled
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+        qe22 |    7.56647   .0598516   126.42   0.000     7.449163    7.683777
+------------------------------------------------------------------------------</code></pre>
 <p>Because age is an observed variable rather than a plausible-value variable, repest uses only the sampling variance derived from the replicate weights. The reported standard error therefore reflects uncertainty arising from the sample design but not measurement uncertainty.</p>
 <p>The estimated mean age of Grade 2 students in Benin is <span class="math inline">\(7.57\)</span> years (<span class="math inline">\(95\%\)</span> CI: <span class="math inline">\(7.45–7.68\)</span>). This reflects the substantial grade repetition and late entry common in the region, with many students aged 9–11 also enrolled in Grade 2.</p>
 </div>
@@ -418,10 +524,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb20"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb20-1"><a href="c06-stata.html#cb20-1" tabindex="-1"></a>*Calculating <span class="kw">mean</span> mathematics scores <span class="kw">in</span> Benin </span>
 <span id="cb20-2"><a href="c06-stata.html#cb20-2" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="c06-stata.html#cb20-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">mean</span> MATHS_PV@) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))</span></code></pre></div>
-<pre><code>## ID_PAYS not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(file C:\Users\cash\AppData\Local\Temp\ST_a0a0_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_a0a0_000005.tmp saved
+
+_pooled.....
+ : _pooled
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   525.0697   7.159119    73.34   0.000      511.038    539.1013
+------------------------------------------------------------------------------</code></pre>
 <p>The estimated mean mathematics proficiency in Benin is <span class="math inline">\(525\)</span> points. The standard error of <span class="math inline">\(7.16\)</span> reflects both sampling uncertainty and uncertainty arising from the plausible values. The confidence interval indicates that the population mean is likely to lie between <span class="math inline">\(511\)</span> and <span class="math inline">\(539\)</span> points.</p>
 <p>PASEC proficiency scales are scaled using IRT procedures and should primarily be interpreted comparatively. The absolute value of the scale has no substantive meaning independent of the proficiency framework.</p>
 <p>Unlike age, mathematics proficiency is represented by five plausible values. <code>repest</code> estimates the mean separately for each plausible value, combines the five estimates using multiple-imputation formulas, and then incorporates the replicate-weight variance to produce the final standard error.</p>
@@ -437,10 +549,135 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="c06-stata.html#cb23-1" tabindex="-1"></a>*Means <span class="kw">of</span> mathematics and literacy <span class="kw">for</span> each country </span>
 <span id="cb23-2"><a href="c06-stata.html#cb23-2" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="c06-stata.html#cb23-3" tabindex="-1"></a>repest SVY, estimate(<span class="kw">mean</span> MATHS_PV@ LECT_PV@) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) <span class="kw">by</span>(ID_PAYS) </span></code></pre></div>
-<pre><code>## no variables defined
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>1 2 3 4 5 6 7 8 9 10 11 12 13 14
+(file C:\Users\cash\AppData\Local\Temp\ST_9148_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_9148_000005.tmp saved
+
+1.....
+ID_PAYS : 1
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   525.0697   7.159119    73.34   0.000      511.038    539.1013
+    LECT_PV_ |   524.8164   7.711942    68.05   0.000     509.7013    539.9315
+------------------------------------------------------------------------------
+
+2.....
+ID_PAYS : 2
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   498.7166   8.233047    60.57   0.000     482.5801    514.8531
+    LECT_PV_ |   493.4861   9.747319    50.63   0.000     474.3817    512.5905
+------------------------------------------------------------------------------
+
+3.....
+ID_PAYS : 3
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   614.3862   2.370557   259.17   0.000       609.74    619.0324
+    LECT_PV_ |   624.9706   4.534335   137.83   0.000     616.0835    633.8578
+------------------------------------------------------------------------------
+
+4.....
+ID_PAYS : 4
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   516.7354   7.994531    64.64   0.000     501.0664    532.4044
+    LECT_PV_ |   522.1636   8.392591    62.22   0.000     505.7144    538.6127
+------------------------------------------------------------------------------
+
+5.....
+ID_PAYS : 5
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   591.9041   6.298265    93.98   0.000     579.5598    604.2485
+    LECT_PV_ |   582.4071   7.480158    77.86   0.000     567.7462    597.0679
+------------------------------------------------------------------------------
+
+6.....
+ID_PAYS : 6
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   522.5248   4.062804   128.61   0.000     514.5618    530.4877
+    LECT_PV_ |   516.5937   5.404587    95.58   0.000     506.0009    527.1865
+------------------------------------------------------------------------------
+
+7.....
+ID_PAYS : 7
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   595.9217   9.399738    63.40   0.000     577.4986    614.3449
+    LECT_PV_ |   610.2501    14.4539    42.22   0.000     581.9209    638.5792
+------------------------------------------------------------------------------
+
+8.....
+ID_PAYS : 8
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   519.3488   9.395843    55.27   0.000     500.9333    537.7644
+    LECT_PV_ |    469.039   10.25872    45.72   0.000     448.9322    489.1457
+------------------------------------------------------------------------------
+
+9.....
+ID_PAYS : 9
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   549.7152   3.798524   144.72   0.000     542.2702    557.1602
+    LECT_PV_ |   568.8426   6.895106    82.50   0.000     555.3285    582.3568
+------------------------------------------------------------------------------
+
+10.....
+ID_PAYS : 10
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   544.9191   6.358256    85.70   0.000     532.4571     557.381
+    LECT_PV_ |   534.6824   7.193762    74.33   0.000     520.5829     548.782
+------------------------------------------------------------------------------
+
+11.....
+ID_PAYS : 11
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   567.7779   8.240901    68.90   0.000      551.626    583.9298
+    LECT_PV_ |   530.9825    10.5383    50.39   0.000     510.3278    551.6372
+------------------------------------------------------------------------------
+
+12.....
+ID_PAYS : 12
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   563.4415   6.083019    92.63   0.000      551.519     575.364
+    LECT_PV_ |   557.1325   9.344315    59.62   0.000      538.818     575.447
+------------------------------------------------------------------------------
+
+13.....
+ID_PAYS : 13
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   522.4416   6.840793    76.37   0.000     509.0338    535.8493
+    LECT_PV_ |   508.4999     7.8032    65.17   0.000     493.2059    523.7939
+------------------------------------------------------------------------------
+
+14.....
+ID_PAYS : 14
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+   MATHS_PV_ |   489.3993   5.288786    92.54   0.000     479.0335    499.7651
+    LECT_PV_ |   474.8978   7.203616    65.92   0.000      460.779    489.0167
+------------------------------------------------------------------------------</code></pre>
 <p>There is substantial variation in achievement across participating countries. Burundi records the highest Grade 2 mathematics score (<span class="math inline">\(614\)</span> points), while Togo records the lowest (<span class="math inline">\(489\)</span> points). Reading and mathematics performance are strongly correlated across countries, although some countries perform relatively better in one domain than the other. Formal statistical comparisons between countries should be conducted using regression models rather than visual inspection of the means alone.</p>
 <p>Notice that standard errors vary considerably across countries - Burundi (country <span class="math inline">\(3\)</span>) has notably smaller standard errors than countries such as Gabon (<span class="math inline">\(7\)</span>) or Guinea (<span class="math inline">\(8\)</span>). This reflects differences in the homogeneity of performance within schools and the precision of the sampling design in each country.</p>
 <div id="moving-beyond-means-summary-statistics-with-repest" class="section level3 hasAnchor" number="7.6.3">
@@ -454,19 +691,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb25-5"><a href="c06-stata.html#cb25-5" tabindex="-1"></a>*Beyond <span class="kw">means</span> - looking <span class="fu">at</span> the distribution <span class="kw">of</span> mathematics scores <span class="kw">in</span> Benin </span>
 <span id="cb25-6"><a href="c06-stata.html#cb25-6" tabindex="-1"></a></span>
 <span id="cb25-7"><a href="c06-stata.html#cb25-7" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">summarize</span> MATHS_PV@, <span class="kw">stats</span>(<span class="kw">mean</span> <span class="fu">sd</span> p5 p25 p50 p75 p95)) <span class="kw">by</span>(girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<pre><code>## qe23 not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(28 missing values generated)
+
+0 1
+(file C:\Users\cash\AppData\Local\Temp\ST_8294_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_8294_000005.tmp saved
+
+0.....
+girl : 0
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+MATHS_PV__~n |   535.7972   7.346251    72.93   0.000     521.3988    550.1956
+MATHS_PV__sd |   106.7786   7.377892    14.47   0.000     92.31815     121.239
+MATHS_PV__p5 |   371.9733   9.424126    39.47   0.000     353.5023    390.4442
+MATHS_PV_~25 |   460.3875   7.622528    60.40   0.000     445.4476    475.3274
+MATHS_PV_~50 |   536.3236   5.948664    90.16   0.000     524.6644    547.9828
+MATHS_PV_~75 |   598.2395   9.216155    64.91   0.000     580.1762    616.3028
+MATHS_PV_~95 |   713.3866   33.84142    21.08   0.000     647.0587    779.7146
+------------------------------------------------------------------------------
+
+1.....
+girl : 1
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+MATHS_PV__~n |   513.0814   7.796753    65.81   0.000     497.8001    528.3628
+MATHS_PV__sd |   101.0514   6.809575    14.84   0.000     87.70485    114.3979
+MATHS_PV__p5 |   364.1102   10.49694    34.69   0.000     343.5366    384.6839
+MATHS_PV_~25 |   441.1321   7.258763    60.77   0.000     426.9052     455.359
+MATHS_PV_~50 |   507.5715    8.92481    56.87   0.000     490.0792    525.0638
+MATHS_PV_~75 |   575.9452   12.09901    47.60   0.000     552.2316    599.6588
+MATHS_PV_~95 |   682.0938    23.3877    29.16   0.000     636.2547    727.9328
+------------------------------------------------------------------------------</code></pre>
 <p>Looking beyond average performance reveals important differences across the distribution. Boys in Benin have higher mathematics scores at the mean, median and upper tail of the distribution. For example, the median score among boys is approximately <span class="math inline">\(536\)</span> points compared with <span class="math inline">\(508\)</span> points among girls. The percentile estimates show that the gender gap is not confined to a small group of high-performing students but is evident across much of the achievement distribution.</p>
 <p>The <code>quantiletable</code> command creates quantile tables.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb27-1"><a href="c06-stata.html#cb27-1" tabindex="-1"></a>*Quintile <span class="kw">table</span> <span class="kw">for</span> mathematics and language <span class="kw">in</span> Benin </span>
 <span id="cb27-2"><a href="c06-stata.html#cb27-2" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="c06-stata.html#cb27-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(quantiletable MATHS_PV@ LECT_PV@, nquantiles(5)) svyparm(NBpv(5)  final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<pre><code>## ID_PAYS not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(file C:\Users\cash\AppData\Local\Temp\ST_29e4_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_29e4_000005.tmp saved
+
+_pooled.....
+ : _pooled
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+MATHS_PV__q1 |    387.316   5.641749    68.65   0.000     376.2584    398.3737
+MATHS_PV__q2 |   465.0336   5.777279    80.49   0.000     453.7104    476.3569
+MATHS_PV__q3 |   522.5471   6.296739    82.99   0.000     510.2057    534.8885
+MATHS_PV__q4 |   575.5634   7.330665    78.51   0.000     561.1956    589.9313
+MATHS_PV__q5 |   675.3612   18.45676    36.59   0.000     639.1866    711.5358
+ LECT_PV__q1 |   417.5467   7.716463    54.11   0.000     402.4227    432.6707
+ LECT_PV__q2 |   474.0085    6.38251    74.27   0.000      461.499    486.5179
+ LECT_PV__q3 |   510.6889   7.230566    70.63   0.000     496.5172    524.8605
+ LECT_PV__q4 |   561.0914   11.73183    47.83   0.000     538.0974    584.0853
+ LECT_PV__q5 |   661.1535   20.08941    32.91   0.000      621.779     700.528
+------------------------------------------------------------------------------</code></pre>
 <p>The quantile table divides the mathematics and reading distributions into five equal-sized groups. The reported values correspond to the score thresholds separating adjacent quintiles. For example, students scoring above approximately <span class="math inline">\(675\)</span> points in mathematics belong to the highest-performing quintile in Benin.</p>
 <p>Other built-in <code>repest</code> commands are <code>means</code>, <code>freq</code> and <code>corr</code>.</p>
 </div>
@@ -516,10 +797,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb29-13"><a href="c06-stata.html#cb29-13" tabindex="-1"></a>} </span>
 <span id="cb29-14"><a href="c06-stata.html#cb29-14" tabindex="-1"></a></span>
 <span id="cb29-15"><a href="c06-stata.html#cb29-15" tabindex="-1"></a>repest SVY  <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">mean</span> prop1_MATHS_PV@ prop2_MATHS_PV@ prop3_MATHS_PV@ prop4_MATHS_PV@ ) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<pre><code>## no variables defined
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(file C:\Users\cash\AppData\Local\Temp\ST_a784_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_a784_000005.tmp saved
+
+_pooled.....
+ : _pooled
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+prop1_MATH~_ |    .109777   .0135943     8.08   0.000     .0831327    .1364213
+prop2_MATH~_ |   .2709238   .0186251    14.55   0.000     .2344192    .3074284
+prop3_MATH~_ |   .3307259   .0207808    15.92   0.000     .2899964    .3714554
+prop4_MATH~_ |   .2885734   .0256526    11.25   0.000     .2382951    .3388516
+------------------------------------------------------------------------------</code></pre>
 <p>The results indicate that approximately <span class="math inline">\(11\%\)</span> of Grade 2 students in Benin fall below Level 1 (the lowest proficiency threshold), while around <span class="math inline">\(29\%\)</span> reach the highest level. The largest share of students falls in the middle proficiency levels. Because these estimates are derived from plausible values, the reported standard errors incorporate both measurement and sampling uncertainty.</p>
 </div>
 <div id="testing-for-differences-between-groups" class="section level3 hasAnchor" number="7.6.5">
@@ -559,20 +849,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb31"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb31-1"><a href="c06-stata.html#cb31-1" tabindex="-1"></a>*Test <span class="kw">for</span> differences between boys and girls mathematics scores <span class="kw">in</span> Benin</span>
 <span id="cb31-2"><a href="c06-stata.html#cb31-2" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="c06-stata.html#cb31-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">reg</span> MATHS_PV@ girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<pre><code>## ID_PAYS not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(file C:\Users\cash\AppData\Local\Temp\ST_7208_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_7208_000005.tmp saved
+
+_pooled.....
+ : _pooled
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+        girl |  -22.71577   4.891148    -4.64   0.000    -32.30224   -13.12929
+       _cons |   535.7972   7.346251    72.93   0.000     521.3988    550.1956
+------------------------------------------------------------------------------</code></pre>
 <p>The coefficient on girl provides the estimated difference in mathematics proficiency between girls and boys, together with the appropriate standard error and significance test. On average, girls’ scores are <span class="math inline">\(22.7\)</span> points lower than boys in Benin.</p>
 <p>What about differences in the proportion reaching PASEC level <span class="math inline">\(4\)</span>?</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb33-1"><a href="c06-stata.html#cb33-1" tabindex="-1"></a>*Test differences between boys and girls <span class="kw">in</span> percentage reaching PASEC <span class="dv">level</span> 4 <span class="kw">in</span> Benin</span>
 <span id="cb33-2"><a href="c06-stata.html#cb33-2" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="c06-stata.html#cb33-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">reg</span> prop4_MATHS_PV@  girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1)) </span></code></pre></div>
-<pre><code>## &gt;  in Benin
-## ID_PAYS not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(file C:\Users\cash\AppData\Local\Temp\ST_48bc_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_48bc_000005.tmp saved
+
+_pooled.....
+ : _pooled
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+        girl |  -.0850427   .0286047    -2.97   0.003    -.1411068   -.0289785
+       _cons |   .3287349   .0268158    12.26   0.000     .2761768    .3812929
+------------------------------------------------------------------------------</code></pre>
 <p>Girls are <span class="math inline">\(8.5\)</span> percentage points less likely to reach the highest proficiency level in mathematics than boys in Benin.</p>
 </div>
 <div id="testing-for-differences-between-countries" class="section level4 hasAnchor" number="7.6.5.2">
@@ -581,10 +884,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb35"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb35-1"><a href="c06-stata.html#cb35-1" tabindex="-1"></a>*Test differences <span class="kw">in</span> mathematics scores between Benin and Burkina Faso </span>
 <span id="cb35-2"><a href="c06-stata.html#cb35-2" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="c06-stata.html#cb35-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS&lt;=2, estimate(<span class="kw">reg</span> MATHS_PV@ i.ID_PAYS) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))  </span></code></pre></div>
-<pre><code>## ID_PAYS not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(file C:\Users\cash\AppData\Local\Temp\ST_6328_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_6328_000005.tmp saved
+
+_pooled.....
+ : _pooled
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ _1b_ID_PAYS |          0  (omitted)
+  _2_ID_PAYS |  -26.35308   11.12174    -2.37   0.018     -48.1513   -4.554867
+       _cons |   525.0697   7.159119    73.34   0.000      511.038    539.1013
+------------------------------------------------------------------------------</code></pre>
 <p>Mathematics proficiency levels are <span class="math inline">\(26.4\)</span> points lower in Burkina Faso compared to Benin, a statistically significant difference.</p>
 </div>
 <div id="testing-for-differences-in-percentiles" class="section level4 hasAnchor" number="7.6.5.3">
@@ -601,18 +912,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb37"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb37-1"><a href="c06-stata.html#cb37-1" tabindex="-1"></a>*Test <span class="kw">for</span> differences <span class="fu">at</span> the 25th and 75th percentile between boys and girls <span class="kw">in</span> Benin </span>
 <span id="cb37-2"><a href="c06-stata.html#cb37-2" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="c06-stata.html#cb37-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">qreg</span> MATHS_PV@ girl, <span class="kw">quantile</span>(0.25)) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))</span></code></pre></div>
-<pre><code>## &gt; in Benin 
-## ID_PAYS not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(file C:\Users\cash\AppData\Local\Temp\ST_4d9c_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_4d9c_000005.tmp saved
+
+_pooled.....
+ : _pooled
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+        girl |  -19.25537   8.848027    -2.18   0.030    -36.59719    -1.91356
+       _cons |   460.3875   7.622528    60.40   0.000     445.4476    475.3274
+------------------------------------------------------------------------------</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb39-1"><a href="c06-stata.html#cb39-1" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==1, estimate(<span class="kw">qreg</span> MATHS_PV@ girl, <span class="kw">quantile</span>(0.75)) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefactor(1))  </span></code></pre></div>
-<pre><code>## &gt; rm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(45) variancefa
-## &gt; ctor(1))  
-## ID_PAYS not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(file C:\Users\cash\AppData\Local\Temp\ST_743c_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_743c_000005.tmp saved
+
+_pooled.....
+ : _pooled
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+        girl |  -22.29431   9.654296    -2.31   0.021    -41.21638   -3.372237
+       _cons |   598.2395   9.216155    64.91   0.000     580.1762    616.3028
+------------------------------------------------------------------------------</code></pre>
 <p>The gap between boys and girls increases from <span class="math inline">\(19.3\)</span> points at the <span class="math inline">\(25th\)</span> percentile to <span class="math inline">\(22.3\)</span> points at the <span class="math inline">\(75th\)</span> percentile.</p>
 </div>
 </div>
@@ -624,32 +946,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this example, we’ll analyze the association between students’ math scores (<em>MATHS_PV@</em>) and their gender (<em>qe63</em>) and socio-economic status (<em>ses</em>) in Cote D’Ivoire. The ses variable is a composite socioeconomic status index derived from the PASEC household questionnaire.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb42-1"><a href="c06-stata.html#cb42-1" tabindex="-1"></a>* Load Grade 6 <span class="kw">data</span></span>
 <span id="cb42-2"><a href="c06-stata.html#cb42-2" tabindex="-1"></a><span class="kw">use</span> <span class="st">&quot;data/PASEC2019_GRADE6_INT.dta&quot;</span>, <span class="kw">clear</span></span></code></pre></div>
-<pre><code>## (PASEC2019_LIVRET_D_FIN_PRIMAIRE)</code></pre>
+<pre><code>(PASEC2019_LIVRET_D_FIN_PRIMAIRE)</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb44-1"><a href="c06-stata.html#cb44-1" tabindex="-1"></a>* Apply English labels</span>
 <span id="cb44-2"><a href="c06-stata.html#cb44-2" tabindex="-1"></a><span class="kw">do</span> <span class="st">&quot;data/PASEC2019_Grade6_EN_labels.do&quot;</span></span>
 <span id="cb44-3"><a href="c06-stata.html#cb44-3" tabindex="-1"></a></span>
 <span id="cb44-4"><a href="c06-stata.html#cb44-4" tabindex="-1"></a>* Show both <span class="kw">numeric</span> <span class="kw">values</span> and <span class="ot">value</span> labels</span>
 <span id="cb44-5"><a href="c06-stata.html#cb44-5" tabindex="-1"></a><span class="kw">numlabel</span>, add</span></code></pre></div>
-<pre><code>## no variables defined
-## r(111);
-## 
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>qd26y: all characters numeric; replaced as int
+(1339 missing values generated)
+
+qd27y: all characters numeric; replaced as int
+(1339 missing values generated)
+
+qe61y: all characters numeric; replaced as int
+
+qe61m: all characters numeric; replaced as byte
+
+qe61d: all characters numeric; replaced as byte</code></pre>
 <div class="sourceCode" id="cb46"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb46-1"><a href="c06-stata.html#cb46-1" tabindex="-1"></a>* Fist <span class="kw">generate</span> an indicator <span class="kw">variable</span> <span class="kw">for</span> girl </span>
 <span id="cb46-2"><a href="c06-stata.html#cb46-2" tabindex="-1"></a></span>
 <span id="cb46-3"><a href="c06-stata.html#cb46-3" tabindex="-1"></a><span class="kw">gen</span> girl=qe63==2 <span class="kw">if</span> qe63&lt;9 </span></code></pre></div>
-<pre><code>## qe63 not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(16 missing values generated)</code></pre>
 <div class="sourceCode" id="cb48"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb48-1"><a href="c06-stata.html#cb48-1" tabindex="-1"></a>*Association between mathematics scores and socio-economic status and gender </span>
 <span id="cb48-2"><a href="c06-stata.html#cb48-2" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="c06-stata.html#cb48-3" tabindex="-1"></a>repest SVY <span class="kw">if</span> ID_PAYS==6, estimate(<span class="kw">reg</span> MATHS_PV@ ses girl) svyparm(NBpv(5) final_weight_name(rwgt0) rep_weight_name(rwgt) NREP(90) variancefactor(1)) results(add(r2 <span class="kw">N</span>)) </span></code></pre></div>
-<pre><code>## ID_PAYS not found
-## r(111);
-## 
-## r(111);</code></pre>
+<pre><code>(file C:\Users\cash\AppData\Local\Temp\ST_52dc_000005.tmp not found)
+file C:\Users\cash\AppData\Local\Temp\ST_52dc_000005.tmp saved
+
+_pooled.....
+ : _pooled
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         ses |    2.17009   .3883977     5.59   0.000     1.408845    2.931335
+        girl |  -11.62055   2.855666    -4.07   0.000    -17.21755   -6.023549
+       _cons |   349.0048    18.6696    18.69   0.000      312.413    385.5965
+        e_r2 |   .0786266   .0248018     3.17   0.002      .030016    .1272371
+         e_N |       3800   207.3596    18.33   0.000     3393.583    4206.417
+------------------------------------------------------------------------------</code></pre>
 <p>The <code>results(add(r2 N))</code> option: This option allows you to add extra statistics to the results table, which Stata stores by default. Here, we add R-squared (<code>e_r2</code>) - a measure of model fit, and number of observations (<code>e_N</code>). Note that <code>repest</code> stores these additional statistics internally as <code>e_r2</code> and <code>e_N</code>, and these are the names shown in the output table.</p>
 <p>The regression estimates the association between mathematics proficiency, socioeconomic status (SES), and gender among Grade <span class="math inline">\(6\)</span> students in Côte d’Ivoire while correctly accounting for both plausible values and the PASEC replicate-weight design.</p>
 <p>The results indicate a strong positive association between socioeconomic status and mathematics achievement. A one-unit increase in the SES index is associated with an increase of approximately <span class="math inline">\(2.17\)</span> points in mathematics proficiency (coefficient <span class="math inline">\(= 2.17\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>). This relationship is statistically significant, suggesting that students from more advantaged socioeconomic backgrounds tend to perform better in mathematics.</p>
